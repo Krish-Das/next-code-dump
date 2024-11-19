@@ -1,4 +1,6 @@
-import type { Config } from "tailwindcss";
+import type { Config } from "tailwindcss"
+
+import { fontPlugin } from "./lib/custom-tailwind-plugin"
 
 const config: Config = {
   darkMode: ["class"],
@@ -63,8 +65,12 @@ const config: Config = {
           "5": "hsl(var(--chart-5))",
         },
       },
+      fontFamily: {
+        inter: ["var(--font-inter)", "sans-serif"],
+        mona: ["var(--font-mona)", "sans-serif"],
+      },
     },
   },
-  plugins: [require("tailwindcss-animate")],
-};
-export default config;
+  plugins: [require("tailwindcss-animate"), fontPlugin],
+}
+export default config

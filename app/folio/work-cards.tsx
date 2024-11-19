@@ -1,26 +1,46 @@
-import { cn } from "@/lib/utils"
+"use client"
+
+import { motion } from "motion/react"
 
 export default function WorkCards() {
-  const isCard = false
+  const nameVariant = {
+    fromLeft: {
+      top: 0,
+      left: "calc((100% + 1.25rem) * -0)",
+      rotate: -5,
+    },
+    toLeft: {
+      top: 0,
+      left: "calc((100% + 1.25rem) * -1)",
+      rotate: 0,
+    },
+    fromRight: {
+      top: 0,
+      left: "calc((100% + 1.25rem) * -0)",
+      rotate: 5,
+    },
+    toRight: {
+      top: 0,
+      left: "calc((100% + 1.25rem) * 1)",
+      rotate: 0,
+    },
+  }
 
   return (
-    <div className="relative flex items-center justify-center gap-5">
-      <div
-        className={cn(
-          "absolute top-0 h-72 w-52 rounded-md border border-[#242422] bg-[#131312]",
-          isCard
-            ? "left-[calc(50%+1.25rem)] translate-x-1/2"
-            : "origin-bottom rotate-[5deg]"
-        )}
+    <div className="relative mx-auto flex w-fit items-center justify-center gap-5">
+      <motion.div
+        className="left-card absolute h-72 w-52 origin-bottom rounded-md border border-[#242422] bg-[#131312]"
+        style={nameVariant.fromLeft}
+        animate={nameVariant.toLeft}
+        initial={nameVariant.fromLeft}
       />
-      <div
-        className={cn(
-          "absolute top-0 h-72 w-52 rounded-md border border-[#242422] bg-[#131312]",
-          isCard
-            ? "right-[calc(50%+1.25rem)] -translate-x-1/2"
-            : "origin-bottom -rotate-[5deg]"
-        )}
+      <motion.div
+        className="left-card absolute h-72 w-52 origin-bottom rounded-md border border-[#242422] bg-[#131312]"
+        style={nameVariant.fromRight}
+        animate={nameVariant.toRight}
+        initial={nameVariant.fromRight}
       />
+
       <div className="relative h-72 w-52 rounded-md border border-[#242422] bg-[#131312]" />
     </div>
   )

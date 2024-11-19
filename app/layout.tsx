@@ -35,7 +35,7 @@ export default function RootLayout({
       lang="en"
       className={`${Geist.className} ${Geist.variable} ${Mona.variable} ${inter.variable}`}
     >
-      <body>
+      <body className="dark">
         <Provider>{children}</Provider>
       </body>
     </html>

@@ -7,6 +7,9 @@
   .light {
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
+    --grey-1: 60 2% 10%;
+    --grey-2: 60 3% 13%;
+    --brand-green: 104 74% 68%;
     --card: 0 0% 100%;
     --card-foreground: 240 10% 3.9%;
     --popover: 0 0% 100%;
@@ -31,9 +34,13 @@
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
   }
+
   .dark {
-    --background: 240 10% 3.9%;
+    --background: 60 3% 6%;
     --foreground: 0 0% 98%;
+    --grey-1: 60 2% 10%;
+    --grey-2: 60 3% 13%;
+    --brand-green: 104 74% 68%;
     --card: 240 10% 3.9%;
     --card-foreground: 0 0% 98%;
     --popover: 240 10% 3.9%;

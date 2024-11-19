@@ -26,6 +26,9 @@ const config: Config = {
       colors: {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        "grey-1": "hsl(var(--grey-1))",
+        "grey-2": "hsl(var(--grey-2))",
+        "brand-green": "hsl(var(--brand-green))",
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
@@ -64,6 +67,9 @@ const config: Config = {
           "4": "hsl(var(--chart-4))",
           "5": "hsl(var(--chart-5))",
         },
+      },
+      spacing: {
+        dvh: "100dvh",
       },
       fontFamily: {
         inter: ["var(--font-inter)", "sans-serif"],

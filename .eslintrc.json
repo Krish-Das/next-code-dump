@@ -4,6 +4,14 @@
   "rules": {
     "eqeqeq": "off",
     "quotes": ["warn", "double"],
-    "no-unused-vars": "warn"
+    "no-unused-vars": [
+      "warn",
+      {
+        "vars": "all",
+        "varsIgnorePattern": "^_",
+        "args": "after-used",
+        "argsIgnorePattern": "^_"
+      }
+    ]
   }
 }

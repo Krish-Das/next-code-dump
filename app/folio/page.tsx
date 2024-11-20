@@ -1,16 +1,21 @@
 import { Main } from "@/components/layout/mainwrapper"
 
+import Nav from "./nav"
 import Works from "./works"
 
 export default function Page() {
   return (
-    <Main className="space-y-5 p-0">
-      <PlaceHolder>Hero</PlaceHolder>
+    <>
+      <Nav />
 
-      <Works />
+      <Main className="space-y-5 p-0">
+        <PlaceHolder>Hero</PlaceHolder>
 
-      <PlaceHolder>Footer</PlaceHolder>
-    </Main>
+        <Works />
+
+        <PlaceHolder>Footer</PlaceHolder>
+      </Main>
+    </>
   )
 }
 

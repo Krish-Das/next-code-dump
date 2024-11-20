@@ -2,6 +2,7 @@ import { MaterialSymbolsArrowOutward } from "./MaterialSymbolsArrowOutward"
 import { MaterialSymbolsBroadcastOnPersonalRounded } from "./MaterialSymbolsBroadcastOnPersonalRounded"
 import { MaterialSymbolsCallOutline } from "./MaterialSymbolsCallOutline"
 import { MaterialSymbolsCasesOutline } from "./MaterialSymbolsCasesOutline"
+import { MaterialSymbolsCircle } from "./MaterialSymbolsCircle"
 import { MaterialSymbolsDockToLeft } from "./MaterialSymbolsDockToLeft"
 import { MaterialSymbolsDockToRight } from "./MaterialSymbolsDockToRight"
 import { MaterialSymbolsGroupOutline } from "./MaterialSymbolsGroupOutline"
@@ -18,6 +19,7 @@ import { MaterialSymbolsWorkOutline } from "./MaterialSymbolsWorkOutline"
 import { MaterialSymbolsWorkOutlineSharp } from "./MaterialSymbolsWorkOutlineSharp"
 
 export {
+  MaterialSymbolsCircle,
   MaterialSymbolsArrowOutward,
   MaterialSymbolsBroadcastOnPersonalRounded,
   MaterialSymbolsCallOutline,

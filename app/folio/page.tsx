@@ -12,9 +12,12 @@ export default function Page() {
 
   return (
     <Main className="space-y-5 p-0">
-      <section className="h-[50dvh] w-full" />
+      <PlaceHolder />
 
-      <section className="scroll_trigger h-[200dvh]">
+      <section
+        className="scroll_trigger h-[300dvh] border-y border-dashed border-border"
+        ref={triggerRef}
+      >
         <div className="sticky top-0 mx-auto flex h-dvh flex-col items-center justify-center gap-12">
           <div className="space-y-3">
             <p className="flex items-center justify-center gap-1 font-mona text-xs font-semibold uppercase text-foreground/70 font-feature-ss01 font-stretch-[115%]">
@@ -32,7 +35,7 @@ export default function Page() {
         </div>
       </section>
 
-      <section className="h-[50dvh] w-full" />
+      <PlaceHolder />
 
       {/* <section className="flex h-dvh flex-col justify-center space-y-12"> */}
       {/*   <div className="space-y-3 text-center"> */}
@@ -49,5 +52,13 @@ export default function Page() {
       {/*   </div> */}
       {/* </section> */}
     </Main>
+  )
+}
+
+function PlaceHolder({ children }: { children?: React.ReactNode }) {
+  return (
+    <section className="h-[50dvh]s grid h-screen place-items-center">
+      {children}
+    </section>
   )
 }

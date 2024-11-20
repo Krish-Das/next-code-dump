@@ -30,10 +30,10 @@ export default function WorkCards({
 }: {
   triggerRef: React.RefObject<HTMLDivElement>
 }) {
-  // const { scrollYProgress } = useScroll()
+  console.log(triggerRef)
   const { scrollYProgress } = useScroll({
     target: triggerRef,
-    offset: ["start start", "end end"],
+    offset: ["start start", "0.7 end"],
   })
   const translateLeft = useTransform(
     scrollYProgress,

@@ -4,25 +4,31 @@ import Link from "next/link"
 import { cn } from "@/lib/utils"
 import { MaterialSymbolsCircle } from "@/components/icons/material-symbols"
 
+import FloatingScrollbar from "./floating-scrollbar"
+
 export default function Nav() {
   return (
-    <nav className="container fixed inset-x-0 top-3 isolate z-20 grid place-items-center p-0">
-      <div
-        className="
+    <>
+      <nav className="container fixed inset-x-0 top-3 isolate z-20 grid place-items-center p-0">
+        <div
+          className="
         flex h-10 w-fit items-center gap-3 rounded-[16px] bg-grey-2/80 px-4
         font-mona text-xs font-medium tracking-wide shadow-lg
         backdrop-blur-md font-feature-ss01
         "
-      >
-        <Link href="/" className="text-lg">
-          <MaterialSymbolsCircle />
-        </Link>
+        >
+          <Link href="/" className="text-lg">
+            <MaterialSymbolsCircle />
+          </Link>
 
-        <hr className="h-5 border border-white/10" />
+          <hr className="h-5 border border-white/10" />
 
-        <NavLinks />
-      </div>
-    </nav>
+          <NavLinks />
+        </div>
+      </nav>
+
+      <FloatingScrollbar />
+    </>
   )
 }
 

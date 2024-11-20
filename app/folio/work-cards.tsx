@@ -25,8 +25,16 @@ const nameVariant = {
   },
 }
 
-export default function WorkCards() {
-  const { scrollYProgress } = useScroll()
+export default function WorkCards({
+  triggerRef,
+}: {
+  triggerRef: React.RefObject<HTMLDivElement>
+}) {
+  // const { scrollYProgress } = useScroll()
+  const { scrollYProgress } = useScroll({
+    target: triggerRef,
+    offset: ["start start", "end end"],
+  })
   const translateLeft = useTransform(
     scrollYProgress,
     [0, 1],

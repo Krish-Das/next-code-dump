@@ -26,7 +26,13 @@ export default function Works() {
             </span>
             <span className="_">Knowledge and Skills</span>
           </p>
-          <h2 className="font-mona text-5xl font-bold uppercase font-stretch-80 font-slant-5 font-feature-ss01">
+          <h2
+            className="font-mona text-5xl font-bold uppercase font-stretch-80 font-slant-5 font-feature-ss01"
+            style={{
+              maskImage:
+                "linear-gradient(black, rgb(0 0 0 / 80%), rgb(0 0 0 / 50%))",
+            }}
+          >
             Work Compilation
           </h2>
         </motion.div>

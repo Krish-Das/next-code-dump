@@ -1,52 +1,15 @@
 "use client"
 
-import { motion, useScroll, useTransform } from "motion/react"
-
-const nameVariant = {
-  fromLeft: {
-    top: 0,
-    left: "calc((100% + 1.25rem) * -0)",
-    rotate: -5,
-  },
-  toLeft: {
-    top: 0,
-    left: "calc((100% + 1.25rem) * -1)",
-    rotate: 0,
-  },
-  fromRight: {
-    top: 0,
-    left: "calc((100% + 1.25rem) * -0)",
-    rotate: 5,
-  },
-  toRight: {
-    top: 0,
-    left: "calc((100% + 1.25rem) * 1)",
-    rotate: 0,
-  },
-}
+import { useCardTransformAnimation } from "@/hooks"
+import { motion } from "motion/react"
 
 export default function WorkCards({
-  triggerRef,
+  targetRef,
 }: {
-  triggerRef: React.RefObject<HTMLDivElement>
+  targetRef: React.RefObject<HTMLDivElement>
 }) {
-  console.log(triggerRef)
-  const { scrollYProgress } = useScroll({
-    target: triggerRef,
-    offset: ["start start", "0.7 end"],
-  })
-  const translateLeft = useTransform(
-    scrollYProgress,
-    [0, 1],
-    ["calc((100% + 1.25rem) * 0)", "calc((100% + 1.25rem) * -1)"]
-  )
-  const translateRight = useTransform(
-    scrollYProgress,
-    [0, 1],
-    ["calc((100% + 1.25rem) * 0)", "calc((100% + 1.25rem) * 1)"]
-  )
-  const rotateLeft = useTransform(scrollYProgress, [0, 1], [-5, 0])
-  const rotateRight = useTransform(scrollYProgress, [0, 1], [5, 0])
+  const { translateLeft, rotateLeft, translateRight, rotateRight } =
+    useCardTransformAnimation(targetRef)
 
   return (
     <div className="relative mx-auto flex w-fit items-center justify-center gap-5">
@@ -72,16 +35,3 @@ export default function WorkCards({
     </div>
   )
 }
-
-// <motion.div
-//   className="left-card absolute hidden h-72 w-52 origin-bottom rounded-md border border-[#242422] bg-[#131312]"
-//   style={nameVariant.fromLeft}
-//   animate={nameVariant.toLeft}
-//   initial={nameVariant.fromLeft}
-// />
-// <motion.div
-//   className="left-card absolute hidden h-72 w-52 origin-bottom rounded-md border border-[#242422] bg-[#131312]"
-//   style={nameVariant.fromRight}
-//   animate={nameVariant.toRight}
-//   initial={nameVariant.fromRight}
-// />

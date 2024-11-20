@@ -12,9 +12,9 @@ export default function Nav() {
       <nav className="container fixed inset-x-0 top-3 isolate z-20 grid place-items-center p-0">
         <div
           className="
-        flex h-10 w-fit items-center gap-3 rounded-[16px] bg-grey-2/80 px-4
-        font-mona text-xs font-medium tracking-wide shadow-lg
-        backdrop-blur-md font-feature-ss01
+        flex h-10 w-fit items-center gap-3 rounded-[16px] border border-white/[0.03]
+        bg-grey-2/80 px-4 font-mona text-xs font-medium
+        tracking-wide shadow-lg backdrop-blur-md font-feature-ss01
         "
         >
           <Link href="/" className="text-lg">
@@ -61,7 +61,7 @@ function NavLinks() {
             {isActive && (
               <Fragment>
                 <span
-                  className="absolute bottom-0 z-[1] h-px w-full bg-white"
+                  className="absolute bottom-0 z-[1] h-px w-full translate-y-1/2 bg-white"
                   style={{
                     maskImage:
                       "linear-gradient(to left, transparent, black, transparent)",

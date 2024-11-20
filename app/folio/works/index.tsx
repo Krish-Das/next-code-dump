@@ -11,10 +11,7 @@ export default function Works() {
   const { cardHeading, cards } = useWorkCardAnimation(sectionRef)
 
   return (
-    <section
-      className="scroll_trigger h-[250vh] border-y border-dashed border-border"
-      ref={sectionRef}
-    >
+    <section className="scroll_trigger h-[250vh]" ref={sectionRef}>
       <div className="sticky top-0 mx-auto flex h-dvh flex-col items-center justify-center gap-12">
         <motion.div
           className="relative top-[4.2rem] space-y-3"

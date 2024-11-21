@@ -2,6 +2,7 @@ import { Main } from "@/components/layout/mainwrapper"
 
 import Interviews from "./interviews"
 import Nav from "./nav"
+import Skills from "./skills"
 import Works from "./works"
 
 export default function Page() {
@@ -16,6 +17,9 @@ export default function Page() {
         <SectionSpacer />
 
         <Interviews />
+        <SectionSpacer />
+
+        <Skills />
 
         <PlaceHolder>Footer</PlaceHolder>
       </Main>

@@ -1,5 +1,6 @@
 import { Main } from "@/components/layout/mainwrapper"
 
+import Interviews from "./interviews"
 import Nav from "./nav"
 import Works from "./works"
 
@@ -12,6 +13,9 @@ export default function Page() {
         <PlaceHolder>Hero</PlaceHolder>
 
         <Works />
+        <SectionSpacer />
+
+        <Interviews />
 
         <PlaceHolder>Footer</PlaceHolder>
       </Main>
@@ -25,4 +29,7 @@ function PlaceHolder({ children }: { children?: React.ReactNode }) {
       {children}
     </section>
   )
+}
+function SectionSpacer() {
+  return <div className="h-[40vh]" />
 }

@@ -13,6 +13,7 @@ import { MaterialSymbolsMailOutline } from "./MaterialSymbolsMailOutline"
 import { MaterialSymbolsMenu } from "./MaterialSymbolsMenu"
 import { MaterialSymbolsMenuOpen } from "./MaterialSymbolsMenuOpen"
 import { MaterialSymbolsNewspaper } from "./MaterialSymbolsNewspaper"
+import { MaterialSymbolsPlayArrowRounded } from "./MaterialSymbolsPlayArrowRounded"
 import { MaterialSymbolsRectangleRounded } from "./MaterialSymbolsRectangleRounded"
 import { MaterialSymbolsWork } from "./MaterialSymbolsWork"
 import { MaterialSymbolsWorkOutline } from "./MaterialSymbolsWorkOutline"
@@ -38,4 +39,5 @@ export {
   MaterialSymbolsWork,
   MaterialSymbolsWorkOutline,
   MaterialSymbolsWorkOutlineSharp,
+  MaterialSymbolsPlayArrowRounded,
 }

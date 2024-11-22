@@ -1,22 +1,56 @@
 "use client"
 
 import { useRef } from "react"
-import { motion, useInView } from "motion/react"
+import {
+  motion,
+  useInView,
+  useScroll,
+  useSpring,
+  useTransform,
+} from "motion/react"
 
 import { cn } from "@/lib/utils"
 
 export default function Skills() {
+  // TODO: Type the ref
   const ref = useRef<any>(null)
   const isInView = useInView(ref, { amount: "all", once: false })
 
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "center"],
+  })
+  const springScrollY = useSpring(scrollYProgress, {
+    stiffness: 200,
+    damping: 30,
+    restDelta: 0.001,
+  })
+  const clipPath = useTransform(
+    springScrollY,
+    [0, 1],
+    [
+      "polygon(0 100%, 100% 100%, 100% 0, 0 100%)",
+      "polygon(0 100%, 100% 100%, 100% 100%, 0 100%)",
+    ]
+  )
+
   return (
-    <section className="h-[300vh] bg-red-300">
-      <div className="sticky top-0 flex h-dvh w-full flex-col justify-end bg-brand-green p-5 text-black">
+    <section className="h-[300vh]">
+      <motion.div
+        className="h-[5vh] w-full bg-brand-green"
+        style={{ clipPath }}
+      />
+      <div
+        className="
+        sticky top-0 flex h-dvh w-full flex-col justify-end bg-brand-green p-5
+        text-black
+        "
+        ref={ref}
+      >
         <h2
-          ref={ref}
           className="
-          text-[9vw]s relative w-fit font-mona text-[16vw] font-bold uppercase leading-[0.9] text-[#1D2F17]
-          font-stretch-80 font-slant-5 font-feature-ss01
+          relative w-fit font-mona text-[16vw] font-bold uppercase leading-[0.9] text-[#1D2F17] font-stretch-80
+          font-slant-5 font-feature-ss01 md:text-[9vw]
           "
         >
           <TheThing isInView={isInView}>Known </TheThing>
@@ -41,12 +75,7 @@ function TheThing({
   const isLastChild = text === "technologies"
 
   return (
-    <span
-      className={cn(
-        "outline-3 outlines flex overflow-hidden outline-orange-400",
-        className
-      )}
-    >
+    <span className={cn("flex overflow-hidden", className)}>
       <motion.span
         className="origin-right stroke-white"
         animate={isInView ? "visible" : "hidden"}

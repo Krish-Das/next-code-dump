@@ -2,7 +2,8 @@ import { Main } from "@/components/layout/mainwrapper"
 
 import Interviews from "./interviews"
 import Nav from "./nav"
-import Skills from "./skills"
+// import Skills from "./skills/v1"
+import Skills from "./skills/v2"
 import Works from "./works"
 
 export default function Page() {
@@ -13,13 +14,15 @@ export default function Page() {
       <Main className="space-y-5 p-0">
         <PlaceHolder>Hero</PlaceHolder>
 
-        <Works />
-        <SectionSpacer />
-
-        <Interviews />
-        <SectionSpacer />
-
         <Skills />
+
+        {/* <Works /> */}
+        {/* <SectionSpacer /> */}
+        {/**/}
+        {/* <Interviews /> */}
+        {/* <SectionSpacer /> */}
+        {/**/}
+        {/* <Skills /> */}
 
         <PlaceHolder>Footer</PlaceHolder>
       </Main>

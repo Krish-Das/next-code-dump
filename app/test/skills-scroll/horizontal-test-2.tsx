@@ -1,38 +1,59 @@
 "use client"
 
-import { motion } from "motion/react"
+import { useRef } from "react"
+import { motion, MotionValue, useScroll, useTransform } from "motion/react"
 
 import { cn } from "@/lib/utils"
 
 export default function Test2() {
+  const srollContainerRef = useRef<HTMLDivElement>(null)
+  const { scrollYProgress } = useScroll({
+    target: srollContainerRef,
+    offset: ["start", "end"],
+  })
+
   return (
     <>
-      <section className="bg-[#da1334]">
-        <Sticky />
-        <Ghost showGhost />
+      <FloatingText>
+        <motion.div>{scrollYProgress}</motion.div>
+      </FloatingText>
+
+      <section className="bg-[#da1334]" ref={srollContainerRef}>
+        <Sticky scrollYProgress={scrollYProgress} />
       </section>
     </>
   )
 }
 
-function Sticky() {
-  const scrW = 2040 as const
+function Sticky({ scrollYProgress }: { scrollYProgress: MotionValue<number> }) {
+  const scrW = 2417 as const
+  const viewportW = 1025 as const
 
-  const val = scrW - window.innerWidth
-  const overRide = 1
+  const val = scrW - viewportW
+  const dir: 1 | -1 = -1
+
+  const containerRef = useRef<HTMLDivElement>(null)
+  const x = useTransform(
+    scrollYProgress,
+    [0, 1],
+    [val * dir * 0, val * dir * 1]
+  )
 
   return (
     <>
       <div className="container sticky top-0 flex h-[100vh] w-full items-center overflow-x-hidden bg-grey-2 p-0">
         <motion.div
-          className="content-wraper flex h-48 w-full bg-black"
-          style={{ x: val * -1 * overRide }}
+          className="content-wraper flex h-48 w-max gap-4 bg-black px-[calc((100%-42.5rem)/2)]"
+          style={{ x }}
+          ref={containerRef}
         >
           {Array.from({ length: 3 }, (_, idx) => (
             <SkillCard key={idx} id={idx} />
           ))}
         </motion.div>
       </div>
+
+      <Ghost showGhost height={scrW} />
     </>
   )
 }

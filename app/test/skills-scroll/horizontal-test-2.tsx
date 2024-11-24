@@ -1,6 +1,7 @@
 "use client"
 
 import { useRef } from "react"
+import { useWindowDimensions } from "@/hooks"
 import { motion, MotionValue, useScroll, useTransform } from "motion/react"
 import useMeasure from "react-use-measure"
 
@@ -27,10 +28,10 @@ export default function Test2() {
 }
 
 function Sticky({ scrollYProgress }: { scrollYProgress: MotionValue<number> }) {
-  const viewportW = 800 as const
-  const dir: 1 | -1 = -1
-
   const [containerRef, { width: scrW }] = useMeasure()
+  const { width: viewportW } = useWindowDimensions()
+
+  const dir: 1 | -1 = -1
   const val = scrW - viewportW
 
   const x = useTransform(

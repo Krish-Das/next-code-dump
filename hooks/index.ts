@@ -1,3 +1,4 @@
-import { useCardTransformAnimation } from "./animations"
+import { useWorkCardAnimation } from "./animations"
+import useWindowDimensions from "./other/window-dimentions"
 
-export { useCardTransformAnimation }
+export { useWorkCardAnimation, useWindowDimensions }

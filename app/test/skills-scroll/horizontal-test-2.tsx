@@ -61,3 +61,8 @@ function Ghost({
     </div>
   )
 }
+
+// FOR DEBUG PERPOSES
+function FloatingText({ children }: { children?: React.ReactNode }) {
+  return <div className="fixed left-5 top-12 z-[999]">{children}</div>
+}

@@ -39,19 +39,19 @@ export default function Test() {
 
   return (
     <>
+      {/* <PlaceHolder /> */}
+
       <div className="fixed left-0 right-0 will-change-transform">
         <motion.section
-          className="relative w-max bg-black"
+          className="relative w-max bg-black flex gap-4 outline outline-1"
           ref={scrollRef}
           style={{ x: transform }}
         >
-          <div className="relative flex space-x-4 outline outline-1">
             {Array.from({ length: 5 }, (_, idx) => (
-              <div className="h-48 w-[42.5rem] rounded-xl bg-grey-2" key={idx}>
+              <div className="h-48 w-[42.5rem] rounded-2xl bg-grey-2 p-5" key={idx}>
                 {scrollRange}
               </div>
             ))}
-          </div>
         </motion.section>
       </div>
       <div

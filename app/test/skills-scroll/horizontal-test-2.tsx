@@ -2,6 +2,7 @@
 
 import { useRef } from "react"
 import { motion, MotionValue, useScroll, useTransform } from "motion/react"
+import useMeasure from "react-use-measure"
 
 import { cn } from "@/lib/utils"
 
@@ -26,13 +27,12 @@ export default function Test2() {
 }
 
 function Sticky({ scrollYProgress }: { scrollYProgress: MotionValue<number> }) {
-  const scrW = 2417 as const
-  const viewportW = 1025 as const
-
-  const val = scrW - viewportW
+  const viewportW = 800 as const
   const dir: 1 | -1 = -1
 
-  const containerRef = useRef<HTMLDivElement>(null)
+  const [containerRef, { width: scrW }] = useMeasure()
+  const val = scrW - viewportW
+
   const x = useTransform(
     scrollYProgress,
     [0, 1],

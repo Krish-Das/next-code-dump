@@ -1,14 +1,19 @@
 import Nav from "../folio/nav"
-import Cover from "./cover"
+// import Cover from "./cover"
+// import Skills from "./skills-scroll"
+import Test from "./skills-scroll/horizontal-test"
 
 export default function Page() {
   return (
     <>
       <Nav />
 
-      <PlaceHolder />
+      {/* <PlaceHolder /> */}
 
-      <Cover />
+      {/* <Cover /> */}
+
+      {/* <Skills /> */}
+      <Test />
     </>
   )
 }

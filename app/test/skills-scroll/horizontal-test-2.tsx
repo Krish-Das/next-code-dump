@@ -16,14 +16,24 @@ export default function Test2() {
 }
 
 function Sticky() {
+  const scrW = 2040 as const
+
+  const val = scrW - window.innerWidth
+  const overRide = 1
+
   return (
-    <div className="overflow-x-hiddens container sticky top-0 flex h-[100vh] w-full items-center bg-grey-2 p-0">
-      <motion.div className="flex h-48 w-full bg-black" style={{ x: 0 }}>
-        {Array.from({ length: 3 }, (_, idx) => (
-          <SkillCard key={idx} id={idx} />
-        ))}
-      </motion.div>
-    </div>
+    <>
+      <div className="container sticky top-0 flex h-[100vh] w-full items-center overflow-x-hidden bg-grey-2 p-0">
+        <motion.div
+          className="content-wraper flex h-48 w-full bg-black"
+          style={{ x: val * -1 * overRide }}
+        >
+          {Array.from({ length: 3 }, (_, idx) => (
+            <SkillCard key={idx} id={idx} />
+          ))}
+        </motion.div>
+      </div>
+    </>
   )
 }
 

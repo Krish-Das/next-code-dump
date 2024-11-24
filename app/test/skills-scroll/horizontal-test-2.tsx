@@ -20,7 +20,7 @@ export default function Test2() {
         <motion.div>{scrollYProgress}</motion.div>
       </FloatingText>
 
-      <section className="bg-[#da1334]" ref={srollContainerRef}>
+      <section className="bg-[#da1334]s" ref={srollContainerRef}>
         <Sticky scrollYProgress={scrollYProgress} />
       </section>
     </>
@@ -42,9 +42,9 @@ function Sticky({ scrollYProgress }: { scrollYProgress: MotionValue<number> }) {
 
   return (
     <>
-      <div className="container sticky top-0 flex h-[100vh] w-full items-center overflow-x-hidden bg-grey-2 p-0">
+      <div className="container sticky top-0 flex h-[100vh] w-full items-center overflow-x-hidden p-0">
         <motion.div
-          className="content-wraper flex h-48 w-max gap-4 bg-black px-[calc((100%-42.5rem)/2)]"
+          className="content-wraper flex w-max gap-4 px-[calc((100%-42.5rem)/2)]"
           style={{ x }}
           ref={containerRef}
         >
@@ -54,22 +54,14 @@ function Sticky({ scrollYProgress }: { scrollYProgress: MotionValue<number> }) {
         </motion.div>
       </div>
 
-      <Ghost showGhost height={scrW} />
+      <Ghost height={scrW} />
     </>
   )
 }
 
+// eslint-disable-next-line no-unused-vars
 function SkillCard({ id }: { id: number }) {
-  const colors = ["bg-blue-300", "bg-amber-300", "bg-green-300"]
-
-  return (
-    <div
-      className={cn(
-        "h-48 w-[42.5rem] flex-shrink-0 rounded-xl bg-grey-2",
-        colors[id]
-      )}
-    />
-  )
+  return <div className="h-48 w-[42.5rem] flex-shrink-0 rounded-xl bg-grey-2" />
 }
 
 function Ghost({

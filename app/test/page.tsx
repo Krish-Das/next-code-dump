@@ -1,19 +1,25 @@
+import { MaterialSymbolsBroadcastOnPersonalRounded } from "@/components/icons/material-symbols"
+
 import Nav from "../folio/nav"
 // import Cover from "./cover"
 // import Skills from "./skills-scroll"
-import Test from "./skills-scroll/horizontal-test"
+// import Test from "./skills-scroll/horizontal-test"
+import Test2 from "./skills-scroll/horizontal-test-2"
 
 export default function Page() {
   return (
     <>
       <Nav />
 
-      {/* <PlaceHolder /> */}
+      <PlaceHolder>
+        <MaterialSymbolsBroadcastOnPersonalRounded />
+      </PlaceHolder>
 
       {/* <Cover /> */}
 
       {/* <Skills /> */}
-      <Test />
+      {/* <Test /> */}
+      <Test2 />
     </>
   )
 }

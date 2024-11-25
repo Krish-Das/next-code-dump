@@ -2,7 +2,6 @@
 
 import { useRef } from "react"
 import { motion, useInView } from "motion/react"
-import { p } from "motion/react-client"
 
 import { cn, splitIntoWords } from "@/lib/utils"
 import { MaterialSymbolsRectangleRounded } from "@/components/icons/material-symbols"
@@ -28,7 +27,7 @@ export default function Cards() {
 }
 function SkillCards({ className, idx }: { className?: string; idx: number }) {
   const cardRef = useRef<HTMLDivElement>(null)
-  const isParaInView = useInView(cardRef, { amount: "all" })
+  const isParaInView = useInView(cardRef, { amount: 1, once: true })
 
   return (
     <motion.div
@@ -43,7 +42,12 @@ function SkillCards({ className, idx }: { className?: string; idx: number }) {
       }}
       animate={isParaInView ? "visible" : "hidden"}
       transition={{
-        delay: isParaInView ? idx * 0.08 : 0,
+        // delay: isParaInView ? (idx + 1) * 0.08 : 0,
+
+        delay: idx * 0.08,
+        type: "spring",
+        duration: 0.8,
+        bounce: 0,
       }}
       ref={cardRef}
     >
@@ -95,16 +99,18 @@ function TextSplitAnimation({
           className="origin-bottom"
           key={idx}
           variants={{
-            hidden: { scaleY: 0.5, y: 5, opacity: 0 },
-            visible: { scaleY: 1, y: 0, opacity: 1 },
+            visible: { skewY: 0, y: 0, opacity: 1, filter: "blur(0px)" },
+            hidden: { skewY: -3, y: 10, opacity: 0, filter: "blur(2px)" },
           }}
           animate={isParaInView ? "visible" : "hidden"}
           transition={{
-            delay: isParaInView ? (idx + 1) * 0.08 : 0,
-            // type: "spring",
-            // stiffness: 200,
-            // damping: 30,
-            // restDelta: 0.001,
+            // duration: isParaInView ? 3 : 0,
+
+            delay: isParaInView ? (idx + 2) * 0.1 : 0,
+            type: "spring",
+            stiffness: 300,
+            damping: 30,
+            mass: 1,
           }}
         >
           {child}

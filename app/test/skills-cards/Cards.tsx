@@ -1,12 +1,18 @@
-import { cn } from "@/lib/utils"
+"use client"
+
+import { useRef } from "react"
+import { motion, useInView } from "motion/react"
+import { p } from "motion/react-client"
+
+import { cn, splitIntoWords } from "@/lib/utils"
 import { MaterialSymbolsRectangleRounded } from "@/components/icons/material-symbols"
 
 export default function Cards() {
   return (
     <section className="flex h-lvh flex-col justify-center gap-9">
-      <p className="text-center font-mona text-xs font-semibold uppercase tracking-wider font-feature-ss01 font-stretch-[115%]">
+      <TextSplitAnimation className="justify-center text-center text-xs font-semibold uppercase leading-none tracking-wider font-stretch-[115%]">
         Known Technologies
-      </p>
+      </TextSplitAnimation>
 
       <Grid className="container">
         <SkillCards className="col-start-2" />
@@ -41,6 +47,55 @@ function SkillCards({ className }: { className?: string }) {
         </p>
       </div>
     </div>
+  )
+}
+
+function TextSplitAnimation({
+  children,
+  className,
+}: {
+  children: string
+  className?: string
+}) {
+  const headingRef = useRef<HTMLParagraphElement>(null)
+  const isParaInView = useInView(headingRef, { amount: "all" })
+
+  const splitChild = splitIntoWords(children.toString())
+
+  return (
+    <p
+      className={cn(
+        "relative inline-flex gap-[0.5ch] overflow-hidden",
+        className
+      )}
+      style={{
+        fontFamily: "var(--font-mona), sans-serif",
+        fontFeatureSettings: "'ss01' on",
+      }}
+      ref={headingRef}
+    >
+      {splitChild.map((child, idx) => (
+        <motion.span
+          className="origin-bottom"
+          key={idx}
+          variants={{
+            hidden: { scaleY: 0.5, y: 5, opacity: 0 },
+            visible: { scaleY: 1, y: 0, opacity: 1 },
+          }}
+          initial="hidden"
+          animate={isParaInView ? "visible" : "hidden"}
+          transition={{
+            delay: isParaInView ? (idx + 1) * 0.08 : 0,
+            // type: "spring",
+            // stiffness: 200,
+            // damping: 30,
+            // restDelta: 0.001,
+          }}
+        >
+          {child}
+        </motion.span>
+      ))}
+    </p>
   )
 }
 

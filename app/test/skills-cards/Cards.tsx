@@ -8,8 +8,11 @@ import { MaterialSymbolsRectangleRounded } from "@/components/icons/material-sym
 
 export default function Cards() {
   return (
-    <section className="flex h-lvh flex-col justify-center gap-9">
-      <TextSplitAnimation className="justify-center text-center text-xs font-semibold uppercase leading-none tracking-wider font-stretch-[115%]">
+    <section className="flex min-h-lvh flex-col justify-center gap-9">
+      <TextSplitAnimation
+        className="justify-center text-center text-xs font-semibold uppercase leading-none tracking-wider font-stretch-[115%]"
+        animateOnce
+      >
         Known Technologies
       </TextSplitAnimation>
 
@@ -22,6 +25,19 @@ export default function Cards() {
           />
         ))}
       </Grid>
+
+      <div className="h-32" />
+
+      <TextSplitAnimation
+        className="justify-center text-center text-xs font-semibold uppercase leading-none tracking-wider font-stretch-[115%]"
+        animateOnce
+      >
+        Other Technologies
+      </TextSplitAnimation>
+
+      <MoreSkills />
+
+      <div className="h-32" />
     </section>
   )
 }
@@ -69,16 +85,47 @@ function SkillCards({ className, idx }: { className?: string; idx: number }) {
     </motion.div>
   )
 }
+function MoreSkills() {
+  const cardRef = useRef<HTMLDivElement>(null)
+  const isCardInView = useInView(cardRef, { amount: 1, once: true })
+
+  return (
+    <Grid className="container">
+      <motion.div
+        className="
+          h-[30rem]s col-span-6 col-start-2 h-80 w-full
+          rounded-md border border-grey-1 bg-grey-1/20
+          "
+        variants={{
+          hidden: { clipPath: "polygon(0 0, 100% 0, 100% 0, 0 0%)" },
+          visible: { clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)" },
+        }}
+        animate={isCardInView ? "visible" : "hidden"}
+        transition={{
+          type: "spring",
+          duration: 0.8,
+          bounce: 0,
+        }}
+        ref={cardRef}
+      />
+    </Grid>
+  )
+}
 
 function TextSplitAnimation({
   children,
   className,
+  animateOnce,
 }: {
   children: string
   className?: string
+  animateOnce?: boolean
 }) {
   const headingRef = useRef<HTMLParagraphElement>(null)
-  const isParaInView = useInView(headingRef, { amount: "all" })
+  const isParaInView = useInView(headingRef, {
+    amount: "all",
+    once: animateOnce,
+  })
 
   const splitChild = splitIntoWords(children.toString())
 

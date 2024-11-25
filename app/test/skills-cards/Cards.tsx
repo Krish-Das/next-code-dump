@@ -15,21 +15,37 @@ export default function Cards() {
       </TextSplitAnimation>
 
       <Grid className="container">
-        <SkillCards className="col-start-2" />
-        <SkillCards />
-        <SkillCards />
+        {Array.from({ length: 3 }, (_, idx) => (
+          <SkillCards
+            className={cn(idx === 0 && "col-start-2")}
+            key={idx}
+            idx={idx}
+          />
+        ))}
       </Grid>
     </section>
   )
 }
-function SkillCards({ className }: { className?: string }) {
+function SkillCards({ className, idx }: { className?: string; idx: number }) {
+  const cardRef = useRef<HTMLDivElement>(null)
+  const isParaInView = useInView(cardRef, { amount: "all" })
+
   return (
-    <div
+    <motion.div
       className={cn(
         // TODO: rename this group
         "group relative col-span-2 flex h-[30rem] w-full flex-col gap-1.5 rounded-md border border-grey-1 bg-grey-1/20 p-1.5",
         className
       )}
+      variants={{
+        hidden: { clipPath: "polygon(0 0, 100% 0, 100% 0, 0 0%)" },
+        visible: { clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)" },
+      }}
+      animate={isParaInView ? "visible" : "hidden"}
+      transition={{
+        delay: isParaInView ? idx * 0.08 : 0,
+      }}
+      ref={cardRef}
     >
       <div className="grid flex-1 place-items-center rounded text-foreground/80">
         <MaterialSymbolsRectangleRounded />
@@ -46,7 +62,7 @@ function SkillCards({ className }: { className?: string }) {
           This is some
         </p>
       </div>
-    </div>
+    </motion.div>
   )
 }
 
@@ -82,7 +98,6 @@ function TextSplitAnimation({
             hidden: { scaleY: 0.5, y: 5, opacity: 0 },
             visible: { scaleY: 1, y: 0, opacity: 1 },
           }}
-          initial="hidden"
           animate={isParaInView ? "visible" : "hidden"}
           transition={{
             delay: isParaInView ? (idx + 1) * 0.08 : 0,

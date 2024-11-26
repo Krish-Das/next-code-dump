@@ -1,3 +1,9 @@
+import {
+  MaterialSymbolsArrowBack,
+  MaterialSymbolsArrowDownward,
+  MaterialSymbolsArrowForward,
+  MaterialSymbolsArrowUpward,
+} from "./MaterialSymbolsArrow"
 import { MaterialSymbolsArrowOutward } from "./MaterialSymbolsArrowOutward"
 import { MaterialSymbolsBroadcastOnPersonalRounded } from "./MaterialSymbolsBroadcastOnPersonalRounded"
 import { MaterialSymbolsCallOutline } from "./MaterialSymbolsCallOutline"
@@ -40,4 +46,8 @@ export {
   MaterialSymbolsWorkOutline,
   MaterialSymbolsWorkOutlineSharp,
   MaterialSymbolsPlayArrowRounded,
+  MaterialSymbolsArrowForward,
+  MaterialSymbolsArrowBack,
+  MaterialSymbolsArrowUpward,
+  MaterialSymbolsArrowDownward,
 }

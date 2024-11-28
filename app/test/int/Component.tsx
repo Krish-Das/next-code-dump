@@ -63,16 +63,24 @@ const InterviewsList = () => {
 }
 
 export const BgLines = () => {
-  const Lines = ({ isFirst }: { isFirst?: boolean }) => {
+  const Lines = ({
+    isFirst,
+    offset,
+  }: {
+    isFirst?: boolean
+    offset: number
+  }) => {
+    const startOffset = ((offset + 3) % 2) * 15
+    const endOffset = 100 - Math.min((offset % 3) * 5, 100)
+
     return (
       <div
         className={cn(
-          "h-full w-full border-[#3562F3]/20",
+          "border-grn-2 h-full w-full",
           isFirst ? "col-start-5 border-l" : "border-r"
         )}
         style={{
-          maskImage:
-            "linear-gradient(in oklab, transparent, white, transparent)",
+          maskImage: `linear-gradient(in oklab, transparent ${startOffset}%, white, transparent ${endOffset}%)`,
         }}
       />
     )
@@ -81,7 +89,7 @@ export const BgLines = () => {
   return (
     <Grid className="fixed inset-0 -z-[1] bg-[#040507] px-8">
       {Array.from({ length: 3 }, (_, idx) => (
-        <Lines key={idx} isFirst={idx === 0} />
+        <Lines key={idx} isFirst={idx === 0} offset={idx} />
       ))}
     </Grid>
   )

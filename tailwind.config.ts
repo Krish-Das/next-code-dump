@@ -78,6 +78,7 @@ const config: Config = {
       fontFamily: {
         inter: ["var(--font-inter)", "sans-serif"],
         mona: ["var(--font-mona)", "sans-serif"],
+        gambarino: ["var(--font-gambarino)", "serif"],
       },
     },
   },

@@ -28,6 +28,10 @@ const config: Config = {
         foreground: "hsl(var(--foreground))",
         "grey-1": "hsl(var(--grey-1))",
         "grey-2": "hsl(var(--grey-2))",
+        "grey-3": "hsl(var(--grey-3))",
+        "grn-1": "hsl(var(--grn-1))",
+        "grn-2": "hsl(var(--grn-2))",
+        "grn-neon": "hsl(var(--grn-neon))",
         "brand-green": "hsl(var(--brand-green))",
         card: {
           DEFAULT: "hsl(var(--card))",

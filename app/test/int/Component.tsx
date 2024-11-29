@@ -76,7 +76,7 @@ export const BgLines = () => {
     return (
       <div
         className={cn(
-          "border-grn-2 h-full w-full",
+          "h-full w-full border-grn-2",
           isFirst ? "col-start-5 border-l" : "border-r"
         )}
         style={{
@@ -87,7 +87,7 @@ export const BgLines = () => {
   }
 
   return (
-    <Grid className="fixed inset-0 -z-[1] bg-[#040507] px-8">
+    <Grid className="fixed inset-0 -z-[1] bg-[#040507]">
       {Array.from({ length: 3 }, (_, idx) => (
         <Lines key={idx} isFirst={idx === 0} offset={idx} />
       ))}

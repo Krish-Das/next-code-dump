@@ -14,16 +14,43 @@ export default function Page() {
     <>
       {/* <Nav /> */}
 
-      <Space className="h-[50vh]" />
+      <Space className="h-[90vh]" />
+      <About />
 
+      <Space className="h-[80vh]" />
       <Education />
-      <Space />
 
+      <Space />
       <Skills />
+
       <Space className="h-[50vh]" />
 
       <BgLines />
     </>
+  )
+}
+
+function About() {
+  return (
+    <Grid className="gap-y-16">
+      <Para className="col-span-3 col-start-4">
+        Over the course of <em>my career</em>, <br />
+        I&apos;ve strived to develop a <em>diverse</em> set of core skills.
+        <br />
+        Ever since I started working with <em>WebGL and Shaders</em>.
+      </Para>
+
+      <Para className="col-span-3 col-start-4">
+        Hi! I&apos;m Maxime, a frontend engineer based in New York. Welcome to
+        my corner of the Internet, where I showcase my work, craft,{" "}
+        <em>unfinished or imperfect projects</em>, and the many other things
+        I&apos;m exploring.
+      </Para>
+
+      <Para className="col-span-3 col-start-4">
+        Ever since I started working with <em>WebGL and Shaders</em>.
+      </Para>
+    </Grid>
   )
 }
 
@@ -35,14 +62,14 @@ function Education() {
         Shaders Light effects
       </Subheading>
 
+      <Heading className="col-span-3 col-start-4">Education</Heading>
+
       <Para className="col-span-3 col-start-4">
         Over the course of my career, <br />
         Ive strived to develop a diverse set of core skills.
         <br />
         Ever since I started working with <em>WebGL and Shaders</em>.
       </Para>
-
-      <Heading className="col-span-3 col-start-4">Education</Heading>
 
       <Grid className="col-start-2 -col-end-2 grid-cols-6 gap-1.5">
         {Array.from({ length: 2 }, (_, idx) => (

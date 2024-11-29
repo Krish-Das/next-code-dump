@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+/* very dark greenish-black background color: #080808  */
+
 @layer base {
   :root,
   .light {

@@ -87,7 +87,7 @@ export const BgLines = () => {
   }
 
   return (
-    <Grid className="fixed inset-0 -z-[1] bg-[#040507]">
+    <Grid className="fixed inset-0 -z-[1] bg-black">
       {Array.from({ length: 3 }, (_, idx) => (
         <Lines key={idx} isFirst={idx === 0} offset={idx} />
       ))}

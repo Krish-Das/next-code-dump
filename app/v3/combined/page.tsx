@@ -1,5 +1,6 @@
 import Link from "next/link"
 
+import { cn } from "@/lib/utils"
 import {
   MaterialSymbolsArrowForward,
   MaterialSymbolsCircle,
@@ -23,7 +24,7 @@ export default function Page() {
 function Child() {
   return (
     <>
-      <Grid className="gap-y-8 bg-grn-2/60">
+      <Grid className="gap-y-8 bg-grn-2/20">
         <Subheading className="col-span-2 col-start-4">
           <MaterialSymbolsCircle />
           Shaders Light effects
@@ -38,7 +39,19 @@ function Child() {
 
         <Heading className="col-span-3 col-start-4">Education</Heading>
 
-        <div className="col-start-2 -col-end-2 h-32 rounded-md bg-grey-1" />
+        <Grid className="col-start-2 -col-end-2 grid-cols-6 gap-1.5">
+          {Array.from({ length: 2 }, (_, idx) => (
+            <div
+              className={cn(
+                "col-span-2 h-96 rounded-md border-2 border-grey-2 bg-grey-1 p-1",
+                idx === 0 && "col-start-2"
+              )}
+              key={idx}
+            >
+              <div className="h-full w-full rounded-md bg-grey-3" />
+            </div>
+          ))}
+        </Grid>
       </Grid>
 
       <Grid className="gap-y-8 bg-grn-2/20">
@@ -66,7 +79,11 @@ function Child() {
           </Link>
         </div>
 
-        <div className="col-start-2 -col-end-2 h-32 rounded-md bg-grey-1" />
+        <Grid className="col-start-2 -col-end-2 grid-cols-6 gap-1.5">
+          <div className="col-span-4 h-56 w-full rounded-md border-2 border-grey-2 bg-grey-1 p-1" />
+          <div className="col-span-2 h-56 w-full rounded-md border-2 border-grey-2 bg-grey-1 p-1" />
+          <div className="col-span-full h-80 w-full rounded-md border-2 border-grey-2 bg-grey-1 p-1" />
+        </Grid>
       </Grid>
     </>
   )

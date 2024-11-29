@@ -72,3 +72,18 @@ export function Grid({
     </div>
   )
 }
+
+export function Space({
+  className,
+  size = "default",
+}: {
+  className?: string
+  size?: "default"
+}) {
+  // TODO: use CVA here
+  return (
+    <div
+      className={cn("spacer", size === "default" && "h-[25vh]", className)}
+    />
+  )
+}

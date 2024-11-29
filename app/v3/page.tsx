@@ -9,6 +9,10 @@ export default function Page() {
       <Link href="/v3/about">About</Link>
       <Link href="/v3/ed">Education</Link>
       <Link href="/v3/skill">Skills</Link>
+
+      <div className="h-2" />
+
+      <Link href="/v3/combined">Combined</Link>
     </Main>
   )
 }

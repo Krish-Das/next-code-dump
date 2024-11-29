@@ -9,6 +9,7 @@ import { MaterialSymbolsBroadcastOnPersonalRounded } from "./MaterialSymbolsBroa
 import { MaterialSymbolsCallOutline } from "./MaterialSymbolsCallOutline"
 import { MaterialSymbolsCasesOutline } from "./MaterialSymbolsCasesOutline"
 import { MaterialSymbolsCircle } from "./MaterialSymbolsCircle"
+import { MaterialSymbolsCircleOutline } from "./MaterialSymbolsCircleOutline"
 import { MaterialSymbolsDockToLeft } from "./MaterialSymbolsDockToLeft"
 import { MaterialSymbolsDockToRight } from "./MaterialSymbolsDockToRight"
 import { MaterialSymbolsGroupOutline } from "./MaterialSymbolsGroupOutline"
@@ -20,6 +21,7 @@ import { MaterialSymbolsMenu } from "./MaterialSymbolsMenu"
 import { MaterialSymbolsMenuOpen } from "./MaterialSymbolsMenuOpen"
 import { MaterialSymbolsNewspaper } from "./MaterialSymbolsNewspaper"
 import { MaterialSymbolsPlayArrowRounded } from "./MaterialSymbolsPlayArrowRounded"
+import { MaterialSymbolsRectangleOutlineRounded } from "./MaterialSymbolsRectangleOutlineRounded"
 import { MaterialSymbolsRectangleRounded } from "./MaterialSymbolsRectangleRounded"
 import { MaterialSymbolsWork } from "./MaterialSymbolsWork"
 import { MaterialSymbolsWorkOutline } from "./MaterialSymbolsWorkOutline"
@@ -50,4 +52,6 @@ export {
   MaterialSymbolsArrowBack,
   MaterialSymbolsArrowUpward,
   MaterialSymbolsArrowDownward,
+  MaterialSymbolsCircleOutline,
+  MaterialSymbolsRectangleOutlineRounded,
 }

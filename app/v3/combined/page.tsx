@@ -4,6 +4,8 @@ import { cn } from "@/lib/utils"
 import {
   MaterialSymbolsArrowForward,
   MaterialSymbolsCircle,
+  MaterialSymbolsCircleOutline,
+  MaterialSymbolsRectangleRounded,
 } from "@/components/icons/material-symbols"
 import { BgLines } from "@/app/test/int/Component"
 
@@ -26,6 +28,20 @@ export default function Page() {
       <Space className="h-[50vh]" />
 
       <BgLines />
+    </>
+  )
+}
+
+function __Extra__() {
+  return (
+    <>
+      <Space />
+
+      <Grid className="h-screen place-items-end gap-y-8 bg-grn-1 text-brand-green">
+        <h2 className="col-span-full w-full font-mona text-[10vw] font-semibold uppercase leading-none font-stretch-80 font-slant-5">
+          What do I do
+        </h2>
+      </Grid>
     </>
   )
 }
@@ -109,9 +125,31 @@ function Skills() {
       </div>
 
       <Grid className="col-start-2 -col-end-2 grid-cols-6 gap-1.5">
-        <div className="col-span-4 h-56 w-full rounded-md border-2 border-grey-2 bg-grey-1 p-1" />
-        <div className="col-span-2 h-56 w-full rounded-md border-2 border-grey-2 bg-grey-1 p-1" />
-        <div className="col-span-full h-80 w-full rounded-md border-2 border-grey-2 bg-grey-1 p-1" />
+        <div className="col-span-4 grid h-56 w-full place-items-center rounded-md border-2 border-grey-2 bg-grey-1 p-1 text-lg">
+          <MaterialSymbolsRectangleRounded />
+        </div>
+        <div className="col-span-2 grid h-56 w-full place-items-center rounded-md border-2 border-grey-2 bg-grey-1 p-1 text-lg">
+          <MaterialSymbolsCircleOutline />
+        </div>
+
+        <Grid className="col-span-full grid-cols-3 gap-0 rounded-md border-2 border-grey-2 bg-grey-1 text-foreground/70">
+          {Array.from({ length: 6 }, (_, idx) => (
+            <div
+              key={idx}
+              className={cn(
+                "inline-flex h-32 w-full items-center justify-center",
+                idx % 3 !== 0 && "border-l-2 border-l-grey-2",
+                idx < 3 && "border-b-2 border-b-grey-2"
+              )}
+            >
+              {idx % 2 === 0 ? (
+                <MaterialSymbolsRectangleRounded />
+              ) : (
+                <MaterialSymbolsCircle />
+              )}
+            </div>
+          ))}
+        </Grid>
       </Grid>
     </Grid>
   )

@@ -102,7 +102,11 @@ function Education() {
             )}
             key={idx}
           >
-            <div className="h-full w-full rounded-md bg-grey-3" />
+            <div className="grid h-full w-full place-items-center rounded-md bg-grey-3">
+              <p className="font-mona text-xs font-semibold uppercase leading-none text-[#666661] font-feature-ss01 font-stretch-[115%]">
+                CGPA goes here
+              </p>
+            </div>
           </div>
         ))}
       </Grid>
@@ -180,7 +184,7 @@ function Interviews() {
           "
         >
           <MaterialSymbolsUpcomingOutline />
-          <p>No interviews yet</p>
+          <p>No interview yet</p>
         </div>
 
         <button className="inline-flex h-12 w-full items-center justify-center gap-1.5 rounded-md bg-[#F3FEEF] text-[#051401] [&>svg]:text-lg">

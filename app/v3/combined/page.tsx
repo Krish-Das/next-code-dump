@@ -81,10 +81,10 @@ function Education() {
     <Grid className="container gap-y-8 p-0">
       <Subheading className="col-span-2 col-start-4">
         <MaterialSymbolsBook4Spark />
-        Shaders Light effects
+        University Performance
       </Subheading>
 
-      <Heading className="col-span-3 col-start-4">Education</Heading>
+      <Heading className="col-span-3 col-start-4">Academics</Heading>
 
       <Para className="col-span-3 col-start-4">
         Over the course of my career, <br />
@@ -166,7 +166,7 @@ function Interviews() {
     <Grid className="container gap-y-8 p-0">
       <Subheading className="col-span-2 col-start-4">
         <MaterialSymbolsInterpreterMode />
-        Shaders Light effects
+        Interview Updates
       </Subheading>
 
       <Heading className="col-span-3 col-start-4">Interviews</Heading>

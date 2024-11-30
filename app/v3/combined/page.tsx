@@ -3,8 +3,10 @@ import Link from "next/link"
 import { cn } from "@/lib/utils"
 import {
   MaterialSymbolsArrowForward,
+  MaterialSymbolsBook4Spark,
   MaterialSymbolsCircle,
   MaterialSymbolsCircleOutline,
+  MaterialSymbolsInterpreterMode,
   MaterialSymbolsRectangleRounded,
   MaterialSymbolsUpcomingOutline,
 } from "@/components/icons/material-symbols"
@@ -52,7 +54,7 @@ function __Extra__() {
 
 function About() {
   return (
-    <Grid className="gap-y-16">
+    <Grid className="container gap-y-16 p-0">
       <Para className="col-span-3 col-start-4">
         Over the course of <em>my career</em>, <br />
         I&apos;ve strived to develop a <em>diverse</em> set of core skills.
@@ -76,9 +78,9 @@ function About() {
 
 function Education() {
   return (
-    <Grid className="gap-y-8">
+    <Grid className="container gap-y-8 p-0">
       <Subheading className="col-span-2 col-start-4">
-        <MaterialSymbolsCircle />
+        <MaterialSymbolsBook4Spark />
         Shaders Light effects
       </Subheading>
 
@@ -110,7 +112,7 @@ function Education() {
 
 function Skills() {
   return (
-    <Grid className="gap-y-8">
+    <Grid className="container gap-y-8 p-0">
       <Subheading className="col-span-2 col-start-4 hidden">
         <MaterialSymbolsCircle />
         Space and Rocket
@@ -161,9 +163,9 @@ function Skills() {
 
 function Interviews() {
   return (
-    <Grid className="gap-y-8">
-      <Subheading className="col-span-2 col-start-4 text-brand-green">
-        <MaterialSymbolsArrowForward />
+    <Grid className="container gap-y-8 p-0">
+      <Subheading className="col-span-2 col-start-4">
+        <MaterialSymbolsInterpreterMode />
         Shaders Light effects
       </Subheading>
 
@@ -171,8 +173,11 @@ function Interviews() {
 
       <div className="col-span-4 col-start-3 space-y-3 rounded-md border-2 border-grey-2 bg-grey-1 p-2">
         <div
-          className="flex h-40 items-center justify-center gap-2 rounded-md border-2 border-grey-3 bg-grey-2 font-mona text-xs
-            font-semibold uppercase leading-none text-[#666661] font-feature-ss01 font-stretch-[115%] [&>svg]:mb-[0.3ch] [&>svg]:text-lg"
+          className="
+          pointer-events-none flex h-40 touch-none select-none items-center justify-center gap-2 rounded-md border-2 border-grey-3
+          bg-grey-2 font-mona text-xs font-semibold uppercase leading-none text-[#666661] font-feature-ss01 font-stretch-[115%]
+          [&>svg]:mb-[0.3ch] [&>svg]:text-lg
+          "
         >
           <MaterialSymbolsUpcomingOutline />
           <p>No interviews yet</p>

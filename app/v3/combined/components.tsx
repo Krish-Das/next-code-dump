@@ -24,7 +24,7 @@ export function Subheading({
     <h3
       className={cn(
         "flex items-center gap-1",
-        "text-xs font-semibold uppercase tracking-wider",
+        "text-xs font-semibold uppercase tracking-wider text-[#cdfcbc]",
         "[&>svg]:text-base [&>svg]:text-brand-green",
         className
       )}

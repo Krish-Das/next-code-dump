@@ -8,9 +8,7 @@ export function Heading({
   children: React.ReactNode
 }) {
   return (
-    <h2 className={cn("font-gambarino text-5xl leading-[1.8]", className)}>
-      {children}
-    </h2>
+    <h2 className={cn("font-gambarino text-5xl", className)}>{children}</h2>
   )
 }
 export function Subheading({
@@ -24,7 +22,7 @@ export function Subheading({
     <h3
       className={cn(
         "flex items-center gap-1",
-        "text-xs font-semibold uppercase tracking-wider text-[#cdfcbc]",
+        "text-[0.7rem] font-semibold uppercase leading-4 tracking-wider text-[#CDFCBC]",
         "[&>svg]:text-base [&>svg]:text-brand-green",
         className
       )}
@@ -83,7 +81,7 @@ export function Space({
   // TODO: use CVA here
   return (
     <div
-      className={cn("spacer", size === "default" && "h-[25vh]", className)}
+      className={cn("spacer", size === "default" && "h-[20vh]", className)}
     />
   )
 }

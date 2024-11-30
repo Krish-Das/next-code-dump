@@ -78,7 +78,7 @@ function About() {
 
 function Education() {
   return (
-    <Grid className="container gap-y-8 p-0">
+    <Grid className="container gap-y-5 p-0 [&>*:last-child]:mt-3">
       <Subheading className="col-span-2 col-start-4">
         <MaterialSymbolsBook4Spark />
         University Performance
@@ -86,8 +86,7 @@ function Education() {
 
       <Heading className="col-span-3 col-start-4">Academics</Heading>
 
-      <Para className="col-span-3 col-start-4">
-        Over the course of my career, <br />
+      <Para className="col-span-3 col-start-4 text-foreground/80">
         Ive strived to develop a diverse set of core skills.
         <br />
         Ever since I started working with <em>WebGL and Shaders</em>.
@@ -116,7 +115,7 @@ function Education() {
 
 function Skills() {
   return (
-    <Grid className="container gap-y-8 p-0">
+    <Grid className="container gap-y-5 p-0 [&>*:last-child]:mt-3">
       <Subheading className="col-span-2 col-start-4 hidden">
         <MaterialSymbolsCircle />
         Space and Rocket
@@ -167,7 +166,7 @@ function Skills() {
 
 function Interviews() {
   return (
-    <Grid className="container gap-y-8 p-0">
+    <Grid className="container gap-y-5 p-0 [&>*:last-child]:mt-3">
       <Subheading className="col-span-2 col-start-4">
         <MaterialSymbolsInterpreterMode />
         Interview Updates

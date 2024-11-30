@@ -130,22 +130,22 @@ function Skills() {
         </Link>
       </div>
 
-      <Grid className="col-start-2 -col-end-2 grid-cols-6 gap-1.5">
-        <div className="col-span-4 grid h-56 w-full place-items-center rounded-md border-2 border-grey-2 bg-grey-1 p-1 text-lg">
+      <Grid className="col-start-2 -col-end-2 grid-cols-6 gap-1.5 rounded-md border-2 border-grey-2 bg-grey-1 p-2">
+        <div className="col-span-4 grid h-56 w-full place-items-center rounded-md border-2 border-grey-3 bg-grey-2 p-1 text-lg">
           <MaterialSymbolsRectangleRounded />
         </div>
-        <div className="col-span-2 grid h-56 w-full place-items-center rounded-md border-2 border-grey-2 bg-grey-1 p-1 text-lg">
+        <div className="col-span-2 grid h-56 w-full place-items-center rounded-md border-2 border-grey-3 bg-grey-2 p-1 text-lg">
           <MaterialSymbolsCircleOutline />
         </div>
 
-        <Grid className="col-span-full grid-cols-3 gap-0 rounded-md border-2 border-grey-2 bg-grey-1 text-foreground/70">
+        <Grid className="col-span-full grid-cols-3 gap-0 rounded-md border border-grey-2 bg-grey-1 text-foreground/70">
           {Array.from({ length: 6 }, (_, idx) => (
             <div
               key={idx}
               className={cn(
                 "inline-flex h-32 w-full items-center justify-center",
-                idx % 3 !== 0 && "border-l-2 border-l-grey-2",
-                idx < 3 && "border-b-2 border-b-grey-2"
+                idx % 3 !== 0 && "border-l border-l-grey-2",
+                idx < 3 && "border-b border-b-grey-2"
               )}
             >
               {idx % 2 === 0 ? (

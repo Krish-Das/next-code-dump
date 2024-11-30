@@ -5,6 +5,10 @@ import {
   MaterialSymbolsArrowUpward,
 } from "./MaterialSymbolsArrow"
 import { MaterialSymbolsArrowOutward } from "./MaterialSymbolsArrowOutward"
+import {
+  MaterialSymbolsBook4Spark,
+  MaterialSymbolsBook4SparkOutline,
+} from "./MaterialSymbolsBook4Spark"
 import { MaterialSymbolsBroadcastOnPersonalRounded } from "./MaterialSymbolsBroadcastOnPersonalRounded"
 import { MaterialSymbolsCallOutline } from "./MaterialSymbolsCallOutline"
 import { MaterialSymbolsCasesOutline } from "./MaterialSymbolsCasesOutline"
@@ -14,6 +18,10 @@ import { MaterialSymbolsDockToLeft } from "./MaterialSymbolsDockToLeft"
 import { MaterialSymbolsDockToRight } from "./MaterialSymbolsDockToRight"
 import { MaterialSymbolsGroupOutline } from "./MaterialSymbolsGroupOutline"
 import { MaterialSymbolsInfoOutline } from "./MaterialSymbolsInfoOutline"
+import {
+  MaterialSymbolsInterpreterMode,
+  MaterialSymbolsInterpreterModeOutline,
+} from "./MaterialSymbolsInterpreterMode"
 import { MaterialSymbolsMagnificationLarge } from "./MaterialSymbolsMagnificationLarge"
 import { MaterialSymbolsMail } from "./MaterialSymbolsMail"
 import { MaterialSymbolsMailOutline } from "./MaterialSymbolsMailOutline"
@@ -58,4 +66,8 @@ export {
   MaterialSymbolsRectangleOutlineRounded,
   MaterialSymbolsUpcoming,
   MaterialSymbolsUpcomingOutline,
+  MaterialSymbolsBook4Spark,
+  MaterialSymbolsBook4SparkOutline,
+  MaterialSymbolsInterpreterMode,
+  MaterialSymbolsInterpreterModeOutline,
 }

@@ -62,7 +62,7 @@ const InterviewsList = () => {
   )
 }
 
-export const BgLines = () => {
+export const BgLines = ({ className }: { className?: string }) => {
   const Lines = ({
     isFirst,
     offset,
@@ -87,7 +87,7 @@ export const BgLines = () => {
   }
 
   return (
-    <Grid className="fixed inset-0 -z-[1] bg-black">
+    <Grid className={cn("fixed inset-0 -z-[1] bg-black", className)}>
       {Array.from({ length: 3 }, (_, idx) => (
         <Lines key={idx} isFirst={idx === 0} offset={idx} />
       ))}

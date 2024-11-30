@@ -23,6 +23,8 @@ import { MaterialSymbolsNewspaper } from "./MaterialSymbolsNewspaper"
 import { MaterialSymbolsPlayArrowRounded } from "./MaterialSymbolsPlayArrowRounded"
 import { MaterialSymbolsRectangleOutlineRounded } from "./MaterialSymbolsRectangleOutlineRounded"
 import { MaterialSymbolsRectangleRounded } from "./MaterialSymbolsRectangleRounded"
+import { MaterialSymbolsUpcoming } from "./MaterialSymbolsUpcoming"
+import { MaterialSymbolsUpcomingOutline } from "./MaterialSymbolsUpcomingOutline"
 import { MaterialSymbolsWork } from "./MaterialSymbolsWork"
 import { MaterialSymbolsWorkOutline } from "./MaterialSymbolsWorkOutline"
 import { MaterialSymbolsWorkOutlineSharp } from "./MaterialSymbolsWorkOutlineSharp"
@@ -54,4 +56,6 @@ export {
   MaterialSymbolsArrowDownward,
   MaterialSymbolsCircleOutline,
   MaterialSymbolsRectangleOutlineRounded,
+  MaterialSymbolsUpcoming,
+  MaterialSymbolsUpcomingOutline,
 }

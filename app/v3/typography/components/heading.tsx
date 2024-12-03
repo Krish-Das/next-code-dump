@@ -65,3 +65,28 @@ export function TertiaryHeading({
     </h4>
   )
 }
+
+export function Subheading({
+  className,
+  children,
+}: {
+  className?: string
+  children: React.ReactNode
+}) {
+  return (
+    <h3
+      className={cn(
+        "flex items-center gap-1",
+        "text-[0.7rem]s text-xs font-bold uppercase",
+        "[&>svg]:text-sm",
+        className
+      )}
+      style={{
+        fontStretch: "115%",
+        fontFamily: "var(--font-mona), sans-serif",
+      }}
+    >
+      {children}
+    </h3>
+  )
+}

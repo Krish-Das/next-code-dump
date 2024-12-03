@@ -43,3 +43,25 @@ export function DualFontHeading({
     </h3>
   )
 }
+
+export function TertiaryHeading({
+  children,
+  className,
+  textSmall,
+}: {
+  children: React.ReactNode
+  className?: string
+  textSmall?: boolean
+}) {
+  return (
+    <h4
+      className={cn(
+        "font-mona leading-none",
+        textSmall ? "text-sm font-semibold" : "text-base font-medium",
+        className
+      )}
+    >
+      {children}
+    </h4>
+  )
+}

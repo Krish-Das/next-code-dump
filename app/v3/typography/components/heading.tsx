@@ -38,6 +38,10 @@ export function DualFontHeading({
         "[&>em]:font-redI [&>em]:font-normal [&>em]:not-italic",
         className
       )}
+      style={{
+        // TODO: animate the angle
+        maskImage: "linear-gradient(355deg, black, black, transparent)",
+      }}
     >
       {children}
     </h3>

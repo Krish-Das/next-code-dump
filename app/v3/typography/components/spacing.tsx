@@ -6,6 +6,10 @@ const spacingVariants = cva("spacing w-full", {
   variants: {
     size: {
       base: "h-4",
+      sm: "h-10",
+      md: "h-20",
+      lg: "h-48",
+      section: "h-24",
     },
   },
   defaultVariants: {

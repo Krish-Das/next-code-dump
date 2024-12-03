@@ -34,7 +34,7 @@ export function DualFontHeading({
   return (
     <h3
       className={cn(
-        "font-mona text-[2.85rem] font-medium leading-none",
+        "font-mona text-[2.85rem] font-medium leading-loose",
         "[&>em]:font-redI [&>em]:font-normal [&>em]:not-italic",
         className
       )}
@@ -77,7 +77,7 @@ export function Subheading({
     <h3
       className={cn(
         "flex items-center gap-1",
-        "text-[0.7rem]s text-xs font-bold uppercase",
+        "text-[0.7rem]s text-xs font-bold uppercase leading-snug",
         "[&>svg]:text-sm",
         className
       )}

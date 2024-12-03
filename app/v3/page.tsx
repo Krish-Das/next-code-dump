@@ -14,6 +14,10 @@ export default function Page() {
       <div className="h-2" />
 
       <Link href="/v3/combined">Combined</Link>
+
+      <div className="h-2" />
+
+      <Link href="/v3/typography">Typography</Link>
     </Main>
   )
 }

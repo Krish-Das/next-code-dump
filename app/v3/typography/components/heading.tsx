@@ -23,3 +23,23 @@ export function PrimaryHeading({
     </h2>
   )
 }
+
+export function DualFontHeading({
+  children,
+  className,
+}: {
+  children: React.ReactNode
+  className?: string
+}) {
+  return (
+    <h3
+      className={cn(
+        "font-mona text-[2.85rem] font-medium leading-none",
+        "[&>em]:font-redI [&>em]:font-normal [&>em]:not-italic",
+        className
+      )}
+    >
+      {children}
+    </h3>
+  )
+}

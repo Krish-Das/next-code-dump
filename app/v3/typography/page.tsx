@@ -61,13 +61,19 @@ export default function Page() {
           <Spacing />
 
           <div className="flex items-center justify-center gap-1">
-            <div
-              className="inline-grid h-80 w-72 place-items-center rounded-md bg-grey-1 bg-cover bg-center"
-              style={{
-                backgroundImage: "url('/images/bg-gradient-light.jpg')",
-              }}
-            >
-              <Subheading className="text-black/30">CGPA goes here</Subheading>
+            {/* <div */}
+            {/*   className="inline-grid h-80 w-72 place-items-center rounded-md bg-grey-1 bg-cover bg-center" */}
+            {/*   style={{ */}
+            {/*     backgroundImage: "url('/images/bg-gradient-light.jpg')", */}
+            {/*   }} */}
+            {/* > */}
+            {/*   <Subheading className="text-black/30">CGPA goes here</Subheading> */}
+            {/* </div> */}
+
+            <div className="inline-grid h-80 w-72 place-items-center rounded-md bg-grey-1">
+              <Subheading className="text-foreground/20">
+                CGPA goes here
+              </Subheading>
             </div>
 
             <div className="inline-grid h-80 w-72 place-items-center rounded-md bg-grey-1">

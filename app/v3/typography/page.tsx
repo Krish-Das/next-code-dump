@@ -144,18 +144,41 @@ function Works() {
   const WorkImage = ({
     className,
     url,
+    noButton,
   }: {
     className?: string
     url: string
+    noButton?: boolean
   }) => {
     return (
       <div
         className={cn(
-          "h-full w-full rounded-md bg-grey-1 bg-cover bg-center ring ring-inset ring-foreground/[0.08]",
+          // "h-full w-full rounded-md bg-grey-1 bg-cover bg-center ring ring-inset ring-foreground/[0.08]",
+          "group flex h-full w-full flex-col gap-1",
+          noButton ? "p-0" : "rounded-md border border-white/5 bg-grey-1 p-1",
           className
         )}
-        style={{ backgroundImage: `url(${url})` }}
-      />
+      >
+        <div
+          className={cn(
+            "h-full w-full flex-1 bg-black bg-cover bg-center",
+            noButton
+              ? "rounded-md ring ring-inset ring-foreground/[0.08]"
+              : "rounded"
+          )}
+          style={{ backgroundImage: `url(${url})` }}
+        />
+        {!noButton && (
+          <button
+            className="inline-flex h-10 w-full items-center justify-center gap-1 rounded bg-grey-2/70 font-mona text-sm
+          font-medium text-foreground/80 transition-all ease-in-out font-feature-ss01 font-stretch-[105%] hover:bg-grey-2
+          [&>svg]:text-base [&>svg]:text-foreground/60 [&>svg]:hover:translate-x-1 [&>svg]:hover:text-foreground/100
+          "
+          >
+            View production <MaterialSymbolsArrowForward />
+          </button>
+        )}
+      </div>
     )
   }
 
@@ -167,10 +190,11 @@ function Works() {
         </DualFontHeading>
       </div>
 
-      <Grid className="h-screen gap-1.5 p-3">
+      <Grid className="h-screen gap-2 p-3">
         <WorkImage
           className="col-span-2 row-span-2"
           url="https://d2w9rnfcy7mm78.cloudfront.net/26440348/original_dbb3390e4225410854c036cd80c12e8d.gif?1708347273"
+          noButton
         />
 
         <WorkImage
@@ -186,6 +210,7 @@ function Works() {
         <WorkImage
           className="col-span-full col-start-3"
           url="https://i.pinimg.com/originals/9b/ff/65/9bff65fd363983c023476244acf811f5.gif"
+          noButton
         />
       </Grid>
     </>

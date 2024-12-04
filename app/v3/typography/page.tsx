@@ -121,7 +121,7 @@ export default function Page() {
               <button
                 className="
                 inline-flex h-12 w-full items-center justify-center gap-1.5 rounded-md
-                bg-gradient-to-t from-[#B5B5B5] to-[#CDCDCD] font-medium text-[#0A0A0A] [&>svg]:text-lg
+                bg-gradient-to-t from-[#B5B5B5] to-[#D2D2D2] font-medium text-[#0A0A0A] [&>svg]:text-lg
                 "
               >
                 <MaterialSymbolsArrowForward />

@@ -132,7 +132,7 @@ export default function Page() {
           </Grid>
         </section>
 
-        <Spacing size="lg" />
+        <Spacing className="h-[60vh]" />
 
         <Works />
       </div>
@@ -185,7 +185,10 @@ function Works() {
   return (
     <>
       <div className="p-3">
-        <DualFontHeading className="text-center text-[10vw] leading-none">
+        <DualFontHeading
+          className="text-center text-[10vw] leading-none tracking-tight"
+          noMask
+        >
           Some <em>selected works.</em>
         </DualFontHeading>
       </div>

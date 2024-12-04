@@ -27,9 +27,11 @@ export function PrimaryHeading({
 export function DualFontHeading({
   children,
   className,
+  noMask,
 }: {
   children: React.ReactNode
   className?: string
+  noMask?: boolean
 }) {
   return (
     <h3
@@ -40,7 +42,9 @@ export function DualFontHeading({
       )}
       style={{
         // TODO: animate the angle
-        maskImage: "linear-gradient(355deg, black, black, transparent)",
+        maskImage: noMask
+          ? ""
+          : "linear-gradient(355deg, black, black, transparent)",
       }}
     >
       {children}

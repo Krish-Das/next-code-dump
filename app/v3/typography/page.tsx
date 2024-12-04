@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils"
 import {
   MaterialSymbolsArrowForward,
   MaterialSymbolsBook4Spark,
@@ -132,7 +133,61 @@ export default function Page() {
         </section>
 
         <Spacing size="lg" />
+
+        <Works />
       </div>
+    </>
+  )
+}
+
+function Works() {
+  const WorkImage = ({
+    className,
+    url,
+  }: {
+    className?: string
+    url: string
+  }) => {
+    return (
+      <div
+        className={cn(
+          "h-full w-full rounded-md bg-grey-1 bg-cover bg-center ring ring-inset ring-foreground/[0.08]",
+          className
+        )}
+        style={{ backgroundImage: `url(${url})` }}
+      />
+    )
+  }
+
+  return (
+    <>
+      <div className="p-3">
+        <DualFontHeading className="text-center text-[10vw] leading-none">
+          Some <em>selected works.</em>
+        </DualFontHeading>
+      </div>
+
+      <Grid className="h-screen gap-1.5 p-3">
+        <WorkImage
+          className="col-span-2 row-span-2"
+          url="https://d2w9rnfcy7mm78.cloudfront.net/26440348/original_dbb3390e4225410854c036cd80c12e8d.gif?1708347273"
+        />
+
+        <WorkImage
+          className="col-span-4"
+          url="https://d2w9rnfcy7mm78.cloudfront.net/31524027/original_681ae5bf6a0242376ef58bfc0fef84d0.gif?1729249292"
+        />
+
+        <WorkImage
+          className="col-span-2"
+          url="https://i.pinimg.com/736x/4f/64/3b/4f643b7e375326b5fb0c756e7f0ad28f.jpg"
+        />
+
+        <WorkImage
+          className="col-span-full col-start-3"
+          url="https://i.pinimg.com/originals/9b/ff/65/9bff65fd363983c023476244acf811f5.gif"
+        />
+      </Grid>
     </>
   )
 }

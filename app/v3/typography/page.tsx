@@ -26,6 +26,10 @@ export default function Page() {
 
         <Spacing size="section" />
 
+        <DisplayText />
+
+        <Spacing size="section" />
+
         <section className="flex flex-col items-center">
           <TertiaryHeading className="text-[#CDFCBC]" textSmall>
             Moebius-Style post-processing
@@ -141,6 +145,25 @@ export default function Page() {
         <Footer />
       </div>
     </>
+  )
+}
+
+function DisplayText() {
+  return (
+    <div className="w-full text-center">
+      <h2 className="font-mona text-5xl font-medium uppercase font-stretch-[105%] [&>em]:font-redI [&>em]:not-italic">
+        Crafting code, <br />
+        Building worlds, <br />
+        <em>Chasing knowledge. </em>
+        <br />
+        The developer journey <br />
+        is <em>just beginning. </em>
+        <br />
+        About <em>anything other </em>
+        <br />
+        than something!
+      </h2>
+    </div>
   )
 }
 

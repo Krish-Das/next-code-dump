@@ -12,6 +12,10 @@ import {
 import { MaterialSymbolsBroadcastOnPersonalRounded } from "./MaterialSymbolsBroadcastOnPersonalRounded"
 import { MaterialSymbolsCallOutline } from "./MaterialSymbolsCallOutline"
 import { MaterialSymbolsCasesOutline } from "./MaterialSymbolsCasesOutline"
+import {
+  MaterialSymbolsChevronLeft,
+  MaterialSymbolsChevronRight,
+} from "./MaterialSymbolsChevron"
 import { MaterialSymbolsCircle } from "./MaterialSymbolsCircle"
 import { MaterialSymbolsCircleOutline } from "./MaterialSymbolsCircleOutline"
 import { MaterialSymbolsDockToLeft } from "./MaterialSymbolsDockToLeft"
@@ -70,4 +74,6 @@ export {
   MaterialSymbolsBook4SparkOutline,
   MaterialSymbolsInterpreterMode,
   MaterialSymbolsInterpreterModeOutline,
+  MaterialSymbolsChevronRight,
+  MaterialSymbolsChevronLeft,
 }

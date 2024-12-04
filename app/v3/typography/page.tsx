@@ -2,6 +2,7 @@ import { cn } from "@/lib/utils"
 import {
   MaterialSymbolsArrowForward,
   MaterialSymbolsBook4Spark,
+  MaterialSymbolsChevronRight,
   MaterialSymbolsUpcomingOutline,
 } from "@/components/icons/material-symbols"
 import { Grid } from "@/app/test/skills-cards/Cards"
@@ -31,7 +32,7 @@ export default function Page() {
         <Spacing size="section" />
 
         <section className="flex flex-col items-center">
-          <Paragraph center>
+          <Paragraph center className="font-medium text-foreground/70">
             Over the course of my career, I&apos;ve
             <br /> strived to develop a diverse set of core skills.
             <br /> Ever since I started working with WebGL and Shaders.
@@ -68,8 +69,17 @@ export default function Page() {
           <Spacing />
 
           <div className="flex items-center justify-center gap-1">
-            <div className="h-80 w-72 rounded-md bg-grey-1" />
-            <div className="h-80 w-72 rounded-md bg-grey-1" />
+            <div className="inline-grid h-80 w-72 place-items-center rounded-md bg-grey-1">
+              <Subheading className="text-foreground/20">
+                CGPA goes here
+              </Subheading>
+            </div>
+
+            <div className="inline-grid h-80 w-72 place-items-center rounded-md bg-grey-1">
+              <Subheading className="text-foreground/20">
+                CGPA goes here
+              </Subheading>
+            </div>
           </div>
         </section>
 
@@ -129,7 +139,7 @@ export default function Page() {
                 "
               >
                 <MaterialSymbolsArrowForward />
-                Scedule an Interview
+                Schedule an Interview
               </button>
             </div>
           </Grid>
@@ -140,6 +150,8 @@ export default function Page() {
         <Works />
 
         <Spacing size="section" />
+
+        <LastSection />
 
         <Footer />
       </div>
@@ -243,6 +255,54 @@ function Works() {
         />
       </Grid>
     </>
+  )
+}
+
+function LastSection() {
+  return (
+    <section
+      className="flex h-[30rem] w-full flex-col justify-center gap-16 bg-cover bg-center text-black"
+      style={{
+        backgroundImage: "url('/images/bg-gradient-light.jpg')",
+      }}
+    >
+      <Grid className="px-8">
+        <PrimaryHeading className="col-span-3 col-start-2">
+          Let&apos;s just <br />
+          work together.
+        </PrimaryHeading>
+
+        <Paragraph className="col-span-full col-start-6 font-medium text-black/70">
+          Over the course of my career, I&apos;ve
+          <br /> strived to develop a diverse set of core skills.
+          <br /> Ever since I started working with WebGL and Shaders.
+        </Paragraph>
+      </Grid>
+
+      <Grid className="px-8">
+        <div className="col-start-2 -col-end-2 space-x-5">
+          <button
+            className="
+                inline-flex h-12 items-center justify-center gap-1.5 rounded-md
+                bg-black px-6 font-medium text-white [&>svg]:text-lg
+                "
+          >
+            <MaterialSymbolsArrowForward />
+            Schedule an Interview
+          </button>
+
+          <button
+            className="
+                inline-flex items-center gap-1.5 rounded-md
+                font-medium
+                "
+          >
+            Do something else
+            <MaterialSymbolsChevronRight />
+          </button>
+        </div>
+      </Grid>
+    </section>
   )
 }
 

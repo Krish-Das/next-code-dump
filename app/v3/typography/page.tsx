@@ -25,19 +25,11 @@ export default function Page() {
       <div className="bg-black">
         {/* <div className="h-24 w-96 rounded-md bg-grey-2" /> */}
 
+        <Hero />
+
         <Spacing size="section" />
 
         <DisplayText />
-
-        <Spacing size="section" />
-
-        <section className="flex flex-col items-center">
-          <Paragraph center className="font-medium text-foreground/70">
-            Over the course of my career, I&apos;ve
-            <br /> strived to develop a diverse set of core skills.
-            <br /> Ever since I started working with WebGL and Shaders.
-          </Paragraph>
-        </section>
 
         <Spacing size="lg" />
 
@@ -75,9 +67,7 @@ export default function Page() {
                 backgroundImage: "url('/images/bg-gradient-light.jpg')",
               }}
             >
-              <Subheading className="text-black/30">
-                CGPA goes here
-              </Subheading>
+              <Subheading className="text-black/30">CGPA goes here</Subheading>
             </div>
 
             <div className="inline-grid h-80 w-72 place-items-center rounded-md bg-grey-1">
@@ -166,7 +156,12 @@ export default function Page() {
 
 function DisplayText() {
   return (
-    <div className="w-full text-center">
+    <div
+      className="light flex min-h-screen w-full flex-col justify-center bg-[#989bee] bg-cover bg-center pt-32 text-center text-foreground"
+      // style={{
+      //   backgroundImage: "url('/images/bg-gradient-light.jpg')",
+      // }}
+    >
       <h2 className="font-mona text-5xl font-medium uppercase font-stretch-[105%] [&>em]:font-redI [&>em]:not-italic">
         Crafting code, <br />
         Building worlds, <br />
@@ -179,6 +174,14 @@ function DisplayText() {
         <br />
         than something!
       </h2>
+
+      <Spacing size="section" />
+
+      <Paragraph center className="font-medium text-foreground/80">
+        Over the course of my career, I&apos;ve
+        <br /> strived to develop a diverse set of core skills.
+        <br /> Ever since I started working with WebGL and Shaders.
+      </Paragraph>
     </div>
   )
 }
@@ -307,6 +310,23 @@ function LastSection() {
           </button>
         </div>
       </Grid>
+    </section>
+  )
+}
+
+function Hero() {
+  return (
+    <section className="grid h-screen place-items-center">
+      <button
+        className="rounded-full bg-cover bg-center px-4 py-3 text-black"
+        style={{
+          backgroundImage: "url('/images/bg-gradient-light.jpg')",
+        }}
+      >
+        <TertiaryHeading textSmall className="font-medium">
+          Scroll down
+        </TertiaryHeading>
+      </button>
     </section>
   )
 }

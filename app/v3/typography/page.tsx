@@ -135,6 +135,10 @@ export default function Page() {
         <Spacing className="h-[60vh]" />
 
         <Works />
+
+        <Spacing size="section" />
+
+        <Footer />
       </div>
     </>
   )
@@ -215,6 +219,19 @@ function Works() {
           url="https://i.pinimg.com/originals/9b/ff/65/9bff65fd363983c023476244acf811f5.gif"
           noButton
         />
+      </Grid>
+    </>
+  )
+}
+
+function Footer() {
+  return (
+    <>
+      <Grid className="container w-full gap-0 p-0 text-foreground/60">
+        <footer className="container col-start-1 -col-end-1 inline-grid h-48 w-full place-items-center bg-grey-2 p-0">
+          <Subheading>Footer goes here</Subheading>
+        </footer>
+        <Spacing className="col-span-full col-start-1 h-[5.05rem] bg-gradient-to-b from-grey-2 to-grey-2/50" />
       </Grid>
     </>
   )

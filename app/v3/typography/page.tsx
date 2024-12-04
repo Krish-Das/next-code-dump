@@ -323,16 +323,18 @@ function LastSection() {
 function Hero() {
   return (
     <section className="grid h-screen place-items-center">
-      <button
-        className="rounded-full bg-cover bg-center px-4 py-3 text-black"
-        style={{
-          backgroundImage: "url('/images/bg-gradient-light.jpg')",
-        }}
-      >
-        <TertiaryHeading textSmall className="font-medium">
-          Scroll down
-        </TertiaryHeading>
-      </button>
+      <Subheading className="text-foreground/30">Hero not done yet!</Subheading>
+
+      {/* <button */}
+      {/*   className="rounded-full bg-cover bg-center px-4 py-3 text-black" */}
+      {/*   style={{ */}
+      {/*     backgroundImage: "url('/images/bg-gradient-light.jpg')", */}
+      {/*   }} */}
+      {/* > */}
+      {/*   <TertiaryHeading textSmall className="font-medium"> */}
+      {/*     Scroll down */}
+      {/*   </TertiaryHeading> */}
+      {/* </button> */}
     </section>
   )
 }

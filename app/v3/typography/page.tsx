@@ -31,12 +31,6 @@ export default function Page() {
         <Spacing size="section" />
 
         <section className="flex flex-col items-center">
-          <TertiaryHeading className="text-[#CDFCBC]" textSmall>
-            Moebius-Style post-processing
-          </TertiaryHeading>
-
-          <Spacing size="sm" />
-
           <Paragraph center>
             Over the course of my career, I&apos;ve
             <br /> strived to develop a diverse set of core skills.
@@ -57,7 +51,12 @@ export default function Page() {
           <PrimaryHeading>
             What we&apos;re
             <br />
-            <span className="ml-[3ch]">Good at</span>
+            <span className="relative ml-[3ch]">
+              <span className="absolute left-0 top-0 -translate-x-12 translate-y-1 font-gambarino text-7xl">
+                *
+              </span>
+              Good at
+            </span>
           </PrimaryHeading>
 
           <Spacing size="md" />

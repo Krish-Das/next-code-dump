@@ -26,9 +26,27 @@ const Gambarino = localFont({
   display: "swap",
 })
 
+const Red = localFont({
+  src: "../public/fonts/redaction/Redaction-Regular.woff2",
+  variable: "--font-red",
+  display: "swap",
+})
+
 const RedI = localFont({
   src: "../public/fonts/redaction/Redaction-Italic.woff2",
   variable: "--font-redI",
+  display: "swap",
+})
+
+const Red10 = localFont({
+  src: "../public/fonts/redaction/Redaction_10-Regular.woff2",
+  variable: "--font-red10",
+  display: "swap",
+})
+
+const Red20 = localFont({
+  src: "../public/fonts/redaction/Redaction_20-Regular.woff2",
+  variable: "--font-red20",
   display: "swap",
 })
 
@@ -58,7 +76,7 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${Geist.className} ${Geist.variable} ${Mona.variable} ${inter.variable} ${Gambarino.variable}
-                  ${RedI.variable} ${Red10I.variable} ${Red20I.variable}`}
+                  ${Red.variable} ${RedI.variable} ${Red10.variable} ${Red10I.variable} ${Red20.variable} ${Red20I.variable}`}
     >
       <body className="dark">
         <Provider>{children}</Provider>

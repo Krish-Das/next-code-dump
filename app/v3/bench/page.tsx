@@ -67,7 +67,7 @@ function About() {
           }}
         />
 
-        <span className="absolute bottom-3.5 left-3.5 rounded bg-grey-1/40 px-2 py-1 text-xs font-medium uppercase leading-none backdrop-blur-md">
+        <span className="pointer-events-none absolute bottom-3.5 left-3.5 touch-none select-none rounded bg-grey-1/40 px-2 py-1 text-xs font-medium uppercase leading-none backdrop-blur-md">
           On 2005
         </span>
       </div>

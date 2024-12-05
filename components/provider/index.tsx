@@ -1,3 +1,9 @@
+import Lenis from "./Lenis"
+
 export default function Provider({ children }: { children: React.ReactNode }) {
-  return <>{children}</>;
+  return (
+    <>
+      <Lenis>{children}</Lenis>
+    </>
+  )
 }

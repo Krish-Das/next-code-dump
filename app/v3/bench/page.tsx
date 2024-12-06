@@ -1,6 +1,6 @@
 import { MaterialSymbolsGroupOutline } from "@/components/icons/material-symbols"
 
-import { Subheading } from "../typography/components/heading"
+import { Subheading, TertiaryHeading } from "../typography/components/heading"
 import Navbar from "../typography/components/navbar"
 import { Spacing } from "../typography/components/spacing"
 import { Paragraph } from "../typography/components/text"
@@ -16,7 +16,9 @@ export default function Page() {
         {/* <About /> */}
         {/* <Spacing size="nav" /> */}
 
+        <Spacing size="section" />
         <EdDisplay />
+        <Spacing size="nav" />
       </div>
 
       <Navbar />
@@ -80,11 +82,9 @@ function About() {
 function EdDisplay() {
   return (
     <>
-      <Spacing size="section" />
-
       <section className="">
         {/* // TODO: fix the screen-reader */}
-        <h3 className="relative isolate flex flex-col text-center text-[9vw] leading-[0.87] tracking-tight text-[#e1e3fc]/50">
+        <h3 className="relative isolate flex flex-col text-center text-[9vw] leading-[0.84] tracking-tight text-[#e1e3fc]/50">
           <span className="font-red">Education like</span>{" "}
           <span className="font-mona font-semibold font-slant-[8]">
             never seen before
@@ -96,6 +96,28 @@ function EdDisplay() {
       </section>
 
       <Spacing size="section" />
+
+      <section>
+        <TertiaryHeading className="text-center text-[#CDFCBC]" textSmall>
+          Moebius-Style post-processing
+        </TertiaryHeading>
+
+        <Spacing size="sm" />
+
+        <div className="flex items-center justify-center gap-3">
+          <div className="inline-grid h-[21rem] w-72 place-items-center rounded-md bg-grey-1">
+            <Subheading className="text-foreground/20">
+              CGPA goes here
+            </Subheading>
+          </div>
+
+          <div className="inline-grid h-[21rem] w-72 place-items-center rounded-md bg-grey-1">
+            <Subheading className="text-foreground/20">
+              CGPA goes here
+            </Subheading>
+          </div>
+        </div>
+      </section>
     </>
   )
 }

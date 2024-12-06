@@ -9,15 +9,14 @@ export default function Page() {
   return (
     <>
       <div className="bg-black">
-        {/* <Hero /> */}
+        <Hero />
 
-        {/* <Spacing size="md" /> */}
+        <Spacing size="md" />
+        <About />
 
-        {/* <About /> */}
-        {/* <Spacing size="nav" /> */}
+        <Spacing className="h-56" />
+        <Education />
 
-        <Spacing size="section" />
-        <EdDisplay />
         <Spacing size="nav" />
       </div>
 
@@ -79,7 +78,7 @@ function About() {
   )
 }
 
-function EdDisplay() {
+function Education() {
   return (
     <>
       <section className="">

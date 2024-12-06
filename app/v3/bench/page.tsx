@@ -9,12 +9,14 @@ export default function Page() {
   return (
     <>
       <div className="bg-black">
-        <Hero />
+        {/* <Hero /> */}
 
-        <Spacing size="md" />
+        {/* <Spacing size="md" /> */}
 
-        <About />
-        <Spacing size="nav" />
+        {/* <About /> */}
+        {/* <Spacing size="nav" /> */}
+
+        <EdDisplay />
       </div>
 
       <Navbar />
@@ -72,5 +74,28 @@ function About() {
         </span>
       </div>
     </section>
+  )
+}
+
+function EdDisplay() {
+  return (
+    <>
+      <Spacing size="section" />
+
+      <section className="">
+        {/* // TODO: fix the screen-reader */}
+        <h3 className="relative isolate flex flex-col text-center text-[9vw] leading-[0.87] tracking-tight text-[#e1e3fc]/50">
+          <span className="font-red">Education like</span>{" "}
+          <span className="font-mona font-semibold font-slant-[8]">
+            never seen before
+          </span>
+          <span className="absolute bottom-[-13%] right-[35%] h-fit font-red10I text-[25vw] font-normal not-italic leading-[0] text-brand-green mix-blend-lighten">
+            *
+          </span>
+        </h3>
+      </section>
+
+      <Spacing size="section" />
+    </>
   )
 }

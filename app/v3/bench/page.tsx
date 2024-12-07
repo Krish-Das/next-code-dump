@@ -10,16 +10,17 @@ export default function Page() {
   return (
     <>
       <div className="bg-black">
-        {/* <Hero /> */}
-        {/**/}
-        {/* <Spacing size="md" /> */}
-        {/* <About /> */}
-        {/**/}
-        {/* <Spacing className="h-56" /> */}
-        {/* <Education /> */}
+        <Hero />
+
+        <Spacing size="md" />
+        <About />
+
+        <Spacing className="h-56" />
+        <Education />
 
         <Spacing size="lg" />
         <OtherProps />
+
         <Spacing size="nav" />
       </div>
 
@@ -128,8 +129,8 @@ function OtherProps() {
   return (
     <Grid className="grid-cols-12 gap-0 px-4">
       {/* FIRST ROW */}
-      <div className="col-span-full col-start-3 mb-32">
-        <h2 className="font-red10 text-[10vw] leading-snug tracking-tight text-[#e1e3fc]/50">
+      <div className="col-span-full col-start-1 mb-28 text-center">
+        <h2 className="font-mona text-[9vw] font-bold leading-snug tracking-tight text-[#e1e3fc]/50">
           Other props
           <span className="ml-2 font-red20I text-brand-green">:</span>
         </h2>
@@ -179,7 +180,7 @@ function OtherProps() {
       </div>
 
       {/* THIRD ROW */}
-      <div className="col-start-2 -col-end-2 mt-28 flex gap-1 rounded-md border border-white/5 bg-grey-1 p-1">
+      <div className="col-start-2 -col-end-2 mt-24 flex gap-1 rounded-md border border-white/5 bg-grey-1 p-1">
         {Array.from({ length: 3 }, (_, idx) => (
           <div className="h-80 w-full rounded-md bg-grey-2/80" key={idx} />
         ))}

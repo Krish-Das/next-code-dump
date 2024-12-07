@@ -232,7 +232,7 @@ function Interviews() {
             The Colophone
           </Subheading>
 
-          <p className="max-w-[29ch] font-mona text-xs text-[#e1e3fc] font-feature-ss01 font-stretch-[105%]">
+          <p className="max-w-[29ch] font-mona text-xs font-medium text-foreground font-feature-ss01 font-stretch-[105%]">
             The random, the beautiful, the weird, the temporary, the evergreen.
           </p>
         </div>

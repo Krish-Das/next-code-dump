@@ -1,4 +1,5 @@
 import { MaterialSymbolsGroupOutline } from "@/components/icons/material-symbols"
+import { Grid } from "@/app/test/skills-cards/Cards"
 
 import { Subheading, TertiaryHeading } from "../typography/components/heading"
 import Navbar from "../typography/components/navbar"
@@ -9,14 +10,16 @@ export default function Page() {
   return (
     <>
       <div className="bg-black">
-        <Hero />
+        {/* <Hero /> */}
+        {/**/}
+        {/* <Spacing size="md" /> */}
+        {/* <About /> */}
+        {/**/}
+        {/* <Spacing className="h-56" /> */}
+        {/* <Education /> */}
 
-        <Spacing size="md" />
-        <About />
-
-        <Spacing className="h-56" />
-        <Education />
-
+        <Spacing size="lg" />
+        <OtherProps />
         <Spacing size="nav" />
       </div>
 
@@ -118,5 +121,69 @@ function Education() {
         </div>
       </section>
     </>
+  )
+}
+
+function OtherProps() {
+  return (
+    <Grid className="grid-cols-12 gap-0 px-4">
+      {/* FIRST ROW */}
+      <div className="col-span-full col-start-3 mb-32">
+        <h2 className="font-red10 text-[10vw] leading-snug tracking-tight text-[#e1e3fc]/50">
+          Other props
+          <span className="ml-2 font-red20I text-brand-green">:</span>
+        </h2>
+      </div>
+
+      {/* SECOND ROW */}
+      <div className="col-span-3 col-start-3 flex flex-col gap-3">
+        <Subheading className="font-semibold text-[#e1e3fc]/50">
+          (01) Currently focused
+        </Subheading>
+        <ul className="text-sm leading-loose">
+          <li>Progressive web apps (PWA)</li>
+          <li>Native apps</li>
+          <li>Web standardization</li>
+        </ul>
+      </div>
+
+      <div className="col-span-3 flex flex-col gap-3">
+        <Subheading className="font-semibold text-[#e1e3fc]/50">
+          (02) Technologies
+        </Subheading>
+
+        <ul className="text-xs leading-relaxed text-[#e1e3fc]">
+          <li>→ Visual Identity</li>
+          <li>→ Branding</li>
+          <li>→ Art Direction</li>
+          <li>→ UI & UX</li>
+          <li>→ Digital experience</li>
+          <li>→ Motion & INTERACTION</li>
+          <li>→ ExperientIal</li>
+        </ul>
+      </div>
+
+      <div className="col-span-3 flex flex-col gap-3">
+        <Subheading className="font-semibold text-[#e1e3fc]/50">
+          The Colophone
+        </Subheading>
+
+        <p className="max-w-[25ch] text-sm text-[#e1e3fc]/60">
+          Ever since I started working with WebGL and Shaders.
+        </p>
+
+        <p className="max-w-[31ch] text-xs tracking-wide text-[#e1e3fc]">
+          Typography FAKT / DRUK / PLAID MONO Powered by Semplice HACKED by me +
+          GOOGLE SEARCH Magic Script by Marco L. Perego
+        </p>
+      </div>
+
+      {/* THIRD ROW */}
+      <div className="col-start-2 -col-end-2 mt-28 flex gap-1 rounded-md border border-white/5 bg-grey-1 p-1">
+        {Array.from({ length: 3 }, (_, idx) => (
+          <div className="h-80 w-full rounded-md bg-grey-2/80" key={idx} />
+        ))}
+      </div>
+    </Grid>
   )
 }

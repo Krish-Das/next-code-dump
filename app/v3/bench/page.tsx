@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils"
 import { SprinkleSvg } from "@/components/icons/custom"
 import {
   MaterialSymbolsArrowForward,
@@ -6,7 +7,11 @@ import {
 } from "@/components/icons/material-symbols"
 import { Grid } from "@/app/test/skills-cards/Cards"
 
-import { Subheading, TertiaryHeading } from "../typography/components/heading"
+import {
+  DualFontHeading,
+  Subheading,
+  TertiaryHeading,
+} from "../typography/components/heading"
 import Navbar from "../typography/components/navbar"
 import { Spacing } from "../typography/components/spacing"
 import { Paragraph } from "../typography/components/text"
@@ -28,6 +33,9 @@ export default function Page() {
 
         <Spacing size="lg" />
         <Interviews />
+
+        <Spacing size="lg" />
+        <Works />
 
         <Spacing size="nav" />
       </div>
@@ -266,6 +274,84 @@ function Interviews() {
             Scedule an Interview
           </button>
         </div>
+      </Grid>
+    </>
+  )
+}
+
+function Works() {
+  const WorkImage = ({
+    className,
+    url,
+    noButton,
+  }: {
+    className?: string
+    url: string
+    noButton?: boolean
+  }) => {
+    return (
+      <div
+        className={cn(
+          // "h-full w-full rounded-md bg-grey-1 bg-cover bg-center ring ring-inset ring-foreground/[0.08]",
+          "group flex h-full w-full flex-col gap-1",
+          noButton ? "p-0" : "rounded-md border border-white/5 bg-grey-1 p-1",
+          className
+        )}
+      >
+        <div
+          className={cn(
+            "h-full w-full flex-1 bg-black bg-cover bg-center",
+            noButton
+              ? "rounded-md ring ring-inset ring-foreground/[0.08]"
+              : "rounded"
+          )}
+          style={{ backgroundImage: `url(${url})` }}
+        />
+        {!noButton && (
+          <button
+            className="inline-flex h-10 w-full items-center justify-center gap-1 rounded bg-grey-2/70 font-mona text-sm
+          font-medium text-foreground/80 transition-all ease-in-out font-feature-ss01 font-stretch-[105%] hover:bg-grey-2
+          [&>svg]:text-base [&>svg]:text-foreground/60 [&>svg]:hover:translate-x-1 [&>svg]:hover:text-foreground/100
+          "
+          >
+            View production <MaterialSymbolsArrowForward />
+          </button>
+        )}
+      </div>
+    )
+  }
+
+  return (
+    <>
+      <div className="p-3">
+        <h2 className="text-center font-mona text-[9vw] font-bold leading-none tracking-tight text-[#e1e3fc]/50">
+          Some
+          <span className="font-red font-normal"> Selected works.</span>
+        </h2>
+      </div>
+
+      <Grid className="h-screen gap-2 p-3">
+        <WorkImage
+          className="col-span-2 row-span-2"
+          url="https://d2w9rnfcy7mm78.cloudfront.net/26440348/original_dbb3390e4225410854c036cd80c12e8d.gif?1708347273"
+          noButton
+        />
+
+        <WorkImage
+          className="col-span-4"
+          url="https://d2w9rnfcy7mm78.cloudfront.net/31524027/original_681ae5bf6a0242376ef58bfc0fef84d0.gif?1729249292"
+        />
+
+        <WorkImage
+          className="col-span-2"
+          url="https://i.pinimg.com/736x/4f/64/3b/4f643b7e375326b5fb0c756e7f0ad28f.jpg"
+        />
+
+        <WorkImage
+          className="col-span-full col-start-3"
+          url="https://i.pinimg.com/originals/9b/ff/65/9bff65fd363983c023476244acf811f5.gif"
+          noButton
+        />
       </Grid>
     </>
   )

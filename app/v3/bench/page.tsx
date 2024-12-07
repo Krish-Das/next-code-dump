@@ -75,10 +75,11 @@ function About() {
       <Spacing className="h-8" />
       <div className="relative w-fit rounded-md border border-white/5 bg-grey-1 p-1">
         <div
-          className="h-80 w-[40.5rem] rounded-md bg-[#a0a3ef] bg-cover bg-center"
+          className="h-80 w-[40.5rem] rounded-md bg-[#a0a3ef] bg-cover bg-top"
           style={{
             backgroundImage:
-              "url('https://i.pinimg.com/1200x/38/b4/73/38b473e8f7ec4ae7bcce29b122e38904.jpg')",
+              "url('https://i.pinimg.com/1200x/a8/4c/4c/a84c4cfb786d493607160dce783a7352.jpg')",
+            // "url('https://i.pinimg.com/1200x/38/b4/73/38b473e8f7ec4ae7bcce29b122e38904.jpg')",
           }}
         />
 

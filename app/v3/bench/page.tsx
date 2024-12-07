@@ -100,7 +100,12 @@ function Education() {
           <span className="font-mona font-semibold font-slant-[8]">
             never seen before
           </span>
-          <span className="absolute bottom-[-13%] right-[35%] h-fit font-red10I text-[25vw] font-normal not-italic leading-[0] text-brand-green mix-blend-lighten">
+          <span
+            className="
+            pointer-events-none absolute bottom-[-13%] right-[35%] h-fit touch-none select-none font-red10I text-[25vw] font-normal not-italic
+            leading-[0] text-brand-green mix-blend-lighten
+            "
+          >
             *
           </span>
         </h3>

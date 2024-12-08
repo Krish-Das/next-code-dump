@@ -18,6 +18,7 @@ import {
 } from "./MaterialSymbolsChevron"
 import { MaterialSymbolsCircle } from "./MaterialSymbolsCircle"
 import { MaterialSymbolsCircleOutline } from "./MaterialSymbolsCircleOutline"
+import { MaterialSymbolsConstructionRounded } from "./MaterialSymbolsConstruction"
 import { MaterialSymbolsDockToLeft } from "./MaterialSymbolsDockToLeft"
 import { MaterialSymbolsDockToRight } from "./MaterialSymbolsDockToRight"
 import { MaterialSymbolsGroupOutline } from "./MaterialSymbolsGroupOutline"
@@ -37,6 +38,10 @@ import { MaterialSymbolsRectangleOutlineRounded } from "./MaterialSymbolsRectang
 import { MaterialSymbolsRectangleRounded } from "./MaterialSymbolsRectangleRounded"
 import { MaterialSymbolsUpcoming } from "./MaterialSymbolsUpcoming"
 import { MaterialSymbolsUpcomingOutline } from "./MaterialSymbolsUpcomingOutline"
+import {
+  MaterialSymbolsWarningOutlineRounded,
+  MaterialSymbolsWarningRounded,
+} from "./MaterialSymbolsWarning"
 import { MaterialSymbolsWork } from "./MaterialSymbolsWork"
 import { MaterialSymbolsWorkOutline } from "./MaterialSymbolsWorkOutline"
 import { MaterialSymbolsWorkOutlineSharp } from "./MaterialSymbolsWorkOutlineSharp"
@@ -76,4 +81,7 @@ export {
   MaterialSymbolsInterpreterModeOutline,
   MaterialSymbolsChevronRight,
   MaterialSymbolsChevronLeft,
+  MaterialSymbolsWarningOutlineRounded,
+  MaterialSymbolsWarningRounded,
+  MaterialSymbolsConstructionRounded,
 }

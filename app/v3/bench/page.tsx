@@ -174,28 +174,30 @@ function OtherProps() {
         </Subheading>
 
         <ul className="text-xs leading-relaxed text-[#e1e3fc]">
-          <li>→ Visual Identity</li>
-          <li>→ Branding</li>
-          <li>→ Art Direction</li>
-          <li>→ UI & UX</li>
-          <li>→ Digital experience</li>
-          <li>→ Motion & INTERACTION</li>
-          <li>→ ExperientIal</li>
+          <li>→ Hyperloop Identity</li>
+          <li>→ Falcon Xperience</li>
+          <li>→ Neural UX</li>
+          <li>→ Starman Interaction</li>
+          <li>→ Orbital Branding</li>
+          <li>→ DragonFlow</li>
+          <li>→ Mars Directive</li>
         </ul>
       </div>
 
       <div className="col-span-3 flex flex-col gap-3">
         <Subheading className="font-semibold text-[#e1e3fc]/50">
-          The Colophone
+          Cosmic Creativity
         </Subheading>
 
         <p className="max-w-[25ch] text-sm text-[#e1e3fc]/60">
-          Ever since I started working with WebGL and Shaders.
+          Futuristic design skills that are out of this world.
         </p>
 
         <p className="max-w-[31ch] text-xs tracking-wide text-[#e1e3fc]">
-          Typography FAKT / DRUK / PLAID MONO Powered by Semplice HACKED by me +
-          GOOGLE SEARCH Magic Script by Marco L. Perego
+          Our skillset is out of this world—literally. From crafting
+          <b> Hyperloop Identity</b> for brands that move faster than a snail to
+          designing <b>Falcon Xperiences</b> that don&apos;t take you to the
+          stars.
         </p>
       </div>
 

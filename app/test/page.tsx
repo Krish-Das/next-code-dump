@@ -1,4 +1,5 @@
 import Nav from "../folio/nav"
+import { PlaceHolder } from "./placeholder"
 import Cards from "./skills-cards/Cards"
 
 export default function Page() {
@@ -9,13 +10,5 @@ export default function Page() {
       <PlaceHolder />
       <Cards />
     </>
-  )
-}
-
-export function PlaceHolder({ children }: { children?: React.ReactNode }) {
-  return (
-    <section className="h-[50dvh]s grid h-screen place-items-center">
-      {children}
-    </section>
   )
 }

@@ -7,14 +7,11 @@ import {
 } from "@/components/icons/material-symbols"
 import { Grid } from "@/app/test/skills-cards/Cards"
 
-import {
-  DualFontHeading,
-  Subheading,
-  TertiaryHeading,
-} from "../typography/components/heading"
+import { Subheading, TertiaryHeading } from "../typography/components/heading"
 import Navbar from "../typography/components/navbar"
 import { Spacing } from "../typography/components/spacing"
 import { Paragraph } from "../typography/components/text"
+import DevelopementIndicator from "./developement-indicator"
 
 export default function Page() {
   return (
@@ -41,6 +38,7 @@ export default function Page() {
       </div>
 
       <Navbar />
+      <DevelopementIndicator />
     </>
   )
 }

@@ -1,10 +1,11 @@
 "use client"
 
 import { SystemUiconsSearch } from "@/components/icons/system-ui"
+import { debounce } from "@/lib/utils"
 import { useEffect, useState } from "react"
 import { TextField, Label, Input as RacInput } from "react-aria-components"
 
-type searchResultsType = {
+export type searchResultsType = {
   countries: string[]
   time: number
 }
@@ -14,21 +15,20 @@ export default function Input() {
   const [searchResults, setSearchResults] = useState<searchResultsType>()
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchData = debounce(async () => {
       if (!text) {
         setSearchResults(undefined)
         return
       }
 
-      const mockData: searchResultsType = {
-        countries: text.split(""),
-        time: 120,
-      }
+      const data = await fetch(`/api/countries?q=${text}`)
+      const result = await data.json()
 
-      setSearchResults(mockData)
-    }
+      setSearchResults(result)
+    }, 250)
 
     fetchData()
+    return () => fetchData.cancel()
   }, [text])
 
   return (

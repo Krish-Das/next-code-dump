@@ -1,9 +1,36 @@
 "use client"
 
 import { SystemUiconsSearch } from "@/components/icons/system-ui"
+import { useEffect, useState } from "react"
 import { TextField, Label, Input as RacInput } from "react-aria-components"
 
+type searchResultsType = {
+  countries: string[]
+  time: number
+}
+
 export default function Input() {
+  const [text, setText] = useState<string>("")
+  const [searchResults, setSearchResults] = useState<searchResultsType>()
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!text) {
+        setSearchResults(undefined)
+        return
+      }
+
+      const mockData: searchResultsType = {
+        countries: text.split(""),
+        time: 120,
+      }
+
+      setSearchResults(mockData)
+    }
+
+    fetchData()
+  }, [text])
+
   return (
     <div className="space-y-1">
       <TextField className="flex h-11 w-[35ch] items-center rounded-lg bg-[#767680]/25 outline-none">
@@ -19,17 +46,22 @@ export default function Input() {
           placeholder="Search country"
           className="h-full w-full bg-transparent pr-3 font-medium outline-none"
           style={{ caretColor: "#0a84ff" }}
+          onChange={e => setText(e.target.value)}
         />
       </TextField>
 
-      <CountryDisplay />
+      {searchResults && <CountryDisplay searchResults={searchResults} />}
     </div>
   )
 }
 
-function CountryDisplay() {
-  const countries: string[] = ["india", "us", "something else"]
-  const time = 200
+function CountryDisplay({
+  searchResults,
+}: {
+  searchResults: searchResultsType
+}) {
+  const countries = searchResults.countries
+  const time = searchResults.time
 
   return (
     <div className="">

@@ -25,7 +25,7 @@ export default function Input() {
       const result = await data.json()
 
       setSearchResults(result)
-    }, 250)
+    }, 100)
 
     fetchData()
     return () => fetchData.cancel()

@@ -1,12 +1,14 @@
-"use client";
+"use client"
 
-import { Main } from "@/components/layout/mainwraper";
-import { Button } from "react-aria-components";
+import { Main } from "@/components/layout/mainwraper"
+import { Button } from "react-aria-components"
 
 export default function Home() {
   return (
-    <Main className="hidden bg-blue-200">
-      <Button className="bg-green-500 rac-hover:bg-blue-300">THIS</Button>
+    <Main>
+      <Button className="rounded-lg bg-muted px-3 py-2 font-medium text-muted-foreground rac-hover:bg-muted/80">
+        Click
+      </Button>
     </Main>
-  );
+  )
 }

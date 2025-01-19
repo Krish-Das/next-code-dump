@@ -1,6 +1,7 @@
 import { ragChat } from "@/lib/ragchat"
 import { redis } from "@/lib/reddis"
 import { reconstructURL } from "@/lib/utils"
+import { ChatComponent } from "./ChatComponent"
 
 type Pageparams = {
   url: string[]
@@ -30,5 +31,5 @@ export default async function Page({ params }: { params: unknown }) {
     redis.sadd("indexed-urls", reconURL)
   }
 
-  return <div>{reconURL}</div>
+  return <ChatComponent />
 }

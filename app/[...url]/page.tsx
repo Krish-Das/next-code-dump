@@ -31,5 +31,5 @@ export default async function Page({ params }: { params: unknown }) {
     redis.sadd("indexed-urls", reconURL)
   }
 
-  return <ChatComponent />
+  return <ChatComponent sessionId={sessionId} />
 }

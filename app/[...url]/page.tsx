@@ -15,6 +15,10 @@ export default async function Page({ params }: { params: unknown }) {
   console.log("URL:", reconURL)
   console.log("Indexed:", isAlreadyIndexed)
 
+  // TODO: Implement later: mock-session
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const sessionId = "mock-session"
+
   if (!isAlreadyIndexed) {
     console.log("Adding new entry")
     await ragChat.context.add({

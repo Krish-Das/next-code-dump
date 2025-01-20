@@ -2,13 +2,20 @@
 
 import { Button, Form, Input, Label } from "react-aria-components"
 import { SendIcon } from "lucide-react"
-import { useChat } from "ai/react"
+import { Message, useChat } from "ai/react"
 import MessageComponent from "./MessageComponent"
 
-export const ChatComponent = ({ sessionId }: { sessionId: string }) => {
+export const ChatComponent = ({
+  sessionId,
+  initialMessages,
+}: {
+  sessionId: string
+  initialMessages: Message[]
+}) => {
   const { messages, input, handleInputChange, handleSubmit } = useChat({
     api: "/api/chat",
     body: { sessionId },
+    initialMessages,
   })
 
   return (

@@ -2,23 +2,28 @@ import { ragChat } from "@/lib/ragchat"
 import { redis } from "@/lib/reddis"
 import { reconstructURL } from "@/lib/utils"
 import { ChatComponent } from "./ChatComponent"
+import { cookies } from "next/headers"
+import { notFound } from "next/navigation"
 
 type Pageparams = {
   url: string[]
 }
 
 export default async function Page({ params }: { params: unknown }) {
-  const { url } = await (params as Promise<Pageparams>)
+  const cookieStore = await cookies()
+  const session = cookieStore.get("sessionId")
 
+  if (!session) notFound()
+
+  const { url } = await (params as Promise<Pageparams>)
   const reconURL = reconstructURL(url)
+
   const isAlreadyIndexed = await redis.sismember("indexed-urls", reconURL)
 
   console.log("URL:", reconURL)
   console.log("Indexed:", isAlreadyIndexed)
 
-  // TODO: Implement later: mock-session
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const sessionId = "mock-session"
+  const sessionId = (reconURL + "--" + session.value).replace(/\//g, "")
 
   if (!isAlreadyIndexed) {
     console.log("Adding new entry")
@@ -31,5 +36,12 @@ export default async function Page({ params }: { params: unknown }) {
     redis.sadd("indexed-urls", reconURL)
   }
 
-  return <ChatComponent sessionId={sessionId} />
+  const initialMessages = await ragChat.history.getMessages({
+    amount: 20,
+    sessionId,
+  })
+
+  return (
+    <ChatComponent sessionId={sessionId} initialMessages={initialMessages} />
+  )
 }

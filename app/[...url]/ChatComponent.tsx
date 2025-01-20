@@ -3,6 +3,7 @@
 import { Button, Form, Input, Label } from "react-aria-components"
 import { SendIcon } from "lucide-react"
 import { useChat } from "ai/react"
+import MessageComponent from "./MessageComponent"
 
 export const ChatComponent = ({ sessionId }: { sessionId: string }) => {
   const { messages, input, handleInputChange, handleSubmit } = useChat({
@@ -12,7 +13,8 @@ export const ChatComponent = ({ sessionId }: { sessionId: string }) => {
 
   return (
     <div className="flex h-dvh flex-col gap-1">
-      <div className="flex-1">{JSON.stringify(messages)}</div>
+      <MessageComponent messages={messages} />
+
       <Form className="flex items-center gap-1 p-3" onSubmit={handleSubmit}>
         <Label htmlFor="chat-input" className="sr-only">
           Chat with the site

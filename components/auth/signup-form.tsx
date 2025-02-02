@@ -1,10 +1,9 @@
 "use client"
 
 import { useState } from "react"
+import { Signup } from "@/actions/authenticate"
 import { Button, Flex, IconButton, Text, TextField } from "@radix-ui/themes"
 import { RotateCw } from "lucide-react"
-
-import { wait } from "@/lib/utils"
 
 export default function SignupForm() {
   const [name, setName] = useState("")
@@ -34,27 +33,15 @@ export default function SignupForm() {
         <form
           className="form-signup"
           onSubmit={async e => {
-            const start = performance.now()
             e.preventDefault()
             setSigningUp(true)
+
             const credentials = { name, email, password: pass }
+            const { error: authError } = await Signup(credentials)
 
-            try {
-              await wait(3000)
-              console.log(credentials)
+            if (authError) console.error(authError) // TODO: Render a toast
 
-              const finish = performance.now()
-              console.log(
-                `[LOG] signing up of ${email} took ${finish - start}ms`
-              )
-            } catch (err) {
-              console.error(
-                `[AUTH ERROR] error while signing up ${email}\n\nERROR:`,
-                err
-              )
-            } finally {
-              setSigningUp(false)
-            }
+            setSigningUp(false)
           }}
         >
           <label>
@@ -130,3 +117,4 @@ export default function SignupForm() {
     </>
   )
 }
+

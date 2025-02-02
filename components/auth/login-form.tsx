@@ -1,10 +1,9 @@
 "use client"
 
 import { useState } from "react"
+import { Login } from "@/actions/authenticate"
 import { Button, Flex, IconButton, Text, TextField } from "@radix-ui/themes"
 import { RotateCw } from "lucide-react"
-
-import { wait } from "@/lib/utils"
 
 export default function LoginForm() {
   const [email, setEmail] = useState("")
@@ -27,27 +26,15 @@ export default function LoginForm() {
         <form
           className="form-login"
           onSubmit={async e => {
-            const start = performance.now()
             e.preventDefault()
             setLoggingIn(true)
+
             const credentials = { email, password: pass }
+            const { error: authError } = await Login(credentials)
 
-            try {
-              await wait(3000)
-              console.log(credentials)
+            if (authError) console.error(authError) // TODO: Render a toast
 
-              const finish = performance.now()
-              console.log(
-                `[LOG] logging in of ${email} took ${finish - start}ms`
-              )
-            } catch (err) {
-              console.error(
-                `[AUTH ERROR] error while logging in ${email}\n\nERROR:`,
-                err
-              )
-            } finally {
-              setLoggingIn(false)
-            }
+            setLoggingIn(false)
           }}
         >
           <label>

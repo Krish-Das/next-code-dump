@@ -4,9 +4,12 @@ import { useState } from "react"
 import { Button, Flex, IconButton, Text, TextField } from "@radix-ui/themes"
 import { RotateCw } from "lucide-react"
 
+import { wait } from "@/lib/utils"
+
 export default function LoginForm() {
   const [email, setEmail] = useState("")
   const [pass, setPass] = useState("")
+  const [isLoggingIn, setLoggingIn] = useState(false)
 
   const isEmailValid = email.length > 2
   const isPassValid = pass.length > 2
@@ -24,9 +27,27 @@ export default function LoginForm() {
         <form
           className="form-signup"
           onSubmit={async e => {
+            const start = performance.now()
             e.preventDefault()
+            setLoggingIn(true)
             const credentials = { email, password: pass }
-            console.log(credentials)
+
+            try {
+              await wait(3000)
+              console.log(credentials)
+
+              const finish = performance.now()
+              console.log(
+                `[LOG] logging in of ${email} took ${finish - start}ms`
+              )
+            } catch (err) {
+              console.error(
+                `[AUTH ERROR] error while logging in ${email}\n\nERROR:`,
+                err
+              )
+            } finally {
+              setLoggingIn(false)
+            }
           }}
         >
           <label>
@@ -56,14 +77,20 @@ export default function LoginForm() {
 
           <Button
             mt="2"
-            disabled={!isSubmissionValid}
             type="submit"
             variant="classic"
+            disabled={!isSubmissionValid || isLoggingIn}
+            loading={isLoggingIn}
           >
             Login
           </Button>
 
-          <IconButton variant="soft" onClick={resetValues} type="button">
+          <IconButton
+            variant="soft"
+            type="button"
+            onClick={resetValues}
+            disabled={isLoggingIn}
+          >
             <RotateCw size="16" />
           </IconButton>
         </form>

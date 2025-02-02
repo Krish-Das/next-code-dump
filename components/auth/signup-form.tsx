@@ -4,11 +4,14 @@ import { useState } from "react"
 import { Button, Flex, IconButton, Text, TextField } from "@radix-ui/themes"
 import { RotateCw } from "lucide-react"
 
+import { wait } from "@/lib/utils"
+
 export default function SignupForm() {
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [pass, setPass] = useState("")
   const [pass2, setPass2] = useState("")
+  const [isSigningUp, setSigningUp] = useState(false)
 
   const isNameValid = name.length > 2
   const isEmailValid = email.length > 2
@@ -31,9 +34,27 @@ export default function SignupForm() {
         <form
           className="form-signup"
           onSubmit={async e => {
+            const start = performance.now()
             e.preventDefault()
+            setSigningUp(true)
             const credentials = { name, email, password: pass }
-            console.log(credentials)
+
+            try {
+              await wait(3000)
+              console.log(credentials)
+
+              const finish = performance.now()
+              console.log(
+                `[LOG] signing up of ${email} took ${finish - start}ms`
+              )
+            } catch (err) {
+              console.error(
+                `[AUTH ERROR] error while signing up ${email}\n\nERROR:`,
+                err
+              )
+            } finally {
+              setSigningUp(false)
+            }
           }}
         >
           <label>
@@ -88,14 +109,20 @@ export default function SignupForm() {
 
           <Button
             mt="2"
-            disabled={!isSubmissionValid}
             type="submit"
             variant="classic"
+            disabled={!isSubmissionValid || isSigningUp}
+            loading={isSigningUp}
           >
             Create acc.
           </Button>
 
-          <IconButton variant="soft" onClick={resetValues} type="button">
+          <IconButton
+            variant="soft"
+            type="button"
+            onClick={resetValues}
+            disabled={isSigningUp}
+          >
             <RotateCw size="16" />
           </IconButton>
         </form>

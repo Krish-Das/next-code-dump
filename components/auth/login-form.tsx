@@ -25,7 +25,7 @@ export default function LoginForm() {
     <>
       <Flex direction="column" gap="3" asChild>
         <form
-          className="form-signup"
+          className="form-login"
           onSubmit={async e => {
             const start = performance.now()
             e.preventDefault()

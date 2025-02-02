@@ -1,5 +1,10 @@
-import { Main } from "@/components/layout/mainwraper"
+import { Button, Flex, Text } from "@radix-ui/themes"
 
 export default function Home() {
-  return <Main className="">Yolo next 😃</Main>
+  return (
+    <Flex direction="column" gap="2">
+      <Text>Hello from Radix Themes :)</Text>
+      <Button variant="classic">{"Let's go"}</Button>
+    </Flex>
+  )
 }

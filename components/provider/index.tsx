@@ -1,3 +1,9 @@
+import { Theme } from "@radix-ui/themes"
+
 export default function Provider({ children }: { children: React.ReactNode }) {
-  return <>{children}</>;
+  return (
+    <>
+      <Theme>{children}</Theme>
+    </>
+  )
 }

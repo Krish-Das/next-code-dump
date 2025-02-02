@@ -1,11 +1,14 @@
 "use client"
 
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import { Signup } from "@/actions/authenticate"
 import { Button, Flex, IconButton, Text, TextField } from "@radix-ui/themes"
 import { RotateCw } from "lucide-react"
 
 export default function SignupForm() {
+  const router = useRouter()
+
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [pass, setPass] = useState("")
@@ -39,9 +42,13 @@ export default function SignupForm() {
             const credentials = { name, email, password: pass }
             const { error: authError } = await Signup(credentials)
 
-            if (authError) console.error(authError) // TODO: Render a toast
+            if (authError) {
+              setSigningUp(false)
+              console.error(authError) // TODO: Render a toast
+              return
+            }
 
-            setSigningUp(false)
+            router.push("/dashboard")
           }}
         >
           <label>
@@ -117,4 +124,3 @@ export default function SignupForm() {
     </>
   )
 }
-

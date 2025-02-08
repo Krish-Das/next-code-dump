@@ -1,6 +1,7 @@
-import type { Config } from "tailwindcss";
-import tailwindAnimate from "tailwindcss-animate";
-import tailwindReactAriaComponents from "tailwindcss-react-aria-components";
+import { heroui } from "@heroui/react"
+import type { Config } from "tailwindcss"
+import tailwindAnimate from "tailwindcss-animate"
+import tailwindReactAriaComponents from "tailwindcss-react-aria-components"
 
 const config: Config = {
   darkMode: ["class"],
@@ -8,6 +9,7 @@ const config: Config = {
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     container: {
@@ -69,6 +71,10 @@ const config: Config = {
       },
     },
   },
-  plugins: [tailwindReactAriaComponents({ prefix: "rac" }), tailwindAnimate],
-};
-export default config;
+  plugins: [
+    tailwindReactAriaComponents({ prefix: "rac" }),
+    heroui(),
+    tailwindAnimate,
+  ],
+}
+export default config

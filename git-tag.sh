@@ -43,6 +43,9 @@ esac
 new_tag="v${major}.${minor}.${patch}"
 message="$2"
 
+# Bump up the package version
+npm version "$1"
+
 # Tag and push
 git tag -a "$new_tag" -m "$message"
 # git push origin "$new_tag"

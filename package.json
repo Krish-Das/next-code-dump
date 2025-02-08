@@ -1,0 +1,12 @@
+{
+  "name": "gittest",
+  "version": "0.1.0",
+  "description": "Test of the git patching",
+  "license": "MIT",
+  "author": "me",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}

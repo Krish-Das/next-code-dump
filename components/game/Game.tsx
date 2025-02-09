@@ -2,10 +2,12 @@ import { cn } from "@heroui/react"
 
 import { GameCard } from "./GameCard"
 
+export type GameDifficulty = "easy" | "medium" | "hard"
+
 export default function Game({
   difficulty = "easy",
 }: {
-  difficulty?: "easy" | "medium" | "hard"
+  difficulty?: GameDifficulty
 }) {
   return (
     <div

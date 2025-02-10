@@ -14,12 +14,12 @@ export default function Toolbar() {
   const difficulties = ["easy", "medium", "hard"] as const
 
   return (
-    <nav className="fixed left-5 top-5 flex h-fit items-center gap-4 rounded-full bg-content2/30 p-2">
-      <div className="flex items-center gap-1">
-        <Button color="primary" variant="flat" radius="full" isIconOnly>
+    <nav className="fixed bottom-7 left-1/2 flex h-fit -translate-x-1/2 items-center gap-4 rounded-full border border-content1/80 bg-content2/30 p-2 backdrop-blur-md">
+      <div className="flex items-center gap-2">
+        <Button color="primary" variant="solid" radius="full" isIconOnly>
           <SolarPauseBold />
         </Button>
-        <p className="text-lg font-semibold leading-none">
+        <p className="mt-[0.3ch] text-lg font-semibold leading-none">
           02:35
           <span className="text-bases ml-[0.2ch] font-normal text-content4">
             s
@@ -29,12 +29,12 @@ export default function Toolbar() {
 
       <Divider orientation="vertical" className="h-4 w-0.5 rounded-full" />
 
-      <div className="flex items-center">
-        <Button color="default" variant="light" radius="full" isIconOnly>
+      <div className="flex items-center gap-2">
+        <Button color="default" variant="flat" radius="full" isIconOnly>
           <SolarSettingsBold className="size-4" />
         </Button>
 
-        <Button color="default" variant="light" radius="full" isIconOnly>
+        <Button color="default" variant="flat" radius="full" isIconOnly>
           <SolarMenuDotsBold className="size-5" />
         </Button>
       </div>

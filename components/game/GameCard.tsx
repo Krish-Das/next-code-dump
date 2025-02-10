@@ -3,7 +3,8 @@
 import { Card, CardProps, cn } from "@heroui/react"
 import { cva, type VariantProps } from "class-variance-authority"
 
-const gameCardVariant = cva("", {
+// TODO: Use a pattern
+const gameCardVariant = cva("bg-default-300", {
   variants: {
     size: {
       square: "h-24 w-24",
@@ -20,7 +21,11 @@ type GameCardProps = VariantProps<typeof gameCardVariant> & CardProps & {}
 
 function GameCard({ size, className, ...props }: GameCardProps) {
   return (
-    <Card className={cn(gameCardVariant({ size, className }))} {...props} />
+    <Card
+      className={cn(gameCardVariant({ size, className }))}
+      shadow="none"
+      {...props}
+    />
   )
 }
 

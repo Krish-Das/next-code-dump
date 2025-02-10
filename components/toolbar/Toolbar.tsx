@@ -21,7 +21,7 @@ export default function Toolbar({
 
   return (
     <nav
-      className="fixed bottom-7 left-1/2 -translate-x-1/2 overflow-hidden border border-content2/40 bg-content2/30 backdrop-blur-md"
+      className="fixed bottom-7 left-1/2 -translate-x-1/2 overflow-hidden border border-default-100/35 bg-default-50/80 backdrop-blur-md"
       style={{
         borderRadius: isOpen ? "1rem" : "9999px",
       }}

@@ -9,6 +9,7 @@ export default async function Page(props: {
   }>
 }) {
   // TODO: Standardize this type
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const _sizes = [undefined, "square", "tall", "small"] as const
 
   const searchParams = await props.searchParams

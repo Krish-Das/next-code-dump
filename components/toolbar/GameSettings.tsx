@@ -48,10 +48,13 @@ export default function GameSettings({
               color={difficulty === selectedDifficulty ? "primary" : "default"}
               variant={difficulty === selectedDifficulty ? "solid" : "flat"}
               as={Link}
-              href={{
-                pathname: "/game",
-                query: { d: difficulty },
-              }}
+              href={
+                {
+                  pathname: "/game",
+                  query: { d: difficulty },
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                } as any
+              }
             >
               {difficulty}
             </Button>

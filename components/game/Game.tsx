@@ -1,10 +1,10 @@
 import { cn } from "@heroui/react"
 
-import { GameDifficulty } from "@/lib/types"
+import { type GameDifficulties } from "@/lib/types"
 
 import { GameCard } from "./GameCard"
 
-export default function Game({ difficulty }: { difficulty: GameDifficulty }) {
+export default function Game({ difficulty }: { difficulty: GameDifficulties }) {
   return (
     <div
       className={cn(

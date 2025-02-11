@@ -1,19 +1,21 @@
-import { type GameDifficulty } from "@/lib/types"
+import { notFound } from "next/navigation"
+
+import { gameDifficultiesSchema } from "@/lib/types"
 import Game from "@/components/game/Game"
 import { Main } from "@/components/layout/mainwraper"
 import Toolbar from "@/components/toolbar/Toolbar"
 
 export default async function Page(props: {
   searchParams?: Promise<{
-    d: GameDifficulty
+    d: string
   }>
 }) {
-  // TODO: Standardize this type
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const _sizes = [undefined, "square", "tall", "small"] as const
-
   const searchParams = await props.searchParams
-  const difficulty = searchParams?.d || "easy" // TODO: use ZOD to validate
+  const parsedDifficulty = gameDifficultiesSchema.safeParse(
+    searchParams?.d || "easy"
+  )
+  if (!parsedDifficulty.success) notFound()
+  const difficulty = parsedDifficulty.data
 
   return (
     <Main className="grid h-dvh place-content-center">

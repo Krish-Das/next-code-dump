@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { Button, cn, Divider } from "@heroui/react"
 
-import { type GameDifficulty } from "@/lib/types"
+import { type GameDifficulties } from "@/lib/types"
 import {
   SolarMenuDotsBold,
   SolarPauseBold,
@@ -15,7 +15,7 @@ import GameSettings from "./GameSettings"
 export default function Toolbar({
   difficulty,
 }: {
-  difficulty: GameDifficulty
+  difficulty: GameDifficulties
 }) {
   const [isOpen, setOpen] = useState(false)
 

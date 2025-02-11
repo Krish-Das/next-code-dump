@@ -3,14 +3,14 @@ import Link from "next/link"
 import { Button, ButtonGroup, Divider } from "@heroui/react"
 
 import { difficulties } from "@/lib/constants"
-import { type GameDifficulty } from "@/lib/types"
+import { type GameDifficulties } from "@/lib/types"
 import { SystemUiconsCross } from "@/components/icons/system-icons"
 
 export default function GameSettings({
   selectedDifficulty,
   setOpen,
 }: {
-  selectedDifficulty: GameDifficulty
+  selectedDifficulty: GameDifficulties
   setOpen: Dispatch<SetStateAction<boolean>>
 }) {
   return (

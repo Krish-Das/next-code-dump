@@ -24,7 +24,10 @@ export async function GET(req: NextRequest) {
     const count = parsedCount
     const URL = `https://api.unsplash.com/photos/random?count=${count}&client_id=${clientId}`
 
-    const response = await fetch(URL)
+    const response = await fetch(URL, {
+      cache: "force-cache",
+      next: { revalidate: 60 * 60 * 24 }, // Every 24 hours
+    })
     if (!response.ok) {
       const errorData = await response.json()
       return NextResponse.json(

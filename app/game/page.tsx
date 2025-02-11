@@ -17,11 +17,31 @@ export default async function Page(props: {
   if (!parsedDifficulty.success) notFound()
   const difficulty = parsedDifficulty.data
 
+  // TODO: Do error-handling
+  const images = await fetch("http://localhost:3000/api/images?c=3")
+    .then(response => response.json())
+    .catch(error => console.error("Error:", error))
+
   return (
     <Main className="grid h-dvh place-content-center">
-      <Game difficulty={difficulty} />
+      {/*<Game difficulty={difficulty} />*/}
+
+      <div className="flex h-screen w-screen items-center justify-center gap-3">
+        {images.map(image => {
+          return (
+            <div
+              className="size-32 overflow-hidden rounded-lg bg-red-300 bg-cover bg-center"
+              key={image.id}
+              style={{
+                backgroundImage: `url(${image.urls.small})`,
+              }}
+            />
+          )
+        })}
+      </div>
 
       <Toolbar difficulty={difficulty} />
     </Main>
   )
 }
+

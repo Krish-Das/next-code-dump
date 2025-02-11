@@ -18,3 +18,9 @@ export type GameDifficulties = z.infer<typeof gameDifficultiesSchema>
 export type UnsplashImages = z.infer<typeof unsplashImagesSchema>
 
 export type TImage = { id: string; url: string }
+export type TGameCard = {
+  id: string
+  url: string
+  isFlipped: boolean
+  isMatched: boolean
+}

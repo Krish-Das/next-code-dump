@@ -1,10 +1,18 @@
 import { cn } from "@heroui/react"
 
-import { type GameDifficulties } from "@/lib/types"
+import { type GameDifficulties, type TGameCard } from "@/lib/types"
 
 import { GameCard } from "./GameCard"
 
-export default function Game({ difficulty }: { difficulty: GameDifficulties }) {
+export default function Game({
+  difficulty,
+  cards,
+}: {
+  difficulty: GameDifficulties
+  cards: TGameCard[]
+}) {
+  const cardSize = difficulty === "hard" ? "small" : "tall"
+
   return (
     <div
       className={cn(
@@ -14,25 +22,16 @@ export default function Game({ difficulty }: { difficulty: GameDifficulties }) {
         difficulty === "hard" && "grid-cols-6 grid-rows-5"
       )}
     >
-      {difficulty === "easy" ? (
-        <>
-          {Array.from({ length: 12 }, (_, idx) => (
-            <GameCard key={idx} size="tall" shadow="sm" />
-          ))}
-        </>
-      ) : difficulty === "medium" ? (
-        <>
-          {Array.from({ length: 16 }, (_, idx) => (
-            <GameCard key={idx} size="tall" shadow="sm" />
-          ))}
-        </>
-      ) : (
-        <>
-          {Array.from({ length: 30 }, (_, idx) => (
-            <GameCard key={idx} size="small" shadow="sm" />
-          ))}
-        </>
-      )}
+      {cards.map(card => (
+        <GameCard
+          key={card.id}
+          size={cardSize}
+          shadow="sm"
+          style={{
+            backgroundImage: `url(${card.url})`,
+          }}
+        />
+      ))}
     </div>
   )
 }

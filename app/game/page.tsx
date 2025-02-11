@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation"
 
-import { gameDifficultiesSchema } from "@/lib/types"
+import { gameDifficultiesSchema, TImage } from "@/lib/types"
+import gamifyImages from "@/lib/utils"
 import Game from "@/components/game/Game"
 import { Main } from "@/components/layout/mainwraper"
 import Toolbar from "@/components/toolbar/Toolbar"
@@ -17,31 +18,22 @@ export default async function Page(props: {
   if (!parsedDifficulty.success) notFound()
   const difficulty = parsedDifficulty.data
 
+  const count = difficulty === "easy" ? 6 : difficulty === "medium" ? 8 : 15
+
   // TODO: Do error-handling
-  const images = await fetch("http://localhost:3000/api/images?c=3")
-    .then(response => response.json())
-    .catch(error => console.error("Error:", error))
+  const res = await fetch(`http://localhost:3000/api/images?c=${count}`)
+  if (!res.ok) {
+    const errorData = await res.json()
+    console.log(errorData)
+  }
+  const images: TImage[] = await res.json()
+  const cards = gamifyImages(images)
 
   return (
     <Main className="grid h-dvh place-content-center">
-      {/*<Game difficulty={difficulty} />*/}
-
-      <div className="flex h-screen w-screen items-center justify-center gap-3">
-        {images.map(image => {
-          return (
-            <div
-              className="size-32 overflow-hidden rounded-lg bg-red-300 bg-cover bg-center"
-              key={image.id}
-              style={{
-                backgroundImage: `url(${image.urls.small})`,
-              }}
-            />
-          )
-        })}
-      </div>
+      <Game difficulty={difficulty} cards={cards} />
 
       <Toolbar difficulty={difficulty} />
     </Main>
   )
 }
-

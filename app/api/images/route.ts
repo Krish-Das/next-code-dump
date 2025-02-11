@@ -26,7 +26,10 @@ export async function GET(req: NextRequest) {
 
     const response = await fetch(URL, {
       cache: "force-cache",
-      next: { revalidate: 60 * 60 * 24 }, // Every 24 hours
+      next: {
+        revalidate: 60 * 60 * 24, // Every 24 hours
+        tags: [`unsplash-images-${count}`, "unsplash-images"],
+      },
     })
     if (!response.ok) {
       const errorData = await response.json()

@@ -1,0 +1,41 @@
+"use client"
+
+import { Button, Divider } from "@heroui/react"
+
+import {
+  MaterialSymbolsCognition2Outline,
+  MaterialSymbolsRefresh,
+  MaterialSymbolsSettingsOutline,
+} from "@/components/icons/material-icons"
+
+export default function Toolbar() {
+  return (
+    <nav className="left-4s fixed left-1/4 top-1/2 flex h-fit w-fit -translate-x-1/2 -translate-y-1/2 flex-col gap-3 overflow-hidden rounded-full bg-default-50/50 p-2 shadow shadow-black/5 backdrop-blur-md dark:bg-default-50/80 [&_button>svg]:text-lg">
+      <div className="toolbar__control-group flex h-fit w-fit flex-col items-center gap-2">
+        <Button
+          variant="flat"
+          color="primary"
+          radius="full"
+          size="lg"
+          isIconOnly
+        >
+          <MaterialSymbolsRefresh />
+        </Button>
+        <label className="text-center text-sm font-bold">02:35</label>
+      </div>
+
+      <Divider />
+
+      <div className="toolbar__mod-group flex flex-col gap-1">
+        <Button variant="flat" radius="full" size="lg" isIconOnly>
+          <MaterialSymbolsCognition2Outline />
+        </Button>
+
+        <Button variant="flat" radius="full" size="lg" isIconOnly>
+          <MaterialSymbolsSettingsOutline />
+        </Button>
+      </div>
+    </nav>
+  )
+}
+

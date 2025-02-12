@@ -8,6 +8,8 @@ import {
   MaterialSymbolsSettingsOutline,
 } from "@/components/icons/material-icons"
 
+import Timer from "./Timer"
+
 export default function Toolbar() {
   return (
     <nav className="left-4s fixed left-1/4 top-1/2 flex h-fit w-fit -translate-x-1/2 -translate-y-1/2 flex-col gap-3 overflow-hidden rounded-full bg-default-50/50 p-2 shadow shadow-black/5 backdrop-blur-md dark:bg-default-50/80 [&_button>svg]:text-lg">
@@ -21,7 +23,8 @@ export default function Toolbar() {
         >
           <MaterialSymbolsRefresh />
         </Button>
-        <label className="text-center text-sm font-bold">02:35</label>
+
+        <Timer />
       </div>
 
       <Divider />
@@ -38,4 +41,3 @@ export default function Toolbar() {
     </nav>
   )
 }
-

@@ -5,6 +5,7 @@ import { Divider, Button as NextButton } from "@heroui/react"
 import { Button } from "react-aria-components"
 import { useStopwatch } from "react-timer-hook"
 
+import { cn } from "@/lib/utils"
 import {
   MaterialSymbolsCognition2Outline,
   MaterialSymbolsRefresh,
@@ -13,6 +14,8 @@ import {
 
 export default function Page() {
   const [clickCount, setClickCount] = useState(0)
+  // WARN: Don't push this to production!
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { minutes, seconds, isRunning, start, pause, reset } = useStopwatch({
     autoStart: false,
   })
@@ -44,12 +47,37 @@ export default function Page() {
       </div>
     )
   }
+  const FocusTest = () => {
+    const [focus, setFocus] = useState(false)
+
+    return (
+      <div
+        className={cn(
+          "mt-3 rounded-xl border-2 border-dashed border-blue-500 p-3",
+          "grid grid-cols-4 gap-3",
+          focus && "ring ring-blue-400 ring-offset-2"
+        )}
+        onFocus={() => setFocus(true)}
+        onBlur={() => setFocus(false)}
+        tabIndex={0}
+      >
+        {Array.from({ length: 4 }, (_, idx) => (
+          <Button
+            key={idx}
+            className="size-16 cursor-default rounded-lg border-none bg-blue-500 outline-none rac-focus-visible:ring-4 rac-focus-visible:ring-blue-400"
+            onPress={() => {}}
+          />
+        ))}
+      </div>
+    )
+  }
 
   return (
     <div className="grid h-dvh place-content-center">
       <Content />
       <_Display label={`${minutes}:${seconds}`} />
       <_Clicks />
+      <FocusTest />
     </div>
   )
 }

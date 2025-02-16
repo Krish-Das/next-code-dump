@@ -3,6 +3,7 @@
   "ignorePatterns": ["temp.js", "**/vendor/*.js"],
   "rules": {
     "eqeqeq": "off",
-    "quotes": ["warn", "double"]
+    "quotes": ["warn", "double"],
+    "@typescript-eslint/no-unused-vars": ["warn"]
   }
 }

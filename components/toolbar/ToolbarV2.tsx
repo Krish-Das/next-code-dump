@@ -2,17 +2,20 @@
 
 import { Button, Divider } from "@heroui/react"
 
+import { GameDifficulties } from "@/lib/types"
 import {
   MaterialSymbolsCognition2Outline,
   MaterialSymbolsRefresh,
   MaterialSymbolsSettingsOutline,
 } from "@/components/icons/material-icons"
 
-import Timer from "./Timer"
-
-export default function Toolbar() {
+export default function Toolbar({
+  difficulty,
+}: {
+  difficulty: GameDifficulties
+}) {
   return (
-    <nav className="left-4s fixed left-1/4 top-1/2 flex h-fit w-fit -translate-x-1/2 -translate-y-1/2 flex-col gap-3 overflow-hidden rounded-full bg-default-50/50 p-2 shadow shadow-black/5 backdrop-blur-md dark:bg-default-50/80 [&_button>svg]:text-lg">
+    <nav className="fixed left-4 top-1/2 flex h-fit w-fit -translate-y-1/2 flex-col gap-3 overflow-hidden rounded-full bg-default-50/50 p-2 shadow shadow-black/5 backdrop-blur-md dark:bg-default-50/80 [&_button>svg]:text-lg">
       <div className="toolbar__control-group flex h-fit w-fit flex-col items-center gap-2">
         <Button
           variant="flat"
@@ -24,7 +27,7 @@ export default function Toolbar() {
           <MaterialSymbolsRefresh />
         </Button>
 
-        <Timer />
+        <label className="text-center text-sm font-bold">02:35</label>
       </div>
 
       <Divider />

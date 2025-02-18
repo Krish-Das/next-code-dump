@@ -1,3 +1,7 @@
+"use client"
+
+import { useStopwatch } from "react-timer-hook"
+
 import { GameDifficulties, TGameCard } from "@/lib/types"
 import Game from "@/components/game/Game"
 // import Toolbar from "@/components/toolbar/Toolbar"
@@ -10,11 +14,15 @@ export default function GameWrapper({
   difficulty: GameDifficulties
   cards: TGameCard[]
 }) {
+  const time = useStopwatch({
+    autoStart: false,
+  })
+
   return (
     <main className="grid h-dvh place-content-center">
       <Game difficulty={difficulty} cards={cards} />
 
-      <Toolbar difficulty={difficulty} />
+      <Toolbar difficulty={difficulty} time={time} />
     </main>
   )
 }

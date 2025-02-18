@@ -1,8 +1,8 @@
-"use client"
-
 import { Button, Divider } from "@heroui/react"
+import { StopwatchResult } from "react-timer-hook"
 
 import { GameDifficulties } from "@/lib/types"
+import { formatTime } from "@/lib/utils"
 import {
   MaterialSymbolsCognition2Outline,
   MaterialSymbolsRefresh,
@@ -11,9 +11,14 @@ import {
 
 export default function Toolbar({
   difficulty,
+  time,
 }: {
   difficulty: GameDifficulties
+  time: StopwatchResult
 }) {
+  const minutes = formatTime(time.minutes)
+  const seconds = formatTime(time.seconds)
+
   return (
     <nav className="fixed left-4 top-1/2 flex h-fit w-fit -translate-y-1/2 flex-col gap-3 overflow-hidden rounded-full bg-default-50/50 p-2 shadow shadow-black/5 backdrop-blur-md dark:bg-default-50/80 [&_button>svg]:text-lg">
       <div className="toolbar__control-group flex h-fit w-fit flex-col items-center gap-2">
@@ -27,7 +32,9 @@ export default function Toolbar({
           <MaterialSymbolsRefresh />
         </Button>
 
-        <label className="text-center text-sm font-bold">02:35</label>
+        <label className="text-center text-sm font-bold">
+          {minutes}:{seconds}
+        </label>
       </div>
 
       <Divider />

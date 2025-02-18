@@ -1,4 +1,5 @@
 import { cn } from "@heroui/react"
+import { StopwatchResult } from "react-timer-hook"
 
 import { type GameDifficulties, type TGameCard } from "@/lib/types"
 
@@ -7,11 +8,14 @@ import { GameCard } from "./GameCard"
 export default function Game({
   difficulty,
   cards,
+  time,
 }: {
   difficulty: GameDifficulties
   cards: TGameCard[]
+  time: StopwatchResult
 }) {
   const cardSize = difficulty === "hard" ? "small" : "tall"
+  const { isRunning, start, pause } = time
 
   return (
     <div
@@ -22,6 +26,9 @@ export default function Game({
         difficulty === "medium" && "grid-cols-4 grid-rows-4",
         difficulty === "hard" && "grid-cols-6 grid-rows-5"
       )}
+      onFocusCapture={() => !isRunning && start()}
+      onBlurCapture={pause}
+      tabIndex={0}
     >
       {cards.map(card => (
         <GameCard
@@ -31,6 +38,7 @@ export default function Game({
           style={{
             backgroundImage: `url(${card.url})`,
           }}
+          onClickCapture={() => !isRunning && start()}
         />
       ))}
     </div>

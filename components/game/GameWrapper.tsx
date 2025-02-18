@@ -20,7 +20,7 @@ export default function GameWrapper({
 
   return (
     <main className="grid h-dvh place-content-center">
-      <Game difficulty={difficulty} cards={cards} />
+      <Game difficulty={difficulty} cards={cards} time={time} />
 
       <Toolbar difficulty={difficulty} time={time} />
     </main>

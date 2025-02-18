@@ -1,9 +1,9 @@
 "use client"
 
-import { useState } from "react"
+import { Dispatch, SetStateAction, useEffect, useState } from "react"
 import { Divider, Button as NextButton } from "@heroui/react"
 import { Button } from "react-aria-components"
-import { useStopwatch } from "react-timer-hook"
+import { StopwatchResult, useStopwatch } from "react-timer-hook"
 
 import { cn } from "@/lib/utils"
 import {
@@ -13,9 +13,17 @@ import {
 } from "@/components/icons/material-icons"
 
 // needs: focus
-const Content = () => {
+const Content = ({
+  clicks,
+  setClicks,
+  watch,
+}: {
+  clicks: number
+  setClicks: Dispatch<SetStateAction<number>>
+  watch: StopwatchResult
+}) => {
   const [focus, setFocus] = useState(false)
-  const [someState, setSomeState] = useState(false)
+  const { start, pause, isRunning } = watch
 
   return (
     <div
@@ -24,18 +32,24 @@ const Content = () => {
         "grid grid-cols-4 gap-3",
         focus && "ring ring-blue-400 ring-offset-2"
       )}
-      onFocus={() => setFocus(true)}
-      onBlur={() => setFocus(false)}
+      onFocus={() => {
+        setFocus(true)
+        if (!isRunning) start()
+      }}
+      onBlur={() => {
+        setFocus(false)
+        pause()
+      }}
       tabIndex={0}
     >
       {Array.from({ length: 4 }, (_, idx) => (
         <Button
           key={idx}
-          className={cn(
-            "size-16 cursor-default rounded-lg border-none bg-blue-500 outline-none rac-focus-visible:ring-4 rac-focus-visible:ring-blue-400",
-            someState && "bg-green-400"
-          )}
-          onPress={() => setSomeState(v => !v)}
+          className="size-16 cursor-default rounded-lg border-none bg-blue-500 outline-none rac-focus-visible:ring-4 rac-focus-visible:ring-blue-400"
+          onPress={() => {
+            setClicks(v => v + 1)
+            if (!isRunning) start()
+          }}
         />
       ))}
     </div>
@@ -97,15 +111,16 @@ const Clicks = ({ clicks }: { clicks: number }) => {
 export default function Page() {
   // WARN: Don't push this to production!
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { minutes, seconds, isRunning, start, pause, reset } = useStopwatch({
+  const watch = useStopwatch({
     autoStart: false,
   })
+  const [clicks, setClicks] = useState(0)
 
   return (
     <div className="grid h-dvh place-content-center">
-      <Toolbar minutes={minutes} seconds={seconds} />
-      <Content />
-      <Clicks clicks={0} />
+      <Toolbar minutes={watch.minutes} seconds={watch.seconds} />
+      <Content clicks={clicks} setClicks={setClicks} watch={watch} />
+      <Clicks clicks={clicks} />
     </div>
   )
 }

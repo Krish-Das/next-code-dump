@@ -17,6 +17,7 @@ export default function Game({
     <div
       className={cn(
         "grid h-fit w-fit gap-2.5 p-2.5",
+        "rounded-xl border-2 border-dashed border-content2",
         difficulty === "easy" && "grid-cols-3 grid-rows-4",
         difficulty === "medium" && "grid-cols-4 grid-rows-4",
         difficulty === "hard" && "grid-cols-6 grid-rows-5"

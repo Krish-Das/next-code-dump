@@ -12,6 +12,7 @@ import {
   MaterialSymbolsSettingsOutline,
 } from "@/components/icons/material-icons"
 
+// needs: focus
 const Content = () => {
   const [focus, setFocus] = useState(false)
   const [someState, setSomeState] = useState(false)
@@ -41,12 +42,14 @@ const Content = () => {
   )
 }
 
-const Toolbar = () => {
-  // WARN: Don't push this to production!
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { minutes, seconds, isRunning, start, pause, reset } = useStopwatch({
-    autoStart: false,
-  })
+// needs: time
+const Toolbar = ({
+  minutes,
+  seconds,
+}: {
+  minutes: number
+  seconds: number
+}) => {
   // if (clickCount <= 0 && !isRunning) start()
 
   return (
@@ -82,6 +85,7 @@ const Toolbar = () => {
   )
 }
 
+// needs: clicks
 const Clicks = ({ clicks }: { clicks: number }) => {
   return (
     <div className="fixed left-4 top-3 inline-grid size-8 touch-none select-none place-content-center rounded-lg bg-content2 text-xs font-semibold">
@@ -91,9 +95,15 @@ const Clicks = ({ clicks }: { clicks: number }) => {
 }
 
 export default function Page() {
+  // WARN: Don't push this to production!
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { minutes, seconds, isRunning, start, pause, reset } = useStopwatch({
+    autoStart: false,
+  })
+
   return (
     <div className="grid h-dvh place-content-center">
-      <Toolbar />
+      <Toolbar minutes={minutes} seconds={seconds} />
       <Content />
       <Clicks clicks={0} />
     </div>

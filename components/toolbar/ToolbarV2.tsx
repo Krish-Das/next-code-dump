@@ -1,4 +1,4 @@
-import { Button, Divider } from "@heroui/react"
+import { Button, cn, Divider } from "@heroui/react"
 import { StopwatchResult } from "react-timer-hook"
 
 import { GameDifficulties } from "@/lib/types"
@@ -16,6 +16,7 @@ export default function Toolbar({
   difficulty: GameDifficulties
   time: StopwatchResult
 }) {
+  const { isRunning } = time
   const minutes = formatTime(time.minutes)
   const seconds = formatTime(time.seconds)
 
@@ -24,7 +25,7 @@ export default function Toolbar({
       <div className="toolbar__control-group flex h-fit w-fit flex-col items-center gap-2">
         <Button
           variant="flat"
-          color="primary"
+          color={isRunning ? "primary" : "warning"}
           radius="full"
           size="lg"
           isIconOnly
@@ -32,7 +33,12 @@ export default function Toolbar({
           <MaterialSymbolsRefresh />
         </Button>
 
-        <label className="text-center text-sm font-bold">
+        <label
+          className={cn(
+            "text-center text-sm font-bold",
+            !isRunning && "text-warning-600"
+          )}
+        >
           {minutes}:{seconds}
         </label>
       </div>

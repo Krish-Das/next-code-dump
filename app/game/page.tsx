@@ -3,6 +3,7 @@ import { notFound } from "next/navigation"
 import { gameDifficultiesSchema, TImage } from "@/lib/types"
 import gamifyImages from "@/lib/utils"
 import GameWrapper from "@/components/game/GameWrapper"
+import { GameProvider } from "@/components/provider/game"
 
 export default async function Page(props: {
   searchParams?: Promise<{
@@ -27,5 +28,9 @@ export default async function Page(props: {
   const images: TImage[] = await res.json()
   const cards = gamifyImages(images)
 
-  return <GameWrapper difficulty={difficulty} cards={cards} />
+  return (
+    <GameProvider difficulty={difficulty} cards={cards}>
+      <GameWrapper />
+    </GameProvider>
+  )
 }

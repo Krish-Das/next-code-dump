@@ -1,7 +1,6 @@
 import { Button, cn, Divider } from "@heroui/react"
 import { StopwatchResult } from "react-timer-hook"
 
-import { GameDifficulties } from "@/lib/types"
 import { formatTime } from "@/lib/utils"
 import {
   MaterialSymbolsCognition2Outline,
@@ -9,13 +8,7 @@ import {
   MaterialSymbolsSettingsOutline,
 } from "@/components/icons/material-icons"
 
-export default function Toolbar({
-  difficulty,
-  time,
-}: {
-  difficulty: GameDifficulties
-  time: StopwatchResult
-}) {
+export default function Toolbar({ time }: { time: StopwatchResult }) {
   const { isRunning } = time
   const minutes = formatTime(time.minutes)
   const seconds = formatTime(time.seconds)

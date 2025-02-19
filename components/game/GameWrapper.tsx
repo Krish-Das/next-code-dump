@@ -1,28 +1,21 @@
 "use client"
 
+// TODO: Remove this client boundary if possible!
 import { useStopwatch } from "react-timer-hook"
 
-import { GameDifficulties, TGameCard } from "@/lib/types"
 import Game from "@/components/game/Game"
-// import Toolbar from "@/components/toolbar/Toolbar"
 import Toolbar from "@/components/toolbar/ToolbarV2"
 
-export default function GameWrapper({
-  difficulty,
-  cards,
-}: {
-  difficulty: GameDifficulties
-  cards: TGameCard[]
-}) {
+export default function GameWrapper() {
   const time = useStopwatch({
     autoStart: false,
   })
 
   return (
     <main className="grid h-dvh place-content-center">
-      <Game difficulty={difficulty} cards={cards} time={time} />
+      <Game time={time} />
 
-      <Toolbar difficulty={difficulty} time={time} />
+      <Toolbar time={time} />
     </main>
   )
 }

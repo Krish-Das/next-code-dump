@@ -1,4 +1,5 @@
 import { cn } from "@heroui/react"
+import { useFocusWithin } from "@react-aria/interactions"
 
 import { useGame } from "@/components/provider/game"
 
@@ -9,6 +10,11 @@ export default function Game() {
   const { isRunning, start, pause } = watch
   const cardSize = difficulty === "hard" ? "small" : "tall"
 
+  const { focusWithinProps } = useFocusWithin({
+    onFocusWithin: () => !isRunning && start(),
+    onBlurWithin: pause,
+  })
+
   return (
     <div
       className={cn(
@@ -18,8 +24,7 @@ export default function Game() {
         difficulty === "medium" && "grid-cols-4 grid-rows-4",
         difficulty === "hard" && "grid-cols-6 grid-rows-5"
       )}
-      onFocusCapture={() => !isRunning && start()}
-      onBlurCapture={pause}
+      {...focusWithinProps}
       tabIndex={0}
     >
       {cards.map(card => (

@@ -31,11 +31,8 @@ export default function Game() {
         <GameCard
           key={card.id}
           size={cardSize}
-          shadow="sm"
-          style={{
-            backgroundImage: `url(${card.url})`,
-          }}
-          onClickCapture={() => !isRunning && start()}
+          card={card}
+          onPress={() => {}}
         />
       ))}
     </div>

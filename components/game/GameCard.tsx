@@ -1,29 +1,58 @@
 "use client"
 
-import { Card, CardProps, cn } from "@heroui/react"
+import { cn } from "@heroui/react"
 import { cva, type VariantProps } from "class-variance-authority"
+import { Button, ButtonProps } from "react-aria-components"
+
+import { TGameCard } from "@/lib/types"
 
 // TODO: Use a pattern
-const gameCardVariant = cva("bg-default-300 bg-cover bg-center", {
-  variants: {
-    size: {
-      square: "h-24 w-24",
-      tall: "h-32 w-24",
-      small: "h-24 w-20",
+const gameCardVariant = cva(
+  [
+    "bg-default-200 dark:bg-default-100 bg-cover bg-center bg-no-repeat",
+    "rounded-md",
+    "border border-white/10",
+    "outline-none shadow-sm",
+    "rac-focus-visible:ring",
+    "rac-pressed:scale-[0.98]",
+    "cursor-default select-none",
+  ],
+  {
+    variants: {
+      size: {
+        square: "h-24 w-24",
+        tall: "h-32 w-24",
+        small: "h-24 w-20",
+      },
     },
-  },
-  defaultVariants: {
-    size: "square",
-  },
-})
+    defaultVariants: {
+      size: "square",
+    },
+  }
+)
 
-type GameCardProps = VariantProps<typeof gameCardVariant> & CardProps & {}
+type GameCardProps = VariantProps<typeof gameCardVariant> &
+  ButtonProps & {
+    card: TGameCard
+    imageOverride?: "hide" | "show"
+  }
 
-function GameCard({ size, className, ...props }: GameCardProps) {
+function GameCard({
+  size,
+  className,
+  card,
+  imageOverride,
+  ...props
+}: GameCardProps) {
+  const backgroundImage =
+    imageOverride === "show" || (imageOverride !== "hide" && card.isFlipped)
+      ? `url(${card.url})`
+      : undefined
+
   return (
-    <Card
+    <Button
       className={cn(gameCardVariant({ size, className }))}
-      shadow="none"
+      style={{ backgroundImage }}
       {...props}
     />
   )

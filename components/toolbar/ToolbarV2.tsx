@@ -1,5 +1,4 @@
 import { Button, cn, Divider } from "@heroui/react"
-import { StopwatchResult } from "react-timer-hook"
 
 import { formatTime } from "@/lib/utils"
 import {
@@ -7,11 +6,13 @@ import {
   MaterialSymbolsRefresh,
   MaterialSymbolsSettingsOutline,
 } from "@/components/icons/material-icons"
+import { useGame } from "@/components/provider/game"
 
-export default function Toolbar({ time }: { time: StopwatchResult }) {
-  const { isRunning } = time
-  const minutes = formatTime(time.minutes)
-  const seconds = formatTime(time.seconds)
+export default function Toolbar() {
+  const { watch } = useGame()
+  const { isRunning } = watch
+  const minutes = formatTime(watch.minutes)
+  const seconds = formatTime(watch.seconds)
 
   return (
     <nav className="fixed left-4 top-1/2 flex h-fit w-fit -translate-y-1/2 flex-col gap-3 overflow-hidden rounded-full bg-default-50/50 p-2 shadow shadow-black/5 backdrop-blur-md dark:bg-default-50/80 [&_button>svg]:text-lg">

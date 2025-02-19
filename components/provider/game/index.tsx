@@ -1,12 +1,14 @@
 "use client"
 
 import { createContext, ReactNode, useContext } from "react"
+import { StopwatchResult, useStopwatch } from "react-timer-hook"
 
 import { GameDifficulties, TGameCard } from "@/lib/types"
 
 type TGameContext = {
   difficulty: GameDifficulties
   cards: TGameCard[]
+  watch: StopwatchResult
 }
 
 const GameContext = createContext<TGameContext | null>(null)
@@ -19,8 +21,12 @@ function GameProvider({
   difficulty: GameDifficulties
   cards: TGameCard[]
 }) {
+  const watch = useStopwatch({
+    autoStart: false,
+  })
+
   return (
-    <GameContext.Provider value={{ difficulty, cards }}>
+    <GameContext.Provider value={{ difficulty, cards, watch }}>
       {children}
     </GameContext.Provider>
   )

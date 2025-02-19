@@ -1,14 +1,13 @@
 import { cn } from "@heroui/react"
-import { StopwatchResult } from "react-timer-hook"
 
 import { useGame } from "@/components/provider/game"
 
 import { GameCard } from "./GameCard"
 
-export default function Game({ time }: { time: StopwatchResult }) {
-  const { difficulty, cards } = useGame()
+export default function Game() {
+  const { difficulty, cards, watch } = useGame()
+  const { isRunning, start, pause } = watch
   const cardSize = difficulty === "hard" ? "small" : "tall"
-  const { isRunning, start, pause } = time
 
   return (
     <div

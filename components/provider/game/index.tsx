@@ -9,6 +9,7 @@ type TGameContext = {
   difficulty: GameDifficulties
   cards: TGameCard[]
   flipCard: (cardId: TGameCard["id"], override?: boolean) => void
+  matchCards: (firstCard: TGameCard, secondCard: TGameCard) => boolean
   watch: StopwatchResult
   turns: number
   incrementTurns: () => void
@@ -42,7 +43,7 @@ function GameProvider({
   /*
    * --- GAME LOGIC ---
    */
-  const [_cards, setCards] = useState<TGameCard[]>(cards)
+  const [stateCards, setCards] = useState<TGameCard[]>(cards)
   const flipCard = (cardId: TGameCard["id"], override?: boolean) => {
     setCards(prev =>
       prev.map(c =>
@@ -50,13 +51,31 @@ function GameProvider({
       )
     )
   }
+  const matchCards = (firstCard: TGameCard, secondCard: TGameCard): boolean => {
+    const firstCardId = firstCard.id
+    const secondCardId = secondCard.id
+    const matched = firstCard.url === secondCard.url
+
+    if (matched) {
+      setCards(prev =>
+        prev.map(_card =>
+          _card.id === firstCardId || _card.id === secondCardId
+            ? { ..._card, isMatched: true }
+            : _card
+        )
+      )
+    }
+
+    return matched
+  }
 
   return (
     <GameContext.Provider
       value={{
         difficulty,
-        cards: _cards,
+        cards: stateCards,
         flipCard,
+        matchCards,
         watch,
         turns,
         incrementTurns,

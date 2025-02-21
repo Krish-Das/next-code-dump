@@ -6,7 +6,7 @@ import { useGame } from "@/components/provider/game"
 import { GameCard } from "./GameCard"
 
 export default function Game() {
-  const { difficulty, cards, watch } = useGame()
+  const { difficulty, cards, watch, incrementTurns, flipCard } = useGame()
   const { isRunning, start, pause } = watch
   const cardSize = difficulty === "hard" ? "small" : "tall"
 
@@ -32,7 +32,11 @@ export default function Game() {
           key={card.id}
           size={cardSize}
           card={card}
-          onPress={() => {}}
+          isDisabled={card.isFlipped || card.isMatched}
+          onPress={() => {
+            incrementTurns()
+            flipCard(card.id)
+          }}
         />
       ))}
     </div>

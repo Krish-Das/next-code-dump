@@ -8,7 +8,7 @@ import { GameDifficulties, TGameCard } from "@/lib/types"
 type TGameContext = {
   difficulty: GameDifficulties
   cards: TGameCard[]
-  flipCard: (cardId: TGameCard["id"], override?: boolean) => void
+  flipCard: (card: TGameCard, override?: boolean) => void
   matchCards: (firstCard: TGameCard, secondCard: TGameCard) => boolean
   watch: StopwatchResult
   turns: number
@@ -44,10 +44,10 @@ function GameProvider({
    * --- GAME LOGIC ---
    */
   const [stateCards, setCards] = useState<TGameCard[]>(cards)
-  const flipCard = (cardId: TGameCard["id"], override?: boolean) => {
+  const flipCard = (card: TGameCard, override?: boolean) => {
     setCards(prev =>
       prev.map(c =>
-        c.id === cardId ? { ...c, isFlipped: override ?? !c.isFlipped } : c
+        c.id === card.id ? { ...c, isFlipped: override ?? !c.isFlipped } : c
       )
     )
   }

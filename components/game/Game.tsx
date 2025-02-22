@@ -1,3 +1,4 @@
+import { useEffect } from "react"
 import { cn } from "@heroui/react"
 import { useFocusWithin } from "@react-aria/interactions"
 
@@ -6,14 +7,23 @@ import { useGame } from "@/components/provider/game"
 import { GameCard } from "./GameCard"
 
 export default function Game() {
-  const { difficulty, cards, watch, incrementTurns, flipLogic } = useGame()
+  const { difficulty, cards, watch, incrementTurns, flipLogic, isGameOver } =
+    useGame()
   const { isRunning, start, pause } = watch
   const cardSize = difficulty === "hard" ? "small" : "tall"
 
   const { focusWithinProps } = useFocusWithin({
-    onFocusWithin: () => !isRunning && start(),
+    onFocusWithin: () => !isRunning && !isGameOver && start(),
     onBlurWithin: pause,
   })
+
+  useEffect(() => {
+    if (isGameOver) pause()
+  }, [isGameOver, pause])
+
+  if (isGameOver) {
+    return <p>Congratulations</p>
+  }
 
   return (
     <div

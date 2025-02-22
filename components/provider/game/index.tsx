@@ -15,6 +15,7 @@ type TGameContext = {
   turns: number
   incrementTurns: () => void
   resetTurns: () => void
+  isGameOver: boolean
 }
 
 const GameContext = createContext<TGameContext | null>(null)
@@ -46,6 +47,7 @@ function GameProvider({
    */
   const [stateCards, setCards] = useState<TGameCard[]>(cards)
   const matchedCards = stateCards.filter(c => c.isMatched)
+  const isGameOver = matchedCards.length === cards.length
 
   const flipCard = (card: TGameCard, override?: boolean) => {
     setCards(prev =>
@@ -102,6 +104,7 @@ function GameProvider({
         turns,
         incrementTurns,
         resetTurns,
+        isGameOver,
       }}
     >
       {children}

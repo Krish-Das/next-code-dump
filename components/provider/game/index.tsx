@@ -86,7 +86,7 @@ function GameProvider({
 
       const flippedCards = newCards.filter(c => c.isFlipped && !c.isMatched)
       if (flippedCards.length === 2)
-        setTimeout(() => matchCards(flippedCards[0], flippedCards[1]), 300)
+        setTimeout(() => matchCards(flippedCards[0], flippedCards[1]), 300) // TODO: add spam protection
 
       return newCards
     })

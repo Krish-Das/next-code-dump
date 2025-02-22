@@ -8,9 +8,9 @@ import { GameDifficulties, TGameCard } from "@/lib/types"
 type TGameContext = {
   difficulty: GameDifficulties
   cards: TGameCard[]
-  flippedCards: TGameCard[]
+  matchedCards: TGameCard[]
+  flipLogic(card: TGameCard): void
   flipCard: (card: TGameCard, override?: boolean) => void
-  matchCards: (firstCard: TGameCard, secondCard: TGameCard) => boolean
   watch: StopwatchResult
   turns: number
   incrementTurns: () => void
@@ -45,9 +45,7 @@ function GameProvider({
    * --- GAME LOGIC ---
    */
   const [stateCards, setCards] = useState<TGameCard[]>(cards)
-  const flippedCards = stateCards.filter(
-    _card => _card.isFlipped === true && _card.isMatched === false
-  )
+  const matchedCards = stateCards.filter(c => c.isMatched)
 
   const flipCard = (card: TGameCard, override?: boolean) => {
     setCards(prev =>
@@ -57,21 +55,39 @@ function GameProvider({
     )
   }
   const matchCards = (firstCard: TGameCard, secondCard: TGameCard): boolean => {
-    const firstCardId = firstCard.id
-    const secondCardId = secondCard.id
+    const firstCardIdx = firstCard.idx
+    const secondCardIdx = secondCard.idx
     const matched = firstCard.url === secondCard.url
 
-    if (matched) {
-      setCards(prev =>
-        prev.map(_card =>
-          _card.id === firstCardId || _card.id === secondCardId
-            ? { ..._card, isMatched: true }
-            : _card
-        )
-      )
-    }
+    setCards(prev => {
+      const newCards = [...prev]
+
+      if (matched) {
+        newCards[firstCardIdx].isMatched = true
+        newCards[secondCardIdx].isMatched = true
+      } else {
+        newCards[firstCardIdx].isFlipped = false // TODO: remove this setter
+        newCards[secondCardIdx].isFlipped = false
+      }
+
+      return newCards
+    })
 
     return matched
+  }
+  const flipLogic = (targetCard: TGameCard): void => {
+    const { idx: targetIdx } = targetCard
+
+    setCards(prevCards => {
+      const newCards = [...prevCards]
+      newCards[targetIdx].isFlipped = true
+
+      const flippedCards = newCards.filter(c => c.isFlipped && !c.isMatched)
+      if (flippedCards.length === 2)
+        setTimeout(() => matchCards(flippedCards[0], flippedCards[1]), 300)
+
+      return newCards
+    })
   }
 
   return (
@@ -79,9 +95,9 @@ function GameProvider({
       value={{
         difficulty,
         cards: stateCards,
-        flippedCards,
+        matchedCards,
+        flipLogic,
         flipCard,
-        matchCards,
         watch,
         turns,
         incrementTurns,

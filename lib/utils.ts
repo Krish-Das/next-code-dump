@@ -26,6 +26,7 @@ export default function gamifyImages(images: TImage[]) {
   const shuffledImages = shuffleArray([...images, ...images])
   const cards: TGameCard[] = shuffledImages.map((image, idx) => ({
     id: `${image.id}_${idx}`,
+    idx,
     url: image.url,
     isFlipped: false,
     isMatched: false,

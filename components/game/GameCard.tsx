@@ -51,7 +51,10 @@ function GameCard({
 
   return (
     <Button
-      className={cn(gameCardVariant({ size, className }))}
+      className={cn(
+        gameCardVariant({ size, className }),
+        card.isMatched && "brightness-[65%] saturate-[15%]"
+      )}
       style={{ backgroundImage }}
       {...props}
     />

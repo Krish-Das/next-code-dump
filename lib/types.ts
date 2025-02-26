@@ -25,3 +25,5 @@ export type TGameCard = {
   isFlipped: boolean
   isMatched: boolean
 }
+
+export type ToolbarState = "close" | "open:game" | "open:settings"

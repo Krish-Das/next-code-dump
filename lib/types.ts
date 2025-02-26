@@ -27,3 +27,4 @@ export type TGameCard = {
 }
 
 export type ToolbarState = "close" | "open:game" | "open:settings"
+export type ColorSchemes = "system" | "light" | "dark"

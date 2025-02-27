@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from "react"
 import { cn } from "@heroui/react"
 
-import { ToolbarState } from "@/lib/types"
+import { ToolbarState } from "@/components/toolbar/ToolbarV3"
 import { Button } from "@/components/ui/custom-button"
 import { ColorSchemeIcon, DifficultyIcon } from "@/components/icons/game"
 

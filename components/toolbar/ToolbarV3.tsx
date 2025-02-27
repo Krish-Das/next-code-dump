@@ -22,7 +22,6 @@ import {
 /* -------------------------------------------------------------------------------------------------
  * Context and types
  * -----------------------------------------------------------------------------------------------*/
-// TODO: Remove duplicate export from TYPES
 export type ToolbarState = "close" | "open:game" | "open:settings"
 export type ToolbarTabs = "game" | "settings"
 type ToolbarContextValue = {

@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from "react"
 import { Button, cn, Divider } from "@heroui/react"
 
-import { ToolbarState } from "@/lib/types"
+import { ToolbarState } from "@/components/toolbar/ToolbarV3"
 import { formatTime } from "@/lib/utils"
 import {
   MaterialSymbolsRefresh,

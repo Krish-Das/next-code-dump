@@ -26,5 +26,4 @@ export type TGameCard = {
   isMatched: boolean
 }
 
-export type ToolbarState = "close" | "open:game" | "open:settings"
 export type ColorSchemes = "system" | "light" | "dark"

@@ -38,7 +38,6 @@ export default function GameSettings({
         <h6 className="touch-none select-none text-sm font-semibold">
           Difficulty
         </h6>
-        {/* TODO: Use tabs instead */}
         <ButtonGroup>
           {difficulties.map(difficulty => (
             <Button

@@ -36,7 +36,6 @@ export default function ToolbarGameInfo({
 
 const Score = () => {
   const { watch, turns, difficulty } = useGame()
-  const { isRunning } = watch
   const minutes = formatTime(watch.minutes)
   const seconds = formatTime(watch.seconds)
 

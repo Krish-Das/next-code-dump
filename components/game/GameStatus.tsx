@@ -24,7 +24,7 @@ export default function GameStatus() {
 
       <label
         className={cn(
-          "text-center text-sm font-bold",
+          "text-center text-xs font-extrabold",
           !isRunning && "text-warning-600"
         )}
       >

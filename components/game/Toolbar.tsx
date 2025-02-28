@@ -25,6 +25,7 @@ const ToolbarWrapper = () => {
           <ShareGameScore />
         </Toolbar.Title>
         <Score />
+        <Toolbar.Separator />
         <ImageSources />
       </Toolbar.Tab>
 

@@ -15,7 +15,7 @@ const Button = ({ className, ref, ...rest }: ButtonProps) => {
   return (
     <RacButton
       className={cn(
-        "inline-flex w-fit select-none items-center gap-1 whitespace-nowrap rounded-lg px-2 py-1.5 text-xs font-bold leading-none tracking-[0.01em] [&_svg]:text-lg",
+        "inline-flex w-fit select-none items-center gap-1 whitespace-nowrap rounded-lg px-2 py-1.5 text-xs font-semibold leading-none tracking-[0.01em] [&_svg]:text-lg",
         "antialiased",
         "focus:outline-none focus-visible:outline-none",
         "disabled:pointer-events-none disabled:opacity-50", // Disabled

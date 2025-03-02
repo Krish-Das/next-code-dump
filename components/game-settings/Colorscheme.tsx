@@ -1,4 +1,6 @@
+import { useEffect, useState } from "react"
 import { cn } from "@heroui/react"
+import { useTheme } from "next-themes"
 
 import { colorSchemes } from "@/lib/constants"
 import { ColorSchemes } from "@/lib/types"
@@ -23,8 +25,14 @@ export default function ColorSchemeSettings() {
 }
 
 const ColorschemeButton = ({ scheme }: { scheme: ColorSchemes }) => {
-  // TODO: Will use next-themes later
-  const currentScheme: ColorSchemes = "system"
+  const [mounted, setMounted] = useState(false)
+  const { theme: currentScheme, setTheme } = useTheme()
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (!mounted) return null
 
   return (
     <Button
@@ -32,6 +40,7 @@ const ColorschemeButton = ({ scheme }: { scheme: ColorSchemes }) => {
         "capitalize",
         currentScheme === scheme ? activeCn : inactiveCn
       )}
+      onPress={() => setTheme(scheme)}
     >
       <ColorSchemeIcon scheme={scheme} />
       {scheme}

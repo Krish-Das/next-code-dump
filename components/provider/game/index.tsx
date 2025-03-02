@@ -1,6 +1,12 @@
 "use client"
 
-import { createContext, ReactNode, useContext, useState } from "react"
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react"
 import { StopwatchResult, useStopwatch } from "react-timer-hook"
 
 import { GameDifficulties, TGameCard } from "@/lib/types"
@@ -48,6 +54,8 @@ function GameProvider({
   const [stateCards, setCards] = useState<TGameCard[]>(cards)
   const matchedCards = stateCards.filter(c => c.isMatched)
   const isGameOver = matchedCards.length === cards.length
+
+  useEffect(() => setCards(cards), [cards])
 
   const flipCard = (card: TGameCard, override?: boolean) => {
     setCards(prev =>

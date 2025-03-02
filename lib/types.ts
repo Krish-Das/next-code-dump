@@ -13,6 +13,8 @@ export const unsplashImagesSchema = z
   })
   .passthrough()
 
+export const colorSchemeSchemas = z.enum(["system", "light", "dark"])
+
 // --- TYPES ---
 export type GameDifficulties = z.infer<typeof gameDifficultiesSchema>
 export type UnsplashImages = z.infer<typeof unsplashImagesSchema>
@@ -26,4 +28,4 @@ export type TGameCard = {
   isMatched: boolean
 }
 
-export type ColorSchemes = "system" | "light" | "dark"
+export type ColorSchemes = z.infer<typeof colorSchemeSchemas>

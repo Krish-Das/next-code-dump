@@ -1,8 +1,9 @@
 import { Divider } from "@heroui/react"
 
+import Colorscheme from "@/components/game-settings/Colorscheme"
+import Difficulty from "@/components/game-settings/Difficulty"
 import { Toolbar } from "@/components/toolbar/ToolbarV3"
 
-import { ColorSchemeSettings, DifficultySettings } from "./GameSettings"
 import GameStatus from "./GameStatus"
 import ImageSources from "./ImageSources"
 import Score from "./Score"
@@ -32,9 +33,9 @@ const ToolbarWrapper = () => {
       <Toolbar.Tab tab="settings">
         <Toolbar.Title title="Settings" />
         <Toolbar.Separator />
-        <DifficultySettings />
+        <Difficulty />
         <Toolbar.Separator />
-        <ColorSchemeSettings />
+        <Colorscheme />
       </Toolbar.Tab>
     </Toolbar.Root>
   )

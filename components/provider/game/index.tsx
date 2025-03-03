@@ -7,6 +7,7 @@ import {
   useEffect,
   useState,
 } from "react"
+import { useRouter } from "next/navigation"
 import { StopwatchResult, useStopwatch } from "react-timer-hook"
 
 import { GameDifficulties, TGameCard } from "@/lib/types"
@@ -21,6 +22,7 @@ type TGameContext = {
   turns: number
   incrementTurns: () => void
   resetTurns: () => void
+  restartGame: () => void
   isGameOver: boolean
 }
 
@@ -100,6 +102,18 @@ function GameProvider({
     })
   }
 
+  /*
+   * --- RESTART GAME ---
+   */
+  const router = useRouter()
+  const restartGame = (): void => {
+    if (watch.totalSeconds <= 0 && turns <= 0) return
+
+    router.refresh()
+    resetTurns()
+    watch.reset()
+  }
+
   return (
     <GameContext.Provider
       value={{
@@ -113,6 +127,7 @@ function GameProvider({
         incrementTurns,
         resetTurns,
         isGameOver,
+        restartGame,
       }}
     >
       {children}

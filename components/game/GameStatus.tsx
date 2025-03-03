@@ -5,7 +5,7 @@ import { MaterialSymbolsRefresh } from "@/components/icons/material-icons/Materi
 import { useGame } from "@/components/provider/game"
 
 export default function GameStatus() {
-  const { watch } = useGame()
+  const { watch, restartGame } = useGame()
   const { isRunning } = watch
   const minutes = formatTime(watch.minutes)
   const seconds = formatTime(watch.seconds)
@@ -18,6 +18,7 @@ export default function GameStatus() {
         radius="full"
         size="lg"
         isIconOnly
+        onPress={restartGame}
       >
         <MaterialSymbolsRefresh />
       </Button>

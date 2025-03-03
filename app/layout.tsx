@@ -37,6 +37,7 @@ export default function RootLayout({
       lang="en"
       className={`${inter.className} ${inter.variable} ${geistSans.variable} ${geistMono.variable} antialiased light`}
       style={{ colorScheme: "light" }}
+      suppressHydrationWarning
     >
       <body>
         <Provider>{children}</Provider>

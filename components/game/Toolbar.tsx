@@ -14,11 +14,16 @@ const ToolbarWrapper = () => {
     <Toolbar.Root>
       <Toolbar.Idle>
         <GameStatus />
-        <Divider />
-        <div className="flex flex-col gap-1">
-          <Toolbar.Trigger tab="game" />
-          <Toolbar.Trigger tab="settings" />
-        </div>
+
+        <Divider
+          orientation="vertical"
+          className="ml-3 h-4 w-0.5 rounded-full"
+        />
+
+        <section className="inline-flex rounded-full">
+          <Toolbar.Trigger tab="game" position="left" />
+          <Toolbar.Trigger tab="settings" position="right" />
+        </section>
       </Toolbar.Idle>
 
       <Toolbar.Tab tab="game">

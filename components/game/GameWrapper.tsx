@@ -7,8 +7,9 @@ import { Toolbar } from "./Toolbar"
 
 export default function GameWrapper() {
   return (
-    <main className="grid h-dvh place-content-center">
+    <main className="h-dvh w-full">
       <Game />
+
       <Toolbar />
     </main>
   )

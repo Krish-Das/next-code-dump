@@ -17,7 +17,7 @@ export default async function Page(props: {
   if (!parsedDifficulty.success) notFound()
   const difficulty = parsedDifficulty.data
 
-  const count = difficulty === "easy" ? 6 : difficulty === "medium" ? 8 : 15
+  const count = difficulty === "easy" ? 6 : difficulty === "medium" ? 8 : 12
 
   // TODO: Do error-handling
   const res = await fetch(`http://localhost:3000/api/images?c=${count}`)

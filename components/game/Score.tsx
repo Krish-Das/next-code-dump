@@ -1,3 +1,4 @@
+import { calculateScore } from "@/lib/game"
 import { cn, formatTime } from "@/lib/utils"
 import DifficultyIcon from "@/components/icons/game/DifficultyIcon"
 import {
@@ -16,8 +17,8 @@ export default function Score() {
   const minutes = formatTime(watch.minutes)
   const seconds = formatTime(watch.seconds)
 
-  // TODO: write a function to calculate score
-  const score = 2500 as const
+  const scoreResult = calculateScore(watch.totalSeconds, turns, difficulty)
+  const gameScore = scoreResult.success ? scoreResult.score : "Nill"
 
   return (
     <div className="flex w-64 flex-col items-center gap-2 rounded-2xl bg-default-100 py-10">
@@ -45,7 +46,7 @@ export default function Score() {
               : "text-danger-900"
         )}
       >
-        {score}
+        {gameScore}
       </p>
       <div className="mx-auto flex gap-1 text-default-800/70">
         <div className={ChipCn}>

@@ -19,6 +19,7 @@ type TGameContext = {
   flipLogic(card: TGameCard): void
   flipCard: (card: TGameCard, override?: boolean) => void
   watch: StopwatchResult
+  isGameDirty: boolean
   turns: number
   incrementTurns: () => void
   resetTurns: () => void
@@ -102,12 +103,14 @@ function GameProvider({
     })
   }
 
+  const isGameDirty = watch.totalSeconds > 0 || turns > 0
+
   /*
    * --- RESTART GAME ---
    */
   const router = useRouter()
   const restartGame = (): void => {
-    if (watch.totalSeconds <= 0 && turns <= 0) return
+    if (!isGameDirty) return
 
     router.refresh()
     resetTurns()
@@ -123,6 +126,7 @@ function GameProvider({
         flipLogic,
         flipCard,
         watch,
+        isGameDirty,
         turns,
         incrementTurns,
         resetTurns,

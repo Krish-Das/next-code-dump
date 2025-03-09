@@ -1,9 +1,9 @@
-import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { cn } from "@heroui/react"
 
 import { difficulties } from "@/lib/constants"
 import { GameDifficulties } from "@/lib/types"
-import { buttonStyles } from "@/components/ui/custom-button"
+import { Button } from "@/components/ui/custom-button"
 import { DifficultyIcon } from "@/components/icons/game"
 import { useGame } from "@/components/provider/game"
 
@@ -29,19 +29,23 @@ export default function DifficultySettings() {
 }
 
 const DifficultyButton = ({ difficulty }: { difficulty: GameDifficulties }) => {
-  const { difficulty: gameDifficulty } = useGame()
+  const { difficulty: gameDifficulty, watch, resetTurns } = useGame()
+  const router = useRouter()
 
   return (
-    <Link
-      href={{ pathname: "/game", query: { d: difficulty } }}
+    <Button
       className={cn(
-        buttonStyles,
         "capitalize",
         gameDifficulty === difficulty ? activeCn : inactiveCn
       )}
+      onPress={() => {
+        router.push(`game/?d=${difficulty}`)
+        watch.reset()
+        resetTurns()
+      }}
     >
       <DifficultyIcon difficulty={difficulty} />
       {difficulty}
-    </Link>
+    </Button>
   )
 }

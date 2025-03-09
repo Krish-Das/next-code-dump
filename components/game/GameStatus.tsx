@@ -5,13 +5,17 @@ import { MaterialSymbolsRefresh } from "@/components/icons/material-icons/Materi
 import { useGame } from "@/components/provider/game"
 
 export default function GameStatus() {
-  const { watch } = useGame()
+  const { watch, restartGame, isGameDirty } = useGame()
   const minutes = formatTime(watch.minutes)
   const seconds = formatTime(watch.seconds)
 
   return (
     <section className="inline-flex items-center pl-0.5">
-      <Button className="inline-grid h-10 w-10 cursor-default select-none place-content-center rounded-full text-content4-foreground text-content4-foreground/80 outline-none rac-hover:bg-content3/40 rac-focus-visible:ring rac-pressed:scale-[0.97] rac-pressed:bg-content4/50 [&_svg]:text-xl">
+      <Button
+        className="inline-grid h-10 w-10 cursor-default select-none place-content-center rounded-full text-content4-foreground text-content4-foreground/80 outline-none disabled:opacity-25 rac-hover:bg-content3/40 rac-focus-visible:ring rac-pressed:scale-[0.97] rac-pressed:bg-content4/50 [&_svg]:text-xl"
+        onPress={restartGame}
+        isDisabled={!isGameDirty}
+      >
         <MaterialSymbolsRefresh />
       </Button>
 

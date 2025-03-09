@@ -1,36 +1,23 @@
-import { Button, cn } from "@heroui/react"
+import { Button } from "react-aria-components"
 
 import { formatTime } from "@/lib/utils"
 import { MaterialSymbolsRefresh } from "@/components/icons/material-icons/MaterialSymbolsRefresh"
 import { useGame } from "@/components/provider/game"
 
 export default function GameStatus() {
-  const { watch, restartGame } = useGame()
-  const { isRunning } = watch
+  const { watch } = useGame()
   const minutes = formatTime(watch.minutes)
   const seconds = formatTime(watch.seconds)
 
   return (
-    <div className="toolbar__control-group flex h-fit w-fit flex-col items-center gap-2">
-      <Button
-        variant="flat"
-        color={isRunning ? "primary" : "warning"}
-        radius="full"
-        size="lg"
-        isIconOnly
-        onPress={restartGame}
-      >
+    <section className="inline-flex items-center pl-0.5">
+      <Button className="inline-grid h-10 w-10 cursor-default select-none place-content-center rounded-full text-content4-foreground text-content4-foreground/80 outline-none rac-hover:bg-content3/40 rac-focus-visible:ring rac-pressed:scale-[0.97] rac-pressed:bg-content4/50 [&_svg]:text-xl">
         <MaterialSymbolsRefresh />
       </Button>
 
-      <label
-        className={cn(
-          "text-center text-xs font-extrabold",
-          !isRunning && "text-warning-600"
-        )}
-      >
+      <time className="pointer-events-none -ml-0.5 max-w-[4.5ch] touch-none select-none truncate text-clip text-lg font-bold leading-none">
         {minutes}:{seconds}
-      </label>
-    </div>
+      </time>
+    </section>
   )
 }

@@ -7,17 +7,14 @@ import React, {
   useContext,
   useState,
 } from "react"
-import {
-  cn,
-  Button as HeroButton,
-  ButtonProps as HeroButtonProps,
-} from "@heroui/react"
+import { cn, Button as HeroButton } from "@heroui/react"
 
+import { GhostButton, GhostButtonProps } from "@/components/ui/ghost-button"
 import {
   MaterialSymbolsArrowBack,
   MaterialSymbolsSettingsOutline,
   MaterialSymbolsSportsEsportsOutline,
-} from "../icons/material-icons"
+} from "@/components/icons/material-icons"
 
 /* -------------------------------------------------------------------------------------------------
  * Context and types
@@ -58,7 +55,7 @@ const ToolbarRoot = forwardRef<HTMLDivElement, ToolbarRootProps>(
         <nav
           ref={ref}
           className={cn(
-            "toolbar-root fixed left-4 top-1/2 isolate z-10 h-fit w-fit -translate-y-1/2 bg-default-50/50 shadow shadow-black/5 backdrop-blur-md dark:bg-default-50/80",
+            "toolbar-root fixed bottom-3 left-1/2 isolate z-10 h-fit w-fit -translate-x-1/2 overflow-hidden rounded-full bg-content2/70 shadow shadow-black/5 backdrop-blur-lg",
             toolbarState === "close" ? "rounded-full" : "rounded-3xl",
             className
           )}
@@ -115,7 +112,10 @@ const ToolbarIdle = forwardRef<HTMLDivElement, ToolbarIdleProps>(
     return (
       <section
         ref={ref}
-        className={cn("flex h-fit w-fit flex-col gap-3 p-2", className)}
+        className={cn(
+          "flex h-12 items-center gap-0.5 p-1 leading-none",
+          className
+        )}
         {...rest}
       />
     )
@@ -135,7 +135,7 @@ const ToolbarTab = forwardRef<HTMLDivElement, ToolbarTabProps>(
       <section
         ref={ref}
         className={cn(
-          "toolbar-tab flex h-fit w-fit flex-col gap-1.5 px-3 py-4",
+          "toolbar-tab flex h-fit w-fit flex-col gap-1.5 p-3",
           className
         )}
         {...rest}
@@ -186,7 +186,7 @@ ToolbarTitle.displayName = "ToolbarTitle"
 /* -------------------------------------------------------------------------------------------------
  * ToolbarTrigger
  * -----------------------------------------------------------------------------------------------*/
-type ToolbarTriggerProps = Omit<HeroButtonProps, "children"> & {
+type ToolbarTriggerProps = Omit<GhostButtonProps, "children"> & {
   tab: ToolbarTabs
 }
 const ToolbarTrigger = forwardRef<HTMLButtonElement, ToolbarTriggerProps>(
@@ -194,22 +194,25 @@ const ToolbarTrigger = forwardRef<HTMLButtonElement, ToolbarTriggerProps>(
     const { changeState } = useToolbar()
 
     return (
-      <HeroButton
-        ref={ref}
-        variant="flat"
-        radius="full"
-        size="lg"
-        isIconOnly
-        className={cn("toolbar-trigger", className)}
-        onPress={() => changeState(`open:${tab}`)}
+      <GhostButton
         {...rest}
+        ref={ref}
+        bgClassName="w-10 h-10"
+        className={cn(
+          "toolbar-trigger",
+          tab === "game"
+            ? "[&_svg]:text-[1.4rem] [&_svg]:text-content4-foreground"
+            : "[&_svg]:text-content4-foreground",
+          className
+        )}
+        onPress={() => changeState(`open:${tab}`)}
       >
         {tab === "game" ? (
           <MaterialSymbolsSportsEsportsOutline />
         ) : (
           <MaterialSymbolsSettingsOutline />
         )}
-      </HeroButton>
+      </GhostButton>
     )
   }
 )

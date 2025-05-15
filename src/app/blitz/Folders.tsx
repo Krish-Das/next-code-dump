@@ -4,22 +4,22 @@ import { useState } from "react"
 
 import { MatFile, MatFolder, MatFolderOpen } from "@/components/icons/mat"
 
-type Folder = {
+type Node = {
   name: string
-  folders: Folder[]
+  children: Node[]
 }
-const folders: Folder = {
+const folders: Node = {
   name: "Home",
-  folders: [
+  children: [
     {
       name: "Pictures",
-      folders: [
+      children: [
         {
           name: "Wallpapers",
-          folders: [
+          children: [
             {
               name: "Riverside",
-              folders: [],
+              children: [],
             },
           ],
         },
@@ -27,10 +27,10 @@ const folders: Folder = {
     },
     {
       name: "Downloads",
-      folders: [
+      children: [
         {
           name: "Images",
-          folders: [],
+          children: [],
         },
       ],
     },
@@ -38,9 +38,10 @@ const folders: Folder = {
 }
 
 const FoldersUI = () => {
-  const Folder = ({ folder }: { folder: Folder }) => {
+  const Folder = ({ node }: { node: Node }) => {
     const [isOpen, setOpen] = useState(false)
-    const isDirectory = folder.folders.length > 0
+    const childNode = node.children
+    const isDirectory = childNode.length > 0
 
     return (
       <ul className="space-y-1 text-sm">
@@ -58,15 +59,15 @@ const FoldersUI = () => {
             <MatFile />
           )}
 
-          {folder.name}
+          {node.name}
         </button>
 
         <ul className="pl-4">
           {isOpen &&
-            folder.folders.length > 0 &&
-            folder.folders.map((folder, idx) => (
+            isDirectory &&
+            childNode.map((node, idx) => (
               <li key={idx}>
-                <Folder folder={folder} key={idx} />
+                <Folder node={node} key={idx} />
               </li>
             ))}
         </ul>
@@ -76,7 +77,7 @@ const FoldersUI = () => {
 
   return (
     <>
-      <Folder folder={folders} />
+      <Folder node={folders} />
     </>
   )
 }

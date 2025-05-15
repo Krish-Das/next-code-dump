@@ -18,7 +18,7 @@ const folders: Node = {
           name: "Wallpapers",
           children: [
             {
-              name: "Riverside",
+              name: "Riverside.jpg",
               children: [],
             },
           ],
@@ -26,11 +26,16 @@ const folders: Node = {
       ],
     },
     {
-      name: "Downloads",
+      name: "Vedios",
       children: [
         {
-          name: "Images",
-          children: [],
+          name: "Movies",
+          children: [
+            {
+              name: "Horror",
+              children: [{ name: "movie.mp4", children: [] }],
+            },
+          ],
         },
       ],
     },

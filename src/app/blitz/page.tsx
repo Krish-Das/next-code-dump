@@ -1,5 +1,7 @@
 import Image from "next/image"
 
+import { Menu } from "./Folders"
+
 export default function Page() {
   return (
     <main className="">
@@ -8,7 +10,7 @@ export default function Page() {
           <BackgroundImage />
 
           <div className="relative h-full w-full">
-            <Content />
+            <Menu />
           </div>
         </div>
       </section>
@@ -16,6 +18,7 @@ export default function Page() {
   )
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const Content = () => {
   return (
     <div className="flex h-full w-full items-center justify-center p-7.5">

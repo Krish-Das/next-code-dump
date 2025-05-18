@@ -13,6 +13,10 @@ export default function Menu() {
     open: { opacity: 1, filter: "blur(0px)", rotate: 0 },
     close: { opacity: 0, filter: "blur(8px)", rotate: 45 },
   }
+  const newAnimation = {
+    open: { ...buttonAnimationVariants.open, y: "0%" },
+    close: { ...buttonAnimationVariants.close, y: "50%" },
+  }
 
   return (
     <Popover.Root open={open} onOpenChange={setOpen} modal>
@@ -42,7 +46,7 @@ export default function Menu() {
                 <Wrapper>
                   <Label>Income</Label>
                   <TransactionAddButton
-                    variants={buttonAnimationVariants}
+                    variants={newAnimation}
                     type="income"
                     action={() => alert("Action: income")}
                   />
@@ -121,7 +125,6 @@ const TransactionAddButton = ({
       id={buttonId}
       className={cn(
         "relative inline-flex h-12 w-12 items-center justify-center rounded-full bg-neutral-800 text-xl leading-0 font-medium backdrop-blur-sm",
-        isExpense ? "text-[#FF453A]" : "text-[#45D483]",
         className
       )}
       onClick={action}

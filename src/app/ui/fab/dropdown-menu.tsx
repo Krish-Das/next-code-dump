@@ -16,30 +16,22 @@ export default function Menu() {
     <Popover.Root open={open} onOpenChange={setOpen} modal>
       <Popover.Trigger asChild>
         <motion.button
-          variants={{
-            open: {
-              // opacity: 1,
-              rotate: 0,
-              transition: { duration: exitDuration },
-            },
-            close: {
-              // opacity: 0,
-              rotate: 45,
-              transition: { duration: 0.2 },
-            },
-          }}
           animate={open ? "close" : "open"}
-          className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-neutral-800 text-xl leading-0 font-medium backdrop-blur-sm"
-          // TODO: make the button opaque on - open && hidden
+          className={cn(
+            "inline-flex h-12 w-12 items-center justify-center rounded-full bg-neutral-800 text-xl leading-0 font-medium backdrop-blur-sm",
+            open && "hidden"
+          )}
         >
           <motion.span
             variants={{
               open: {
+                rotate: 0,
                 filter: "blur(0px)",
-                transition: { duration: exitDuration },
               },
               close: {
+                rotate: 45,
                 filter: "blur(5px)",
+                transition: { duration: 0.2 },
               },
             }}
             className="svg_container"
@@ -55,10 +47,14 @@ export default function Menu() {
           <Popover.Portal forceMount>
             <div>
               <motion.div
-                initial={{ opacity: 0 }}
-                exit={{ opacity: 0, transition: { duration: exitDuration } }}
-                animate={{ opacity: 1 }}
-                className="absolute inset-0 hidden bg-black/80 backdrop-blur-sm"
+                variants={{
+                  open: { opacity: 1 },
+                  close: { opacity: 0 },
+                }}
+                initial="close"
+                exit="close"
+                animate="open"
+                className="absolute inset-0 bg-black/80 backdrop-blur-sm"
               />
 
               <Popover.Content side="top" className="space-y-2">
@@ -69,7 +65,7 @@ export default function Menu() {
                       open: {
                         opacity: 1,
                         filter: "blur(0px)",
-                        transition: { delay: 0.2 },
+                        transition: { delay: 0.15 },
                         scale: 1,
                       },
                       close: {
@@ -79,7 +75,7 @@ export default function Menu() {
                         transition: { duration: 0.1 },
                       },
                     }}
-                    className="absolute top-1/2 right-16 hidden origin-right -translate-y-1/2 text-right"
+                    className="absolute top-1/2 right-16 origin-right -translate-y-1/2 text-right"
                   >
                     Income
                   </motion.p>
@@ -87,14 +83,12 @@ export default function Menu() {
                     variants={{
                       open: {
                         opacity: 1,
-                        rotate: 0,
                         scale: 1,
                       },
                       close: {
                         opacity: 0,
-                        rotate: 45,
                         scale: 0.6,
-                        transition: { duration: 0.1 },
+                        transition: { duration: 0.15 },
                       },
                     }}
                     id="transaction__add-income"
@@ -109,7 +103,7 @@ export default function Menu() {
                         close: {
                           scale: 0,
                           filter: "blur(5px)",
-                          transition: { duration: 0.1 },
+                          transition: { duration: 0.15 },
                         },
                       }}
                       className="svg_container"
@@ -126,7 +120,7 @@ export default function Menu() {
                       open: {
                         opacity: 1,
                         filter: "blur(0px)",
-                        transition: { delay: 0.18 },
+                        transition: { delay: 0.1 },
                         scale: 1,
                       },
                       close: {
@@ -136,7 +130,7 @@ export default function Menu() {
                         transition: { duration: 0.1 },
                       },
                     }}
-                    className="absolute top-1/2 right-16 hidden origin-right -translate-y-1/2 text-right"
+                    className="absolute top-1/2 right-16 origin-right -translate-y-1/2 text-right"
                   >
                     Expense
                   </motion.p>
@@ -144,13 +138,10 @@ export default function Menu() {
                     variants={{
                       open: {
                         opacity: 1,
-                        rotate: 0,
                         transition: { duration: 0.2 },
                       },
                       close: {
                         opacity: 0,
-                        rotate: 45,
-                        transition: { duration: exitDuration },
                       },
                     }}
                     id="transaction__add-expense"
@@ -160,12 +151,12 @@ export default function Menu() {
                       variants={{
                         open: {
                           filter: "blur(0px)",
-                          scale: 1,
-                          transition: { duration: exitDuration },
+                          rotate: 0,
+                          transition: { duration: 0.2 },
                         },
                         close: {
                           filter: "blur(5px)",
-                          scale: 0,
+                          rotate: 45,
                         },
                       }}
                       className="svg_container"
@@ -200,7 +191,7 @@ const Wrapper = ({
               open: { y: "0%" },
               close: {
                 y: "50%",
-                transition: { duration: 0.1 },
+                transition: { duration: 0.15 },
               },
             }
           : undefined

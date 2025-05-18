@@ -1,45 +1,56 @@
 "use client"
 
-import { ReactNode } from "react"
+import { ReactNode, useState } from "react"
+import { AnimatePresence, motion } from "motion/react"
 import { Popover } from "radix-ui"
 
 import { cn } from "@/lib/utils"
 import { IonAddSharp, IonRemoveSharp } from "@/components/icons/ion"
 
 export default function Menu() {
+  const [open, setOpen] = useState(false)
+
   return (
-    <Popover.Root modal>
+    <Popover.Root open={open} onOpenChange={setOpen} modal>
       <Popover.Trigger asChild>
         <button className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-white/10 text-xl leading-0 font-medium backdrop-blur-sm">
           ⌘
         </button>
       </Popover.Trigger>
-
       <Popover.Anchor />
 
-      <Popover.Portal>
-        <div>
-          <div className="absolute inset-0 bg-white/20 backdrop-blur-sm" />
-
-          <Popover.Content side="top">
-            <Wrapper>
-              <Label>Income</Label>
-              <TransactionAddButton
-                type="income"
-                action={() => alert("Action: income")}
+      <AnimatePresence>
+        {open && (
+          <Popover.Portal forceMount>
+            <div>
+              <motion.div
+                initial={{ opacity: 0 }}
+                exit={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="absolute inset-0 bg-black/80 backdrop-blur-sm"
               />
-            </Wrapper>
 
-            <Wrapper>
-              <Label>Expense</Label>
-              <TransactionAddButton
-                type="expense"
-                action={() => alert("Action: expense")}
-              />
-            </Wrapper>
-          </Popover.Content>
-        </div>
-      </Popover.Portal>
+              <Popover.Content side="top">
+                <Wrapper>
+                  <Label>Income</Label>
+                  <TransactionAddButton
+                    type="income"
+                    action={() => alert("Action: income")}
+                  />
+                </Wrapper>
+
+                <Wrapper>
+                  <Label>Expense</Label>
+                  <TransactionAddButton
+                    type="expense"
+                    action={() => alert("Action: expense")}
+                  />
+                </Wrapper>
+              </Popover.Content>
+            </div>
+          </Popover.Portal>
+        )}
+      </AnimatePresence>
     </Popover.Root>
   )
 }

@@ -1,7 +1,7 @@
 "use client"
 
 import { ReactNode, useState } from "react"
-import { AnimatePresence, motion } from "motion/react"
+import { AnimatePresence, motion, Variants } from "motion/react"
 import { Popover } from "radix-ui"
 
 import { cn } from "@/lib/utils"
@@ -9,13 +9,21 @@ import { IonAddSharp, IonRemoveSharp } from "@/components/icons/ion"
 
 export default function Menu() {
   const [open, setOpen] = useState(false)
+  const buttonAnimationVariants: Variants = {
+    open: { opacity: 1, filter: "blur(0px)", rotate: 0 },
+    close: { opacity: 0, filter: "blur(8px)", rotate: 45 },
+  }
 
   return (
     <Popover.Root open={open} onOpenChange={setOpen} modal>
       <Popover.Trigger asChild>
-        <button className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-white/10 text-xl leading-0 font-medium backdrop-blur-sm">
+        <motion.button
+          variants={buttonAnimationVariants}
+          animate={open ? "close" : "open"}
+          className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-neutral-800 text-xl leading-0 font-medium backdrop-blur-sm"
+        >
           ⌘
-        </button>
+        </motion.button>
       </Popover.Trigger>
       <Popover.Anchor />
 
@@ -34,6 +42,7 @@ export default function Menu() {
                 <Wrapper>
                   <Label>Income</Label>
                   <TransactionAddButton
+                    variants={buttonAnimationVariants}
                     type="income"
                     action={() => alert("Action: income")}
                   />
@@ -42,6 +51,7 @@ export default function Menu() {
                 <Wrapper>
                   <Label>Expense</Label>
                   <TransactionAddButton
+                    variants={buttonAnimationVariants}
                     type="expense"
                     action={() => alert("Action: expense")}
                   />
@@ -88,10 +98,12 @@ const TransactionAddButton = ({
   type,
   action,
   className,
+  variants,
 }: {
   type: "expense" | "income"
   action: () => void
   className?: string
+  variants: Variants
 }) => {
   const isExpense = type === "expense"
 
@@ -101,16 +113,20 @@ const TransactionAddButton = ({
     : "transaction__add-income"
 
   return (
-    <button
+    <motion.button
+      variants={variants}
+      initial="close"
+      exit="close"
+      animate="open"
       id={buttonId}
       className={cn(
-        "inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-neutral-800 text-xl leading-0 font-medium backdrop-blur-sm",
+        "relative inline-flex h-12 w-12 items-center justify-center rounded-full bg-neutral-800 text-xl leading-0 font-medium backdrop-blur-sm",
         isExpense ? "text-[#FF453A]" : "text-[#45D483]",
         className
       )}
       onClick={action}
     >
       {icon}
-    </button>
+    </motion.button>
   )
 }

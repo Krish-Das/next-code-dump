@@ -9,20 +9,79 @@ import {IonAddSharp, IonRemoveSharp} from "@/components/icons/ion"
 
 export default function Menu() {
   const [open, setOpen] = useState(false)
-  const iconAnimationVariants = {
+
+  const iconRotation = {open: 0, close: 45} as const
+  const iconBlur = {open: "blur(0px)", close: "blur(5px)"} as const
+  const expenseButtonIconAnimationVariants = {
     open: {
-      rotate: 0,
+      rotate: iconRotation.open,
       opacity: 1,
       scale: 1,
       display: "inline",
-      filter: "blur(0px)",
+      filter: iconBlur.open,
     },
     close: {
-      rotate: 45,
+      rotate: iconRotation.close,
       opacity: 0,
       scale: 0.5,
       display: "hidden",
-      filter: "blur(3px)",
+      filter: iconBlur.close,
+    },
+  } as Variants
+  const incomeButtonIconAnimationVariants = {
+    open: {
+      filter: iconBlur.open,
+      scale: 1,
+      transition: {delay: 0.1},
+    },
+    close: {
+      scale: 0,
+      filter: iconBlur.close,
+      transition: {duration: 0.15},
+    },
+  } as Variants
+
+  const backdropAnimationVariants = {
+    open: {opacity: 1},
+    close: {opacity: 0},
+  } as Variants
+  const incomeLabelAnimationVariants = {
+    open: {
+      opacity: 1,
+      filter: "blur(0px)",
+      transition: {delay: 0.135},
+      scale: 1,
+    },
+    close: {
+      opacity: 0,
+      filter: "blur(5px)",
+      scale: 0.5,
+      transition: {duration: 0.1},
+    },
+  } as Variants
+  const expenseLabelAnimationVariants = {
+    open: {
+      opacity: 1,
+      filter: "blur(0px)",
+      transition: {delay: 0.1},
+      scale: 1,
+    },
+    close: {
+      opacity: 0,
+      filter: "blur(5px)",
+      scale: 0.5,
+      transition: {duration: 0.1},
+    },
+  } as Variants
+  const incomeButtonAnimationVariants = {
+    open: {
+      opacity: 1,
+      scale: 1,
+    },
+    close: {
+      opacity: 0,
+      scale: 0.6,
+      transition: {duration: 0.15},
     },
   } as Variants
 
@@ -49,10 +108,7 @@ export default function Menu() {
           <Popover.Portal forceMount>
             <div>
               <motion.div
-                variants={{
-                  open: {opacity: 1},
-                  close: {opacity: 0},
-                }}
+                variants={backdropAnimationVariants}
                 initial="close"
                 exit="close"
                 animate="open"
@@ -63,50 +119,16 @@ export default function Menu() {
                 {/* Income button */}
                 <Wrapper animate>
                   <motion.p
-                    variants={{
-                      open: {
-                        opacity: 1,
-                        filter: "blur(0px)",
-                        transition: {delay: 0.135},
-                        scale: 1,
-                      },
-                      close: {
-                        opacity: 0,
-                        filter: "blur(5px)",
-                        scale: 0.5,
-                        transition: {duration: 0.1},
-                      },
-                    }}
+                    variants={incomeLabelAnimationVariants}
                     className="absolute top-1/2 right-16 origin-right -translate-y-1/2 text-right">
                     Income
                   </motion.p>
                   <motion.button
-                    variants={{
-                      open: {
-                        opacity: 1,
-                        scale: 1,
-                      },
-                      close: {
-                        opacity: 0,
-                        scale: 0.6,
-                        transition: {duration: 0.15},
-                      },
-                    }}
+                    variants={incomeButtonAnimationVariants}
                     id="transaction__add-income"
                     className="relative inline-flex h-12 w-12 items-center justify-center rounded-full bg-neutral-800 text-xl leading-0 font-medium backdrop-blur-sm">
                     <motion.span
-                      variants={{
-                        open: {
-                          filter: "blur(0px)",
-                          scale: 1,
-                          transition: {delay: 0.1},
-                        },
-                        close: {
-                          scale: 0,
-                          filter: "blur(5px)",
-                          transition: {duration: 0.15},
-                        },
-                      }}
+                      variants={incomeButtonIconAnimationVariants}
                       className="svg_container">
                       <IonAddSharp />
                     </motion.span>
@@ -116,20 +138,7 @@ export default function Menu() {
                 {/* Expense button */}
                 <Wrapper>
                   <motion.p
-                    variants={{
-                      open: {
-                        opacity: 1,
-                        filter: "blur(0px)",
-                        transition: {delay: 0.1},
-                        scale: 1,
-                      },
-                      close: {
-                        opacity: 0,
-                        filter: "blur(5px)",
-                        scale: 0.5,
-                        transition: {duration: 0.1},
-                      },
-                    }}
+                    variants={expenseLabelAnimationVariants}
                     className="absolute top-1/2 right-16 origin-right -translate-y-1/2 text-right">
                     Expense
                   </motion.p>
@@ -145,15 +154,15 @@ export default function Menu() {
                     className="relative inline-flex h-12 w-12 items-center justify-center rounded-full bg-neutral-800 text-xl leading-0 font-medium backdrop-blur-sm">
                     <motion.span
                       className="absolute top-1/2 left-1/2 -translate-1/2"
-                      variants={iconAnimationVariants}>
+                      variants={expenseButtonIconAnimationVariants}>
                       <IonRemoveSharp />
                     </motion.span>
 
                     <motion.span
                       className="absolute top-1/2 left-1/2 -translate-1/2"
                       variants={{
-                        open: iconAnimationVariants.close,
-                        close: iconAnimationVariants.open,
+                        open: expenseButtonIconAnimationVariants.close,
+                        close: expenseButtonIconAnimationVariants.open,
                       }}>
                       <IonAddSharp />
                     </motion.span>

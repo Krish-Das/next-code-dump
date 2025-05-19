@@ -182,7 +182,7 @@ const Wrapper = ({
       variants={
         animate
           ? {
-              open: {y: "0%"},
+              open: {y: "0%", transition: {delay: 0.05}},
               close: {
                 y: "50%",
                 transition: {duration: 0.15},

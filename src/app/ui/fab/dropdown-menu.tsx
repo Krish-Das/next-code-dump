@@ -1,13 +1,11 @@
 "use client"
 
-import { ReactNode, useState } from "react"
-import { AnimatePresence, motion } from "motion/react"
-import { Popover } from "radix-ui"
+import {ReactNode, useState} from "react"
+import {AnimatePresence, motion} from "motion/react"
+import {Popover} from "radix-ui"
 
-import { cn } from "@/lib/utils"
-import { IonAddSharp, IonRemoveSharp } from "@/components/icons/ion"
-
-const exitDuration = undefined // as const
+import {cn} from "@/lib/utils"
+import {IonAddSharp, IonRemoveSharp} from "@/components/icons/ion"
 
 export default function Menu() {
   const [open, setOpen] = useState(false)
@@ -20,8 +18,7 @@ export default function Menu() {
           className={cn(
             "inline-flex h-12 w-12 items-center justify-center rounded-full bg-neutral-800 text-xl leading-0 font-medium backdrop-blur-sm",
             open && "hidden"
-          )}
-        >
+          )}>
           <motion.span
             variants={{
               open: {
@@ -31,11 +28,10 @@ export default function Menu() {
               close: {
                 rotate: 45,
                 filter: "blur(5px)",
-                transition: { duration: 0.2 },
+                transition: {duration: 0.2},
               },
             }}
-            className="svg_container"
-          >
+            className="svg_container">
             <IonAddSharp />
           </motion.span>
         </motion.button>
@@ -48,8 +44,8 @@ export default function Menu() {
             <div>
               <motion.div
                 variants={{
-                  open: { opacity: 1 },
-                  close: { opacity: 0 },
+                  open: {opacity: 1},
+                  close: {opacity: 0},
                 }}
                 initial="close"
                 exit="close"
@@ -65,18 +61,17 @@ export default function Menu() {
                       open: {
                         opacity: 1,
                         filter: "blur(0px)",
-                        transition: { delay: 0.15 },
+                        transition: {delay: 0.15},
                         scale: 1,
                       },
                       close: {
                         opacity: 0,
                         filter: "blur(5px)",
                         scale: 0.5,
-                        transition: { duration: 0.1 },
+                        transition: {duration: 0.1},
                       },
                     }}
-                    className="absolute top-1/2 right-16 origin-right -translate-y-1/2 text-right"
-                  >
+                    className="absolute top-1/2 right-16 origin-right -translate-y-1/2 text-right">
                     Income
                   </motion.p>
                   <motion.button
@@ -88,12 +83,11 @@ export default function Menu() {
                       close: {
                         opacity: 0,
                         scale: 0.6,
-                        transition: { duration: 0.15 },
+                        transition: {duration: 0.15},
                       },
                     }}
                     id="transaction__add-income"
-                    className="relative inline-flex h-12 w-12 items-center justify-center rounded-full bg-neutral-800 text-xl leading-0 font-medium backdrop-blur-sm"
-                  >
+                    className="relative inline-flex h-12 w-12 items-center justify-center rounded-full bg-neutral-800 text-xl leading-0 font-medium backdrop-blur-sm">
                     <motion.span
                       variants={{
                         open: {
@@ -103,11 +97,10 @@ export default function Menu() {
                         close: {
                           scale: 0,
                           filter: "blur(5px)",
-                          transition: { duration: 0.15 },
+                          transition: {duration: 0.15},
                         },
                       }}
-                      className="svg_container"
-                    >
+                      className="svg_container">
                       <IonAddSharp />
                     </motion.span>
                   </motion.button>
@@ -120,47 +113,44 @@ export default function Menu() {
                       open: {
                         opacity: 1,
                         filter: "blur(0px)",
-                        transition: { delay: 0.1 },
+                        transition: {delay: 0.1},
                         scale: 1,
                       },
                       close: {
                         opacity: 0,
                         filter: "blur(5px)",
                         scale: 0.5,
-                        transition: { duration: 0.1 },
+                        transition: {duration: 0.1},
                       },
                     }}
-                    className="absolute top-1/2 right-16 origin-right -translate-y-1/2 text-right"
-                  >
+                    className="absolute top-1/2 right-16 origin-right -translate-y-1/2 text-right">
                     Expense
                   </motion.p>
                   <motion.button
                     variants={{
                       open: {
                         opacity: 1,
-                        transition: { duration: 0.2 },
+                        transition: {duration: 0.2},
                       },
                       close: {
                         opacity: 0,
                       },
                     }}
                     id="transaction__add-expense"
-                    className="relative inline-flex h-12 w-12 items-center justify-center rounded-full bg-neutral-800 text-xl leading-0 font-medium backdrop-blur-sm"
-                  >
+                    className="relative inline-flex h-12 w-12 items-center justify-center rounded-full bg-neutral-800 text-xl leading-0 font-medium backdrop-blur-sm">
                     <motion.span
                       variants={{
                         open: {
                           filter: "blur(0px)",
                           rotate: 0,
-                          transition: { duration: 0.2 },
+                          transition: {duration: 0.2},
                         },
                         close: {
                           filter: "blur(5px)",
                           rotate: 45,
                         },
                       }}
-                      className="svg_container"
-                    >
+                      className="svg_container">
                       <IonRemoveSharp />
                     </motion.span>
                   </motion.button>
@@ -188,10 +178,10 @@ const Wrapper = ({
       variants={
         animate
           ? {
-              open: { y: "0%" },
+              open: {y: "0%"},
               close: {
                 y: "50%",
-                transition: { duration: 0.15 },
+                transition: {duration: 0.15},
               },
             }
           : undefined
@@ -199,8 +189,7 @@ const Wrapper = ({
       initial="close"
       exit="close"
       animate="open"
-      className={cn("relative flex gap-2", className)}
-    >
+      className={cn("relative flex gap-2", className)}>
       {children}
     </motion.div>
   )

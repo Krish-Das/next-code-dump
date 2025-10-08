@@ -2,6 +2,7 @@
 
 import { useForm } from "@tanstack/react-form"
 import { api } from "#/convex/_generated/api"
+import { Doc, Id } from "#/convex/_generated/dataModel"
 import { useMutation } from "convex/react"
 import {
   Button,
@@ -11,9 +12,24 @@ import {
   Label,
   TextField,
 } from "react-aria-components"
+import { v4 as uuidv4 } from "uuid"
 
 const NetTaskForm = () => {
-  const addTask = useMutation(api.tasks.add)
+  const addTask = useMutation(api.tasks.add).withOptimisticUpdate(
+    (localStore, args) => {
+      const { text } = args
+      const exisitingTask = localStore.getQuery(api.tasks.get)
+      if (!!exisitingTask) {
+        const newTask: Doc<"tasks"> = {
+          _id: uuidv4() as Id<"tasks">,
+          _creationTime: Date.now(),
+          text,
+          isCompleted: false,
+        }
+        localStore.setQuery(api.tasks.get, {}, [...exisitingTask, newTask])
+      }
+    }
+  )
 
   const form = useForm({
     defaultValues: { text: "" },

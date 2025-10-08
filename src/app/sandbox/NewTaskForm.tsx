@@ -13,7 +13,7 @@ import {
 } from "react-aria-components"
 
 const NetTaskForm = () => {
-  const addTask = useMutation(api.taks.add)
+  const addTask = useMutation(api.tasks.add)
 
   const form = useForm({
     defaultValues: { text: "" },

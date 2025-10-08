@@ -7,9 +7,9 @@ import { Button } from "react-aria-components"
 import { cn } from "@/lib/utils"
 
 const Tasks = () => {
-  const tasks = useQuery(api.taks.get)
-  const removeTask = useMutation(api.taks.remove)
-  const toggleComplete = useMutation(api.taks.toggleComplete)
+  const tasks = useQuery(api.tasks.get)
+  const removeTask = useMutation(api.tasks.remove)
+  const toggleComplete = useMutation(api.tasks.toggleComplete)
   if (!tasks) return <p>Loading tasks...</p>
 
   return (

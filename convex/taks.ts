@@ -15,3 +15,9 @@ export const add = mutation({
     return await ctx.db.insert("tasks", { text, isCompleted: false })
   },
 })
+export const remove = mutation({
+  args: { id: v.id("tasks") },
+  handler: async (ctx, { id }) => {
+    return await ctx.db.delete(id)
+  },
+})

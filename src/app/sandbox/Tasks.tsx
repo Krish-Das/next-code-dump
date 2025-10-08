@@ -1,12 +1,14 @@
 "use client"
 
 import { api } from "#/convex/_generated/api"
-import { useQuery } from "convex/react"
+import { useMutation, useQuery } from "convex/react"
+import { Button } from "react-aria-components"
 
 import { cn } from "@/lib/utils"
 
 const Tasks = () => {
   const tasks = useQuery(api.taks.get)
+  const removeTask = useMutation(api.taks.remove)
   if (!tasks) return <p>Loading tasks...</p>
 
   return (
@@ -15,7 +17,15 @@ const Tasks = () => {
         {tasks.map(task => (
           <li key={task._id} className="flex items-center gap-2">
             <Check isChecked={task.isCompleted} />
-            <span>{task.text}</span>
+            <span className="flex-1">{task.text}</span>
+            <Button
+              className="text-label-secondary data-pressed:bg-fill-primary inline-grid size-5 place-content-center rounded-full leading-none"
+              onPress={() => {
+                removeTask({ id: task._id })
+              }}
+            >
+              ⛌
+            </Button>
           </li>
         ))}
       </ul>

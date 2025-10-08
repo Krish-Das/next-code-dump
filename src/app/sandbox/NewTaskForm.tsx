@@ -1,6 +1,8 @@
 "use client"
 
 import { useForm } from "@tanstack/react-form"
+import { api } from "#/convex/_generated/api"
+import { useMutation } from "convex/react"
 import {
   Button,
   FieldError,
@@ -11,13 +13,12 @@ import {
 } from "react-aria-components"
 
 const NetTaskForm = () => {
+  const addTask = useMutation(api.taks.add)
+
   const form = useForm({
-    defaultValues: {
-      text: "",
-    },
-    onSubmit: async ({ value }) => {
-      // Do something with form data
-      console.log(value)
+    defaultValues: { text: "" },
+    onSubmit: ({ value }) => {
+      addTask({ text: value.text })
     },
   })
 

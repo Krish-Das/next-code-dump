@@ -8,8 +8,29 @@ import { cn } from "@/lib/utils"
 
 const Tasks = () => {
   const tasks = useQuery(api.tasks.get)
-  const removeTask = useMutation(api.tasks.remove)
-  const toggleComplete = useMutation(api.tasks.toggleComplete)
+  const removeTask = useMutation(api.tasks.remove).withOptimisticUpdate(
+    (localStore, { id }) => {
+      const existingTasks = localStore.getQuery(api.tasks.get)
+      if (!!existingTasks) {
+        const relevant = existingTasks.filter(t => t._id !== id)
+        localStore.setQuery(api.tasks.get, {}, relevant)
+      }
+    }
+  )
+
+  const toggleComplete = useMutation(
+    api.tasks.toggleComplete
+  ).withOptimisticUpdate((localStore, { id }) => {
+    const existingTask = localStore.getQuery(api.tasks.get)
+    if (!!existingTask) {
+      const updatedTasks = existingTask.map(t =>
+        t._id === id ? { ...t, isCompleted: !t.isCompleted } : t
+      )
+
+      localStore.setQuery(api.tasks.get, {}, updatedTasks)
+    }
+  })
+
   if (!tasks) return <p>Loading tasks...</p>
 
   return (

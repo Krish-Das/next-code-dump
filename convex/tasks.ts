@@ -9,6 +9,22 @@ export const get = query({
   },
 })
 
+export const getById = query({
+  args: { id: v.id("tasks") },
+  handler: async (ctx, { id }) => {
+    return await ctx.db.get(id)
+  },
+})
+
+export const getByStringId = query({
+  args: { id: v.string() },
+  handler: async (ctx, args) => {
+    const normalizedId = ctx.db.normalizeId("tasks", args.id)
+    if (!normalizedId) throw new Error("Invalid ID for the task")
+    return await ctx.db.get(normalizedId)
+  },
+})
+
 export const add = mutation({
   args: { text: v.string() },
   handler: async (ctx, { text }) => {

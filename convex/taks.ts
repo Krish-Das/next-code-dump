@@ -15,6 +15,17 @@ export const add = mutation({
     return await ctx.db.insert("tasks", { text, isCompleted: false })
   },
 })
+
+export const toggleComplete = mutation({
+  args: { id: v.id("tasks") },
+  handler: async (ctx, { id }) => {
+    const existing = await ctx.db.get(id)
+    if (!existing) throw new Error("No task found with the given ID!")
+
+    return await ctx.db.patch(id, { isCompleted: !existing.isCompleted })
+  },
+})
+
 export const remove = mutation({
   args: { id: v.id("tasks") },
   handler: async (ctx, { id }) => {

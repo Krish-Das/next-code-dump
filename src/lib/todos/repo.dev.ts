@@ -1,12 +1,10 @@
 import { v4 as uuid } from "uuid"
 
+import { EPS } from "../constants"
 import { MOCK_TODOS } from "./fixtures"
 import { Todo } from "./types"
 
 const todos: Todo[] = [...MOCK_TODOS]
-
-// small epsilon to detect "too close" floats
-const EPS = 1e-8
 
 function sorted() {
   return todos.slice().sort((a, b) => a.order - b.order)
@@ -134,7 +132,7 @@ export const devTodos = {
 }
 
 // helpers
-function isGapTooSmall(list: Todo[], pos: number) {
+function isGapTooSmall(list: Todo[]) {
   // check if there exists a neighbor whose gap to this pos is < EPS (very small)
   for (let i = 0; i < list.length - 1; i++) {
     if (Math.abs(list[i + 1].order - list[i].order) < EPS) return true

@@ -1,15 +1,14 @@
-"use client"
-
 import { Button } from "react-aria-components"
 
 import { cn } from "@/lib/utils"
 
-import { createTodo } from "../actions/todos"
+import { useTodo } from "../providers/todo"
 
 const AddTodoButton = () => {
-  const handleCreateTodo = async () => {
-    const text = `Test-${Math.floor(performance.now())}`
-    await createTodo(text)
+  const { create } = useTodo()
+
+  const handleCreateTodo = () => {
+    create("Testing something")
   }
 
   return (

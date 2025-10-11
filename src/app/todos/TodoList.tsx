@@ -1,11 +1,13 @@
-import { Todo } from "@/lib/todos/types"
 import { Spacer } from "@/components/ui/Spacer"
 
+import { useTodo } from "../providers/todo"
 import EmptyState from "./EmptyState"
 import GrabHandle from "./GrabHandle"
 import TodoListHeader from "./TodoListHeader"
 
-const TodoList = ({ todos }: { todos: Todo[] }) => {
+const TodoList = () => {
+  const { todos } = useTodo()
+
   if (!todos.length) return <EmptyState />
 
   return (

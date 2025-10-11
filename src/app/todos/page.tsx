@@ -1,18 +1,19 @@
+"use client"
+
 import { Spacer } from "@/components/ui/Spacer"
 
-import { getTodos } from "../actions/todos"
+import { TodoProvider } from "../providers/todo"
 import AddTodo from "./AddTodo"
 import TodoList from "./TodoList"
 
-const Page = async () => {
-  const todos = await getTodos()
-  console.log(todos)
-
+const Page = () => {
   return (
     <main className="mx-auto max-w-xl p-4">
-      <TodoList todos={todos} />
-      <Spacer />
-      <AddTodo />
+      <TodoProvider>
+        <TodoList />
+        <Spacer />
+        <AddTodo />
+      </TodoProvider>
     </main>
   )
 }

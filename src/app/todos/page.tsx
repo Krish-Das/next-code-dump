@@ -6,6 +6,8 @@ import TodoList from "./TodoList"
 
 const Page = async () => {
   const todos = await getTodos()
+  console.log(todos)
+
   return (
     <main className="mx-auto max-w-xl p-4">
       <TodoList todos={todos} />

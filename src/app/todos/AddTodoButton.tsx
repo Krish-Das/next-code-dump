@@ -8,7 +8,7 @@ const AddTodoButton = () => {
   const { create } = useTodo()
 
   const handleCreateTodo = () => {
-    create("Testing something")
+    create(`task-${Math.floor(performance.now())}`)
   }
 
   return (

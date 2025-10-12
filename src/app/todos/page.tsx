@@ -8,7 +8,7 @@ import TodoList from "./TodoList"
 
 const Page = () => {
   return (
-    <main className="mx-auto max-w-xl p-4">
+    <main className="mx-auto max-w-xl p-4 px-5">
       <TodoProvider>
         <TodoList />
         <Spacer />

@@ -14,6 +14,7 @@ import GrabHandle from "./GrabHandle"
 const TodoItem = ({ todo }: { todo: Todo }) => {
   const ref = useRef<HTMLLIElement>(null)
   const [isDragging, setDragging] = useState(false)
+  const [isAboutToDrop, setAboutToDrop] = useState(false)
   const { reorder } = useTodo()
 
   useEffect(() => {
@@ -30,11 +31,23 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
       dropTargetForElements({
         element,
         getData: () => todo,
+        canDrop: ({ source }) => element !== source.element, // disable dropping on itself
+        onDragEnter: () => {
+          setAboutToDrop(true)
+        },
+        onDragLeave: () => {
+          setAboutToDrop(false)
+        },
         onDrop: e => {
           const source = e.source.data as Todo
           const target = e.self.data as Todo
 
           reorder(source.id, { afterId: null, beforeId: target.id })
+
+          // onDragLeave only triggers while still dragging
+          // when we drop the source element on the target the `onDragLeave` dosen't trigger
+          // so we need to toggle `isAboutToDrop` when we finally drop the source on the target
+          setAboutToDrop(false)
         },
       })
     )
@@ -44,7 +57,8 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
     <li
       className={cn(
         "text-label-primary/80 bg-fill-tertiary border-separator-opaque flex h-11 items-center gap-1.5 border-b p-2 text-sm",
-        isDragging && "opacity-65"
+        isDragging && "opacity-65",
+        isAboutToDrop && "bg-ios-green/20"
       )}
       ref={ref}
     >

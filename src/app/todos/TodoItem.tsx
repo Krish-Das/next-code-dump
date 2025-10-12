@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react"
+import { draggable } from "@atlaskit/pragmatic-drag-and-drop/element/adapter"
 
 import { Todo } from "@/lib/todos/types"
 
@@ -8,8 +9,12 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
   const ref = useRef<HTMLLIElement>(null)
 
   useEffect(() => {
-    if (!ref) return
-    console.log(ref)
+    if (!ref?.current) return
+    const element = ref.current
+
+    return draggable({
+      element,
+    })
   }, [ref])
 
   return (

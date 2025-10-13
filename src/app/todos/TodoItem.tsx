@@ -16,75 +16,66 @@ import { cn } from "@/lib/utils"
 import { useTodo } from "../providers/todo"
 import GrabHandle from "./GrabHandle"
 
+type DraggableState =
+  | { type: "idle" }
+  | { type: "preview"; container: HTMLElement }
+  | { type: "dragging" }
+
+const idleState: DraggableState = { type: "idle" }
+const draggingState: DraggableState = { type: "dragging" }
+
 const TodoItem = ({ todo, index }: { todo: Todo; index: number }) => {
+  const { reorder } = useTodo()
+
   const ref = useRef<HTMLLIElement>(null)
+
+  const [draggableState, setDraggableState] =
+    useState<DraggableState>(idleState)
+  const [closestEdge, setClosestEdge] = useState<Edge | null>(null)
+
   const [isDragging, setDragging] = useState(false)
   const [isAboutToDrop, setAboutToDrop] = useState(false)
-  const [closestEdge, setClosestEdge] = useState<Edge | null>(null)
-  const { todos, reorder } = useTodo()
 
   useEffect(() => {
     if (!ref?.current) return
     const element = ref.current
 
+    const data = { todo, index }
+
+    function onChange() {}
+
     return combine(
       draggable({
         element,
-        getInitialData: () => todo,
-        onDragStart: () => setDragging(true),
-        onDrop: () => setDragging(false),
+        getInitialData: () => data,
+        onDragStart: () => {
+          setDraggableState(draggingState)
+        },
+        onDrop: () => {
+          setDraggableState(idleState)
+        },
       }),
       dropTargetForElements({
         element,
         canDrop: ({ source }) => element !== source.element, // disable dropping on itself
         getData: ({ input }) => {
-          const data = { todo }
           return attachClosestEdge(data, {
             element,
             input,
             allowedEdges: ["top", "bottom"],
           })
         },
-        onDragEnter: ({ self }) => {
-          setAboutToDrop(true)
-          const edge = extractClosestEdge(self.data)
-          setClosestEdge(edge)
-        },
-        onDrag: ({ self }) => {
-          const edge = extractClosestEdge(self.data)
-          setClosestEdge(edge)
-        },
+        onDragEnter: onChange,
+        onDrag: onChange,
         onDragLeave: () => {
           setClosestEdge(null)
-          setAboutToDrop(false)
         },
-        onDrop: ({ self, source }) => {
-          const edge = extractClosestEdge(self.data)
-          const sourceTodo = source.data as Todo
-          const targetTodo = self.data.todo as Todo
-
-          const targetIndex = todos.findIndex(t => t.id === targetTodo.id)
-
-          let beforeId = null
-          let afterId = null
-
-          if (edge === "top") {
-            afterId = targetTodo.id
-            beforeId = targetIndex > 0 ? todos[targetIndex - 1].id : null
-          } else {
-            // Inserting after target
-            beforeId = targetTodo.id
-            afterId =
-              targetIndex < todos.length - 1 ? todos[targetIndex + 1].id : null
-          }
-
-          reorder(sourceTodo.id, { beforeId, afterId })
-
-          setAboutToDrop(false)
+        onDrop: () => {
+          setClosestEdge(null)
         },
       })
     )
-  }, [ref, todo, reorder, todos])
+  }, [todo, index])
 
   return (
     <>

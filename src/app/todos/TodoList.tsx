@@ -15,8 +15,8 @@ const TodoList = () => {
       <TodoListHeader />
       <Spacer className="h-4" />
       <ul className="border-separator-opaque flex flex-col border [&_li:last-of-type]:border-none">
-        {todos.map(todo => (
-          <TodoItem todo={todo} key={todo.id} />
+        {todos.map((todo, idx) => (
+          <TodoItem todo={todo} key={todo.id} index={idx} />
         ))}
       </ul>
     </>

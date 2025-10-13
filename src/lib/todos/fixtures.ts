@@ -22,4 +22,25 @@ export const MOCK_TODOS: Todo[] = [
     order: 3.0,
     createdAt: "2025-10-03T09:00:00.000Z",
   },
+  {
+    id: "b23c5f12-9f67-4fa9-9a0a-bc9a0a2e8a42",
+    text: "Finish project report",
+    completed: false,
+    order: 4.0,
+    createdAt: "2025-10-01T11:15:00.000Z",
+  },
+  {
+    id: "e83b12c7-4d09-4c38-a1cf-9b872c7a5b22",
+    text: "Call the electrician",
+    completed: true,
+    order: 5.0,
+    createdAt: "2025-10-02T08:30:00.000Z",
+  },
+  {
+    id: "a6f5c0e9-3d1a-47df-8b4b-54f9a2e62a77",
+    text: "Schedule dentist appointment",
+    completed: false,
+    order: 6.0,
+    createdAt: "2025-10-03T09:45:00.000Z",
+  },
 ]

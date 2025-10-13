@@ -8,12 +8,13 @@ import { combine } from "@atlaskit/pragmatic-drag-and-drop/combine"
 import {
   draggable,
   dropTargetForElements,
+  ElementDropTargetEventBasePayload,
 } from "@atlaskit/pragmatic-drag-and-drop/element/adapter"
 
 import { Todo } from "@/lib/todos/types"
 import { cn } from "@/lib/utils"
 
-import { useTodo } from "../providers/todo"
+// import { useTodo } from "../providers/todo"
 import GrabHandle from "./GrabHandle"
 
 type DraggableState =
@@ -25,7 +26,7 @@ const idleState: DraggableState = { type: "idle" }
 const draggingState: DraggableState = { type: "dragging" }
 
 const TodoItem = ({ todo, index }: { todo: Todo; index: number }) => {
-  const { reorder } = useTodo()
+  // const { reorder } = useTodo()
 
   const ref = useRef<HTMLLIElement>(null)
 
@@ -33,16 +34,44 @@ const TodoItem = ({ todo, index }: { todo: Todo; index: number }) => {
     useState<DraggableState>(idleState)
   const [closestEdge, setClosestEdge] = useState<Edge | null>(null)
 
-  const [isDragging, setDragging] = useState(false)
-  const [isAboutToDrop, setAboutToDrop] = useState(false)
-
   useEffect(() => {
     if (!ref?.current) return
     const element = ref.current
 
     const data = { todo, index }
 
-    function onChange() {}
+    function onChange({ source, self }: ElementDropTargetEventBasePayload) {
+      const isSource = source.element === element
+
+      // Don't show indicator on the item being dragged
+      if (isSource) {
+        setClosestEdge(null)
+        return
+      }
+
+      // Extract the closest edge
+      const closestEdge = extractClosestEdge(self.data)
+
+      const sourceIndex = source.data.index
+      if (typeof sourceIndex !== "number") {
+        throw new Error("Item index must be a number!")
+      }
+
+      // Check if this would result in no actual position change
+      const isItemBeforeSource = index === sourceIndex - 1
+      const isItemAfterSource = index === sourceIndex + 1
+
+      // Hide indicator when the drop would result in no movement
+      const isDropIndicatorHidden =
+        (isItemBeforeSource && closestEdge === "bottom") ||
+        (isItemAfterSource && closestEdge === "top")
+
+      if (isDropIndicatorHidden) {
+        setClosestEdge(null)
+      } else {
+        setClosestEdge(closestEdge)
+      }
+    }
 
     return combine(
       draggable({
@@ -57,7 +86,11 @@ const TodoItem = ({ todo, index }: { todo: Todo; index: number }) => {
       }),
       dropTargetForElements({
         element,
-        canDrop: ({ source }) => element !== source.element, // disable dropping on itself
+        getIsSticky: () => true,
+        canDrop: ({ source }) => {
+          // Can't drop on itself
+          return element !== source.element
+        },
         getData: ({ input }) => {
           return attachClosestEdge(data, {
             element,
@@ -78,20 +111,19 @@ const TodoItem = ({ todo, index }: { todo: Todo; index: number }) => {
   }, [todo, index])
 
   return (
-    <>
-      <li
-        className={cn(
-          "text-label-primary/80 bg-fill-tertiary border-separator-opaque relative flex h-11 items-center gap-1.5 border-b p-2 text-sm",
-          isDragging && "opacity-65"
-          // isAboutToDrop && "bg-ios-green/20"
-        )}
-        ref={ref}
-      >
-        <GrabHandle />
-        <Content text={todo.text} />
-        {closestEdge && isAboutToDrop && <DropIndicator edge={closestEdge} />}
-      </li>
-    </>
+    <li
+      style={{
+        opacity: draggableState.type === "dragging" ? 0.65 : 1,
+      }}
+      className={cn(
+        "text-label-primary/80 bg-fill-tertiary border-separator-opaque relative flex h-11 items-center gap-1.5 border-b p-2 text-sm"
+      )}
+      ref={ref}
+    >
+      <GrabHandle />
+      <Content text={todo.text} />
+      {closestEdge && <DropIndicator edge={closestEdge} />}
+    </li>
   )
 }
 

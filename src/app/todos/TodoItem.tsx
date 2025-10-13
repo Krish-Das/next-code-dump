@@ -14,7 +14,7 @@ import {
 import { Todo } from "@/lib/todos/types"
 import { cn } from "@/lib/utils"
 
-// import { useTodo } from "../providers/todo"
+import { useTodo } from "../providers/todo"
 import GrabHandle from "./GrabHandle"
 
 type DraggableState =
@@ -26,7 +26,7 @@ const idleState: DraggableState = { type: "idle" }
 const draggingState: DraggableState = { type: "dragging" }
 
 const TodoItem = ({ todo, index }: { todo: Todo; index: number }) => {
-  // const { reorder } = useTodo()
+  const { todos } = useTodo()
 
   const ref = useRef<HTMLLIElement>(null)
 
@@ -57,20 +57,25 @@ const TodoItem = ({ todo, index }: { todo: Todo; index: number }) => {
         throw new Error("Item index must be a number!")
       }
 
-      // Check if this would result in no actual position change
+      // Determine if this is the last item in the list
+      // Assuming you have access to the list length, e.g., via a context or prop
+      // Replace `listLength` with the actual length of your todo list
+      const isLastItem = index === todos.length
+
+      const isDraggingDown = sourceIndex < index
+      const isDraggingUp = sourceIndex > index
+
       const isItemBeforeSource = index === sourceIndex - 1
       const isItemAfterSource = index === sourceIndex + 1
 
       // Hide indicator when the drop would result in no movement
       const isDropIndicatorHidden =
         (isItemBeforeSource && closestEdge === "bottom") ||
-        (isItemAfterSource && closestEdge === "top")
+        (isItemAfterSource && closestEdge === "top") ||
+        (isDraggingDown && closestEdge === "bottom" && !isLastItem) ||
+        (isDraggingUp && closestEdge === "bottom")
 
-      if (isDropIndicatorHidden) {
-        setClosestEdge(null)
-      } else {
-        setClosestEdge(closestEdge)
-      }
+      setClosestEdge(isDropIndicatorHidden ? null : closestEdge)
     }
 
     return combine(
@@ -108,7 +113,7 @@ const TodoItem = ({ todo, index }: { todo: Todo; index: number }) => {
         },
       })
     )
-  }, [todo, index])
+  }, [todo, index, todos])
 
   return (
     <li

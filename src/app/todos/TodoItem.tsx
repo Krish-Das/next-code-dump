@@ -10,8 +10,10 @@ import {
   draggable,
   dropTargetForElements,
 } from "@atlaskit/pragmatic-drag-and-drop/element/adapter"
+import { Checkbox as RacCheckbox } from "react-aria-components"
 
 import { Todo } from "@/lib/todos/types"
+import { Spacer } from "@/components/ui/Spacer"
 
 import GrabHandle from "./GrabHandle"
 
@@ -124,15 +126,29 @@ const TodoItem = ({ todo, index }: { todo: Todo; index: number }) => {
       ref={ref}
     >
       <GrabHandle />
+      <Checkbox defaultSelected={todo.completed} />
+      <Spacer className="h-full w-px" />
       <Content text={todo.text} />
       {closestEdge && <DropIndicator edge={closestEdge} gap="4px" />}
     </li>
   )
 }
 
+const Checkbox = ({ defaultSelected }: { defaultSelected: boolean }) => {
+  return (
+    <RacCheckbox className="group/checkbox" defaultSelected={defaultSelected}>
+      <div className="border-separator-non-opaque group-data-selected/checkbox:bg-ios-blue group-data-selected/checkbox:border-ios-blue inline-grid size-4 place-content-center rounded border">
+        <span className="text-[0.65rem] text-white opacity-0 mix-blend-plus-lighter group-data-selected/checkbox:opacity-100">
+          􀆅
+        </span>
+      </div>
+      <span className="sr-only">Unsubscribe</span>
+    </RacCheckbox>
+  )
+}
 const Content = ({ text }: { text: string }) => {
   return (
-    <div className="flex-1 truncate select-none">
+    <div className="flex h-full flex-1 items-center truncate text-sm leading-none font-medium select-none">
       <span>{text}</span>
     </div>
   )

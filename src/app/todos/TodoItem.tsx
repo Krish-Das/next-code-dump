@@ -12,7 +12,6 @@ import {
 } from "@atlaskit/pragmatic-drag-and-drop/element/adapter"
 
 import { Todo } from "@/lib/todos/types"
-import { cn } from "@/lib/utils"
 
 import GrabHandle from "./GrabHandle"
 
@@ -48,36 +47,65 @@ const TodoItem = ({ todo, index }: { todo: Todo; index: number }) => {
           const srcTodo = source.data.todo as Todo
           return srcTodo.id !== todo.id
         },
-        onDrag: ({ source, self, location }) => {
-          if (element === source.element) {
+        onDragEnter: ({ source, self }) => {
+          // Don't show indicator on the source element
+          if (source.element === element) {
             setClosestEdge(null)
             return
           }
-          const [currentDropTarget] = location.current.dropTargets
-          if (!currentDropTarget) return
 
-          const selfIndex = self.data.index
+          const edge = extractClosestEdge(self.data)
           const sourceIndex = source.data.index
-          if (typeof sourceIndex !== "number") return
 
-          const isItemBeforeSource = selfIndex === sourceIndex - 1
-          const isItemAfterSource = selfIndex === sourceIndex + 1
-          const closestEdge = extractClosestEdge(currentDropTarget.data)
+          if (typeof sourceIndex !== "number") {
+            setClosestEdge(edge)
+            return
+          }
+
+          // Hide indicator at the dragged item's natural position
+          const isItemBeforeSource = index === sourceIndex - 1
+          const isItemAfterSource = index === sourceIndex + 1
 
           const isDropIndicatorHidden =
-            (isItemBeforeSource && closestEdge === "bottom") ||
-            (isItemAfterSource && closestEdge === "top")
+            (isItemBeforeSource && edge === "bottom") ||
+            (isItemAfterSource && edge === "top")
 
           if (isDropIndicatorHidden) {
             setClosestEdge(null)
             return
           }
 
-          const currentDropTargetData = currentDropTarget.data.todo as Todo
-
-          if (currentDropTargetData.id === todo.id) {
-            setClosestEdge(closestEdge)
+          setClosestEdge(edge)
+        },
+        onDrag: ({ source, self }) => {
+          // Don't show indicator on the source element
+          if (source.element === element) {
+            setClosestEdge(null)
+            return
           }
+
+          const edge = extractClosestEdge(self.data)
+          const sourceIndex = source.data.index
+
+          if (typeof sourceIndex !== "number") {
+            setClosestEdge(edge)
+            return
+          }
+
+          // Hide indicator at the dragged item's natural position
+          const isItemBeforeSource = index === sourceIndex - 1
+          const isItemAfterSource = index === sourceIndex + 1
+
+          const isDropIndicatorHidden =
+            (isItemBeforeSource && edge === "bottom") ||
+            (isItemAfterSource && edge === "top")
+
+          if (isDropIndicatorHidden) {
+            setClosestEdge(null)
+            return
+          }
+
+          setClosestEdge(edge)
         },
         onDragLeave: () => {
           setClosestEdge(null)
@@ -87,7 +115,7 @@ const TodoItem = ({ todo, index }: { todo: Todo; index: number }) => {
         },
       })
     )
-  }, [todo, index, ref])
+  }, [todo, index])
 
   return (
     <li
@@ -109,15 +137,5 @@ const Content = ({ text }: { text: string }) => {
     </div>
   )
 }
-const CustomDropIndicator = ({ edge }: { edge: Edge }) => {
-  const isTop = edge === "top"
-  return (
-    <div
-      className={cn(
-        "bg-ios-blue absolute inset-x-0 h-0.5",
-        isTop ? "top-0" : "bottom-0"
-      )}
-    />
-  )
-}
+
 export default TodoItem

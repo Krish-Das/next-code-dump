@@ -4,6 +4,7 @@ import {
   extractClosestEdge,
   type Edge,
 } from "@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge"
+import { DropIndicator } from "@atlaskit/pragmatic-drag-and-drop-react-indicator/box"
 import { combine } from "@atlaskit/pragmatic-drag-and-drop/combine"
 import {
   draggable,
@@ -13,16 +14,12 @@ import {
 import { Todo } from "@/lib/todos/types"
 import { cn } from "@/lib/utils"
 
-import { useTodo } from "../providers/todo"
 import GrabHandle from "./GrabHandle"
 
 const TodoItem = ({ todo, index }: { todo: Todo; index: number }) => {
   const ref = useRef<HTMLLIElement>(null)
   const [closestEdge, setClosestEdge] = useState<Edge | null>(null)
   const [isDragging, setDragging] = useState(false)
-  const [isAboutToDrop, setAboutToDrop] = useState(false)
-
-  const { reorder } = useTodo()
 
   useEffect(() => {
     if (!ref?.current) return
@@ -48,9 +45,6 @@ const TodoItem = ({ todo, index }: { todo: Todo; index: number }) => {
         },
         getIsSticky: () => true,
         canDrop: ({ source }) => {
-          // disable dropping on itself
-          // element !== source.element
-
           const srcTodo = source.data.todo as Todo
           return srcTodo.id !== todo.id
         },
@@ -97,16 +91,13 @@ const TodoItem = ({ todo, index }: { todo: Todo; index: number }) => {
 
   return (
     <li
-      className={cn(
-        "text-label-primary/80 bg-fill-tertiary border-separator-opaque relative flex h-11 items-center gap-1.5 border-b p-2 text-sm",
-        isDragging && "opacity-65",
-        isAboutToDrop && "bg-ios-green/20"
-      )}
+      style={{ opacity: isDragging ? 0.65 : 1 }}
+      className="text-label-primary/80 bg-fill-tertiary border-separator-opaque relative flex h-11 items-center gap-1.5 border-b p-2 text-sm"
       ref={ref}
     >
       <GrabHandle />
       <Content text={todo.text} />
-      {closestEdge && <DropIndicator edge={closestEdge} />}
+      {closestEdge && <DropIndicator edge={closestEdge} gap="1px" />}
     </li>
   )
 }
@@ -118,7 +109,7 @@ const Content = ({ text }: { text: string }) => {
     </div>
   )
 }
-const DropIndicator = ({ edge }: { edge: Edge }) => {
+const CustomDropIndicator = ({ edge }: { edge: Edge }) => {
   const isTop = edge === "top"
   return (
     <div

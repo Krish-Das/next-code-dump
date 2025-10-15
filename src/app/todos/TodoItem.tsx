@@ -120,12 +120,12 @@ const TodoItem = ({ todo, index }: { todo: Todo; index: number }) => {
   return (
     <li
       style={{ opacity: isDragging ? 0.65 : 1 }}
-      className="text-label-primary/80 bg-fill-tertiary border-separator-opaque relative flex h-11 items-center gap-1.5 border-b p-2 text-sm"
+      className="text-label-primary/80 bg-fill-tertiary relative flex h-11 items-center gap-1.5 rounded-lg p-2 text-sm"
       ref={ref}
     >
       <GrabHandle />
       <Content text={todo.text} />
-      {closestEdge && <DropIndicator edge={closestEdge} gap="1px" />}
+      {closestEdge && <DropIndicator edge={closestEdge} gap="4px" />}
     </li>
   )
 }

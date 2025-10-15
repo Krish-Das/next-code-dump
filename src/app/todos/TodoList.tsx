@@ -14,7 +14,7 @@ const TodoList = () => {
     <>
       <TodoListHeader />
       <Spacer className="h-4" />
-      <ul className="border-separator-opaque flex flex-col border [&_li:last-of-type]:border-none">
+      <ul className="flex flex-col gap-1">
         {todos.map((todo, idx) => (
           <TodoItem todo={todo} index={idx} key={todo.id} />
         ))}

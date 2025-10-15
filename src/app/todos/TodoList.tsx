@@ -13,8 +13,8 @@ const TodoList = () => {
   return (
     <>
       <TodoListHeader />
-      <Spacer className="h-4" />
-      <ul className="flex flex-col gap-1">
+      <Spacer className="h-6" />
+      <ul className="flex flex-col">
         {todos.map((todo, idx) => (
           <TodoItem todo={todo} index={idx} key={todo.id} />
         ))}

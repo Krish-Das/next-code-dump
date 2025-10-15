@@ -3,7 +3,7 @@ import { Button } from "react-aria-components"
 
 const GrabHandle = () => {
   return (
-    <Button className="bg-fill-tertiary data-pressed:bg-fill-primary data-hovered:bg-fill-secondary text-label-secondary data-pressed:text-label-primary ring-ios-blue inline-grid size-6 place-content-center rounded-sm outline-none data-focus-visible:ring-2">
+    <Button className="data-pressed:bg-fill-secondary data-hovered:bg-fill-tertiary text-label-tertiary data-hovered:text-label-secondary data-pressed:text-label-primary ring-ios-blue inline-grid size-6 place-content-center rounded-sm outline-none data-focus-visible:ring-2">
       <GrabIcon />
     </Button>
   )

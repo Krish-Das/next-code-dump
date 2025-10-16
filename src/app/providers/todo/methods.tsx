@@ -201,6 +201,7 @@ export const useTodo = () => {
 
   return {
     todos,
+    setTodos,
     create: createTodo,
     update: updateTodo,
     remove: deleteTodo,

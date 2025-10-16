@@ -17,6 +17,11 @@ import { Spacer } from "@/components/ui/Spacer"
 
 import GrabHandle from "./GrabHandle"
 
+export type ElementData = {
+  todo: Todo
+  index: number
+}
+
 const TodoItem = ({ todo, index }: { todo: Todo; index: number }) => {
   const ref = useRef<HTMLLIElement>(null)
   const [closestEdge, setClosestEdge] = useState<Edge | null>(null)
@@ -26,7 +31,7 @@ const TodoItem = ({ todo, index }: { todo: Todo; index: number }) => {
     if (!ref?.current) return
     const element = ref.current
 
-    const data = { todo, index }
+    const data: ElementData = { todo, index }
 
     return combine(
       draggable({

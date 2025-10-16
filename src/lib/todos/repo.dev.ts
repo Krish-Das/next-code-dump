@@ -90,11 +90,7 @@ export const devTodos = {
     }
 
     // If gap is too small, resequence/compact and recompute
-    if (
-      !isFinite(newPos) ||
-      Math.abs(newPos) < EPS ||
-      isGapTooSmall(list, newPos)
-    ) {
+    if (!isFinite(newPos) || Math.abs(newPos) < EPS || isGapTooSmall(list)) {
       compactPositions(list)
       // recompute same logic on compacted list
       const list2 = sorted()

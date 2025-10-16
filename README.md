@@ -1,40 +1,12 @@
-# Nextkit - A nextjs starter kit (DEVELOPEMENT)
+# Drag and drop using pdnd
 
-Accelerate NextJS development with Nextkit: a pre-configured Next.js,
-TypeScript, and Tailwind boilerplate.
+[🎥 Watch demo video](./docs/demo.mp4)
 
 ## Cloning:
 
-### Clone in Nextkit:
-
 ```sh
-git clone -b next@15 https://github.com/Krish-Das/nextkit.git
+git clone -b pdnd/with-rac-atlaskit https://github.com/Krish-Das/next-code-dump.git --single-branch
 ```
-
-### or Clone in current directory:
-
-```sh
-git clone -b next@15 https://github.com/Krish-Das/nextkit.git .
-```
-
-### or Clone single branch in current directory:
-
-```sh
-git clone -b next@15 --single-branch https://github.com/Krish-Das/nextkit.git .
-```
-
-### or Clone in a pre-existing repository (detached HEAD):  
-
-1. Fetch the remote branch:  
-   ```sh
-   git fetch https://github.com/Krish-Das/nextkit.git next@15
-   ```  
-2. Create and checkout a new branch:  
-   ```sh
-   git checkout -b next@15 FETCH_HEAD
-   ```  
-
----
 
 ## Running locally
 

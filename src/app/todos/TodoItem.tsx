@@ -10,9 +10,13 @@ import {
   draggable,
   dropTargetForElements,
 } from "@atlaskit/pragmatic-drag-and-drop/element/adapter"
+import { pointerOutsideOfPreview } from "@atlaskit/pragmatic-drag-and-drop/element/pointer-outside-of-preview"
+import { setCustomNativeDragPreview } from "@atlaskit/pragmatic-drag-and-drop/element/set-custom-native-drag-preview"
 import { Checkbox as RacCheckbox } from "react-aria-components"
+import { createPortal } from "react-dom"
 
 import { Todo } from "@/lib/todos/types"
+import { cn } from "@/lib/utils"
 import { Spacer } from "@/components/ui/Spacer"
 
 import GrabHandle from "./GrabHandle"
@@ -26,6 +30,9 @@ const TodoItem = ({ todo, index }: { todo: Todo; index: number }) => {
   const ref = useRef<HTMLLIElement>(null)
   const [closestEdge, setClosestEdge] = useState<Edge | null>(null)
   const [isDragging, setDragging] = useState(false)
+  const [previewContainer, setPreviewContainer] = useState<HTMLElement | null>(
+    null
+  )
 
   useEffect(() => {
     if (!ref?.current) return
@@ -37,6 +44,18 @@ const TodoItem = ({ todo, index }: { todo: Todo; index: number }) => {
       draggable({
         element,
         getInitialData: () => data,
+        onGenerateDragPreview: ({ nativeSetDragImage }) => {
+          setCustomNativeDragPreview({
+            nativeSetDragImage,
+            getOffset: pointerOutsideOfPreview({
+              x: "16px",
+              y: "8px",
+            }),
+            render({ container }) {
+              setPreviewContainer(container)
+            },
+          })
+        },
         onDragStart: () => setDragging(true),
         onDrop: () => setDragging(false),
       }),
@@ -125,17 +144,21 @@ const TodoItem = ({ todo, index }: { todo: Todo; index: number }) => {
   }, [todo, index])
 
   return (
-    <li
-      style={{ opacity: isDragging ? 0.45 : 1 }}
-      className="text-label-primary/80 relative flex h-10 items-center gap-1.5 rounded-md"
-      ref={ref}
-    >
-      <GrabHandle />
-      <Checkbox defaultSelected={todo.completed} />
-      <Spacer className="h-full w-px" />
-      <Content text={todo.text} />
-      {closestEdge && <DropIndicator edge={closestEdge} />}
-    </li>
+    <>
+      <li
+        style={{ opacity: isDragging ? 0.45 : 1 }}
+        className="text-label-primary/80 relative flex h-10 items-center gap-1.5 rounded-md"
+        ref={ref}
+      >
+        <GrabHandle />
+        <Checkbox defaultSelected={todo.completed} />
+        <Spacer className="h-full w-px" />
+        <Content text={todo.text} />
+        {closestEdge && <DropIndicator edge={closestEdge} />}
+      </li>
+      {previewContainer &&
+        createPortal(<DragPreview todo={todo} />, previewContainer)}
+    </>
   )
 }
 
@@ -160,6 +183,19 @@ const Content = ({ text }: { text: string }) => {
   return (
     <div className="flex h-full flex-1 items-center truncate text-[0.9rem] leading-none font-medium select-none">
       <span>{text}</span>
+    </div>
+  )
+}
+function DragPreview({ todo }: { todo: Todo }) {
+  return (
+    <div
+      className="bg-gray-6 border-separator-opaque/40 w-48 truncate rounded-lg border p-2 px-3 shadow-lg"
+      style={{
+        textDecoration: todo.completed ? "line-through" : "none",
+        color: todo.completed ? "var(--color-label-tertiary)" : "current",
+      }}
+    >
+      {todo.text}
     </div>
   )
 }

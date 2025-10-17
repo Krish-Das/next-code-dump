@@ -12,11 +12,11 @@ import {
 } from "@atlaskit/pragmatic-drag-and-drop/element/adapter"
 import { pointerOutsideOfPreview } from "@atlaskit/pragmatic-drag-and-drop/element/pointer-outside-of-preview"
 import { setCustomNativeDragPreview } from "@atlaskit/pragmatic-drag-and-drop/element/set-custom-native-drag-preview"
+import { useAnimate } from "motion/react-mini"
 import { Checkbox as RacCheckbox } from "react-aria-components"
 import { createPortal } from "react-dom"
 
 import { Todo } from "@/lib/todos/types"
-import { cn } from "@/lib/utils"
 import { Spacer } from "@/components/ui/Spacer"
 
 import GrabHandle from "./GrabHandle"
@@ -28,6 +28,7 @@ export type ElementData = {
 
 const TodoItem = ({ todo, index }: { todo: Todo; index: number }) => {
   const ref = useRef<HTMLLIElement>(null)
+  const [scope, animate] = useAnimate<HTMLDivElement>()
   const [closestEdge, setClosestEdge] = useState<Edge | null>(null)
   const [isDragging, setDragging] = useState(false)
   const [previewContainer, setPreviewContainer] = useState<HTMLElement | null>(
@@ -57,7 +58,16 @@ const TodoItem = ({ todo, index }: { todo: Todo; index: number }) => {
           })
         },
         onDragStart: () => setDragging(true),
-        onDrop: () => setDragging(false),
+        onDrop: () => {
+          setDragging(false)
+          animate(
+            scope.current,
+            {
+              backgroundColor: ["var(--fill-secondary)", "var(--fill-opaque)"],
+            },
+            { duration: 0.8, ease: [0.42, 0.0, 0.58, 1.0] }
+          )
+        },
       }),
       dropTargetForElements({
         element,
@@ -133,27 +143,28 @@ const TodoItem = ({ todo, index }: { todo: Todo; index: number }) => {
 
           setClosestEdge(edge)
         },
-        onDragLeave: () => {
-          setClosestEdge(null)
-        },
-        onDrop: () => {
-          setClosestEdge(null)
-        },
+        onDragLeave: () => setClosestEdge(null),
+        onDrop: () => setClosestEdge(null),
       })
     )
-  }, [todo, index])
+  }, [todo, index, scope, animate])
 
   return (
     <>
       <li
         style={{ opacity: isDragging ? 0.45 : 1 }}
-        className="text-label-primary/80 relative flex h-10 items-center gap-1.5 rounded-md"
+        className="text-label-primary/80 relative flex h-10 items-center"
         ref={ref}
       >
         <GrabHandle />
-        <Checkbox defaultSelected={todo.completed} />
-        <Spacer className="h-full w-px" />
-        <Content text={todo.text} />
+        <div
+          className="flex h-full w-full items-center gap-1.5 rounded-md p-2"
+          ref={scope}
+        >
+          <Checkbox defaultSelected={todo.completed} />
+          <Spacer className="h-full w-px" />
+          <Content text={todo.text} />
+        </div>
         {closestEdge && <DropIndicator edge={closestEdge} />}
       </li>
       {previewContainer &&

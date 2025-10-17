@@ -15,8 +15,8 @@ const TodoList = () => {
   const { todos, setTodos } = useTodo()
 
   useEffect(() => {
-    if (!ref?.current) return
-    const element = ref.current
+    const element = ref?.current
+    if (!element) return
 
     return monitorForElements({
       onDrop: ({ source, location }) => {

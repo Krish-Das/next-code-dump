@@ -3,13 +3,9 @@ import { Button } from "react-aria-components"
 
 import { cn } from "@/lib/utils"
 
-import { useTask } from "../providers/task"
-
 const AddTaskButton = () => {
-  const { create } = useTask()
-
   const handleCreateTask = () => {
-    create(`task-${Math.floor(performance.now())}`)
+    // create(`task-${Math.floor(performance.now())}`)
   }
 
   return (

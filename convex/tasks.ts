@@ -1,6 +1,6 @@
 import { v } from "convex/values"
 
-import { mutation, query } from "./_generated/server"
+import { internalMutation, mutation, query } from "./_generated/server"
 
 export const get = query({
   args: {},
@@ -73,5 +73,24 @@ export const remove = mutation({
   args: { id: v.id("tasks") },
   handler: async (ctx, { id }) => {
     return await ctx.db.delete(id)
+  },
+})
+
+export const normalizeTaskOrder = internalMutation({
+  args: {},
+  handler: async ctx => {
+    const tasks = await ctx.db
+      .query("tasks")
+      .withIndex("by_order")
+      .order("asc")
+      .collect()
+
+    let currentOrder = 1
+    for (const task of tasks) {
+      if (task.order !== currentOrder) {
+        await ctx.db.patch(task._id, { order: currentOrder })
+      }
+      currentOrder++
+    }
   },
 })

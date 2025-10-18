@@ -12,6 +12,7 @@ import {
 } from "@atlaskit/pragmatic-drag-and-drop/element/adapter"
 import { pointerOutsideOfPreview } from "@atlaskit/pragmatic-drag-and-drop/element/pointer-outside-of-preview"
 import { setCustomNativeDragPreview } from "@atlaskit/pragmatic-drag-and-drop/element/set-custom-native-drag-preview"
+import { Doc } from "#/convex/_generated/dataModel"
 import { useAnimate } from "motion/react-mini"
 import { Checkbox as RacCheckbox } from "react-aria-components"
 import { createPortal } from "react-dom"
@@ -22,11 +23,11 @@ import { Spacer } from "@/components/ui/Spacer"
 import GrabHandle from "./GrabHandle"
 
 export type ElementData = {
-  task: Task
+  task: Doc<"tasks">
   index: number
 }
 
-const TaskItem = ({ task, index }: { task: Task; index: number }) => {
+const TaskItem = ({ task, index }: { task: Doc<"tasks">; index: number }) => {
   const ref = useRef<HTMLLIElement>(null)
   const [scope, animate] = useAnimate<HTMLDivElement>()
   const [closestEdge, setClosestEdge] = useState<Edge | null>(null)
@@ -81,7 +82,7 @@ const TaskItem = ({ task, index }: { task: Task; index: number }) => {
         getIsSticky: () => true,
         canDrop: ({ source }) => {
           const srcTask = source.data.task as Task
-          return srcTask.id !== task.id
+          return srcTask.id !== task._id
         },
         onDragEnter: ({ source, self }) => {
           // Don't show indicator on the source element
@@ -161,7 +162,7 @@ const TaskItem = ({ task, index }: { task: Task; index: number }) => {
           className="flex h-full w-full items-center gap-1.5 rounded-md p-2"
           ref={scope}
         >
-          <Checkbox defaultSelected={task.completed} />
+          <Checkbox defaultSelected={task.isCompleted} />
           <Spacer className="h-full w-px" />
           <Content text={task.text} />
 
@@ -203,13 +204,13 @@ const Content = ({ text }: { text: string }) => {
     </div>
   )
 }
-function DragPreview({ task }: { task: Task }) {
+function DragPreview({ task }: { task: Doc<"tasks"> }) {
   return (
     <div
       className="bg-gray-6 border-separator-opaque/40 w-48 truncate rounded-lg border p-2 px-3 shadow-lg"
       style={{
-        textDecoration: task.completed ? "line-through" : "none",
-        color: task.completed ? "var(--color-label-tertiary)" : "current",
+        textDecoration: task.isCompleted ? "line-through" : "none",
+        color: task.isCompleted ? "var(--color-label-tertiary)" : "current",
       }}
     >
       {task.text}

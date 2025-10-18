@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react"
 import { extractClosestEdge } from "@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge"
-import { reorderWithEdge } from "@atlaskit/pragmatic-drag-and-drop-hitbox/util/reorder-with-edge"
+import { getReorderDestinationIndex } from "@atlaskit/pragmatic-drag-and-drop-hitbox/util/get-reorder-destination-index"
 import { monitorForElements } from "@atlaskit/pragmatic-drag-and-drop/element/adapter"
 
 import { Spacer } from "@/components/ui/Spacer"
@@ -24,24 +24,46 @@ const TodoList = () => {
         if (!dropTarget) return
 
         const {
-          todo: { id: sourceId },
+          todo: { id: moveId },
         } = source.data as ElementData
-        if (typeof sourceId !== "string") return
+        if (typeof moveId !== "string") return
         const {
           todo: { id: targetId },
         } = dropTarget.data as ElementData
         if (typeof targetId !== "string") return
 
         setTodos(tasks => {
-          const startIndex = tasks.findIndex(task => task.id === sourceId)
+          const moveIndex = tasks.findIndex(task => task.id === moveId)
           const indexOfTarget = tasks.findIndex(task => task.id === targetId)
-          return reorderWithEdge({
-            list: tasks,
-            startIndex,
+          const closestEdgeOfTarget = extractClosestEdge(dropTarget.data)
+
+          const destIndex = getReorderDestinationIndex({
+            startIndex: moveIndex,
             indexOfTarget,
-            closestEdgeOfTarget: extractClosestEdge(dropTarget.data),
+            closestEdgeOfTarget,
             axis: "vertical",
           })
+
+          // Early return if reorder didn't happen
+          if (destIndex === moveIndex) return tasks
+
+          // Temp list without moved item (tasks already sorted by order)
+          const remainingTasks = tasks.filter(t => t.id !== moveId)
+
+          let newOrder: number
+          if (destIndex === 0) {
+            newOrder = remainingTasks[0]?.order - 1 || 0
+          } else if (destIndex === remainingTasks.length) {
+            newOrder = remainingTasks[remainingTasks.length - 1]?.order + 1 || 1
+          } else {
+            const beforeOrder = remainingTasks[destIndex - 1].order
+            const afterOrder = remainingTasks[destIndex].order
+            newOrder = (beforeOrder + afterOrder) / 2
+          }
+
+          // updateTodo(moveId, { order: NewTaskForm })
+
+          return tasks
         })
       },
     })

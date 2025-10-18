@@ -164,6 +164,12 @@ const TodoItem = ({ todo, index }: { todo: Todo; index: number }) => {
           <Checkbox defaultSelected={todo.completed} />
           <Spacer className="h-full w-px" />
           <Content text={todo.text} />
+
+          <Spacer className="h-full flex-1" />
+          <div className="[&_pre]:bg-fill-tertiary [&_pre]:text-label-secondary pointer-events-none flex items-center gap-2 text-sm [&_pre]:rounded [&_pre]:px-1">
+            <pre>o({todo.order})</pre>
+            <pre>i({index})</pre>
+          </div>
         </div>
         {closestEdge && <DropIndicator edge={closestEdge} />}
       </li>

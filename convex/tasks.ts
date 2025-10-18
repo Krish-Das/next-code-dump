@@ -5,7 +5,11 @@ import { mutation, query } from "./_generated/server"
 export const get = query({
   args: {},
   handler: async ctx => {
-    return await ctx.db.query("tasks").collect()
+    return await ctx.db
+      .query("tasks")
+      .withIndex("by_order")
+      .order("asc")
+      .collect()
   },
 })
 
@@ -25,10 +29,33 @@ export const getByStringId = query({
   },
 })
 
+export const getByOrder = query({
+  args: { order: v.number() },
+  handler: async (ctx, { order }) => {
+    return await ctx.db
+      .query("tasks")
+      .withIndex("by_order", q => q.eq("order", order))
+      .unique()
+  },
+})
+
 export const add = mutation({
   args: { text: v.string() },
   handler: async (ctx, { text }) => {
-    return await ctx.db.insert("tasks", { text, isCompleted: false })
+    // Find the current maximum order value
+    const lastTask = await ctx.db
+      .query("tasks")
+      .withIndex("by_order")
+      .order("desc")
+      .first()
+    const nextOrder = lastTask ? lastTask.order + 1 : 1
+
+    // Insert the new task with the next order value
+    return await ctx.db.insert("tasks", {
+      text,
+      isCompleted: false,
+      order: nextOrder,
+    })
   },
 })
 

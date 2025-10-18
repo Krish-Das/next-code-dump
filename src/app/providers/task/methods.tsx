@@ -2,20 +2,20 @@ import { use, useCallback } from "react"
 import { v4 as uuid } from "uuid"
 
 import { EPS } from "@/lib/constants"
-import { Todo } from "@/lib/todos/types"
+import { Task } from "@/lib/tasks/types"
 
-import { TodoContext } from "."
+import { TaskContext } from "."
 
-export const useTodo = () => {
-  const context = use(TodoContext)
-  if (!context) throw new Error("useTodo must be used within the Provider.")
-  const { todos, setTodos } = context
+export const useTask = () => {
+  const context = use(TaskContext)
+  if (!context) throw new Error("useTask must be used within the Provider.")
+  const { tasks, setTasks } = context
 
-  const createTodo = useCallback(
-    (text: string): Todo => {
-      const order = todos.length ? Math.max(...todos.map(x => x.order)) + 1 : 1
+  const createTask = useCallback(
+    (text: string): Task => {
+      const order = tasks.length ? Math.max(...tasks.map(x => x.order)) + 1 : 1
 
-      const newTodo: Todo = {
+      const newTask: Task = {
         id: uuid(),
         text,
         completed: false,
@@ -23,74 +23,74 @@ export const useTodo = () => {
         createdAt: new Date().toISOString(),
       }
 
-      setTodos(prev => [...prev, newTodo])
-      return newTodo
+      setTasks(prev => [...prev, newTask])
+      return newTask
     },
-    [todos, setTodos]
+    [tasks, setTasks]
   )
 
-  const updateTodo = useCallback(
+  const updateTask = useCallback(
     (
       id: string,
-      patch: Partial<Omit<Todo, "id" | "createdAt" | "order">>
-    ): Todo | null => {
-      let updatedTodo: Todo | null = null
+      patch: Partial<Omit<Task, "id" | "createdAt" | "order">>
+    ): Task | null => {
+      let updatedTask: Task | null = null
 
-      setTodos(prev => {
+      setTasks(prev => {
         const idx = prev.findIndex(t => t.id === id)
         if (idx === -1) return prev
 
         const updated = { ...prev[idx], ...patch }
-        updatedTodo = updated
+        updatedTask = updated
 
-        const newTodos = [...prev]
-        newTodos[idx] = updated
-        return newTodos
+        const newTasks = [...prev]
+        newTasks[idx] = updated
+        return newTasks
       })
 
-      return updatedTodo
+      return updatedTask
     },
-    [setTodos]
+    [setTasks]
   )
 
-  const deleteTodo = useCallback(
+  const deleteTask = useCallback(
     (id: string): boolean => {
       let found = false
 
-      setTodos(prev => {
+      setTasks(prev => {
         const idx = prev.findIndex(t => t.id === id)
         if (idx === -1) return prev
 
         found = true
-        const newTodos = [...prev]
-        newTodos.splice(idx, 1)
-        return newTodos
+        const newTasks = [...prev]
+        newTasks.splice(idx, 1)
+        return newTasks
       })
 
       return found
     },
-    [setTodos]
+    [setTasks]
   )
 
-  const compactTodos = useCallback((): Todo[] => {
-    let compacted: Todo[] = []
-    setTodos(prev => {
+  const compactTasks = useCallback((): Task[] => {
+    let compacted: Task[] = []
+    setTasks(prev => {
       const sorted = [...prev].sort((a, b) => a.order - b.order)
       compacted = compactPositions(sorted)
       return compacted
     })
     return compacted
-  }, [setTodos])
+  }, [setTasks])
 
-  // Reorder a todo
-  const reorderTodo = useCallback(
+  // Reorder a task
+  const reorderTask = useCallback(
     (
       id: string,
       opts: { beforeId?: string | null; afterId?: string | null }
-    ): Todo | null => {
-      let reorderedTodo: Todo | null = null
+    ): Task | null => {
+      let reorderedTask: Task | null = null
 
-      setTodos(prev => {
+      setTasks(prev => {
         const item = prev.find(t => t.id === id)
         if (!item) return prev
 
@@ -163,7 +163,7 @@ export const useTodo = () => {
           const idx = compacted.findIndex(t => t.id === id)
           if (idx !== -1) {
             compacted[idx] = { ...compacted[idx], order: newOrder }
-            reorderedTodo = compacted[idx]
+            reorderedTask = compacted[idx]
           }
           return compacted
         }
@@ -172,54 +172,54 @@ export const useTodo = () => {
         const idx = prev.findIndex(t => t.id === id)
         if (idx === -1) return prev
 
-        const newTodos = [...prev]
-        newTodos[idx] = { ...newTodos[idx], order: newOrder }
-        reorderedTodo = newTodos[idx]
+        const newTasks = [...prev]
+        newTasks[idx] = { ...newTasks[idx], order: newOrder }
+        reorderedTask = newTasks[idx]
 
-        return newTodos.sort((a, b) => a.order - b.order)
+        return newTasks.sort((a, b) => a.order - b.order)
       })
 
-      return reorderedTodo
+      return reorderedTask
     },
-    [setTodos]
+    [setTasks]
   )
 
-  // Clear all todos
-  const clearTodos = useCallback(() => {
-    setTodos([])
-  }, [setTodos])
+  // Clear all tasks
+  const clearTasks = useCallback(() => {
+    setTasks([])
+  }, [setTasks])
 
-  // Toggle todo completion
+  // Toggle task completion
   const toggleComplete = useCallback(
-    (id: string): Todo | null => {
-      return updateTodo(id, {
-        completed: !todos.find(t => t.id === id)?.completed,
+    (id: string): Task | null => {
+      return updateTask(id, {
+        completed: !tasks.find(t => t.id === id)?.completed,
       })
     },
-    [todos, updateTodo]
+    [tasks, updateTask]
   )
 
   return {
-    todos,
-    setTodos,
-    create: createTodo,
-    update: updateTodo,
-    remove: deleteTodo,
-    removeAll: clearTodos,
+    tasks,
+    setTasks,
+    create: createTask,
+    update: updateTask,
+    remove: deleteTask,
+    removeAll: clearTasks,
     toggleComplete,
-    compact: compactTodos,
-    reorder: reorderTodo,
+    compact: compactTasks,
+    reorder: reorderTask,
   }
 }
 
 // Helpers
-function compactPositions(list: Todo[]): Todo[] {
+function compactPositions(list: Task[]): Task[] {
   return list
     .sort((a, b) => a.order - b.order)
-    .map((todo, i) => ({ ...todo, order: i + 1 }))
+    .map((task, i) => ({ ...task, order: i + 1 }))
 }
 
-function isGapTooSmall(list: Todo[]): boolean {
+function isGapTooSmall(list: Task[]): boolean {
   for (let i = 0; i < list.length - 1; i++) {
     if (Math.abs(list[i + 1].order - list[i].order) < EPS) return true
   }

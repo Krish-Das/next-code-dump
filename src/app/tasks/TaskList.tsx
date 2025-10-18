@@ -5,14 +5,14 @@ import { monitorForElements } from "@atlaskit/pragmatic-drag-and-drop/element/ad
 
 import { Spacer } from "@/components/ui/Spacer"
 
-import { useTodo } from "../providers/todo"
+import { useTask } from "../providers/task"
 import EmptyState from "./EmptyState"
-import TodoItem, { ElementData } from "./TodoItem"
-import TodoListHeader from "./TodoListHeader"
+import TaskItem, { ElementData } from "./TaskItem"
+import TaskListHeader from "./TaskListHeader"
 
-const TodoList = () => {
+const TaskList = () => {
   const ref = useRef<HTMLUListElement>(null)
-  const { todos, setTodos } = useTodo()
+  const { tasks, setTasks } = useTask()
 
   useEffect(() => {
     const element = ref?.current
@@ -24,15 +24,15 @@ const TodoList = () => {
         if (!dropTarget) return
 
         const {
-          todo: { id: moveId },
+          task: { id: moveId },
         } = source.data as ElementData
         if (typeof moveId !== "string") return
         const {
-          todo: { id: targetId },
+          task: { id: targetId },
         } = dropTarget.data as ElementData
         if (typeof targetId !== "string") return
 
-        setTodos(tasks => {
+        setTasks(tasks => {
           const moveIndex = tasks.findIndex(task => task.id === moveId)
           const indexOfTarget = tasks.findIndex(task => task.id === targetId)
           const closestEdgeOfTarget = extractClosestEdge(dropTarget.data)
@@ -61,27 +61,27 @@ const TodoList = () => {
             newOrder = (beforeOrder + afterOrder) / 2
           }
 
-          // updateTodo(moveId, { order: NewTaskForm })
+          // updateTask(moveId, { order: NewTaskForm })
 
           return tasks
         })
       },
     })
-  }, [ref, setTodos])
+  }, [ref, setTasks])
 
-  if (!todos.length) return <EmptyState />
+  if (!tasks.length) return <EmptyState />
 
   return (
     <>
-      <TodoListHeader />
+      <TaskListHeader />
       <Spacer className="h-6" />
       <ul className="flex flex-col" ref={ref}>
-        {todos.map((todo, idx) => (
-          <TodoItem todo={todo} index={idx} key={todo.id} />
+        {tasks.map((task, idx) => (
+          <TaskItem task={task} index={idx} key={task.id} />
         ))}
       </ul>
     </>
   )
 }
 
-export default TodoList
+export default TaskList

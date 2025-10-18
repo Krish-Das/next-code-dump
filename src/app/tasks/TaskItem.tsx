@@ -16,17 +16,17 @@ import { useAnimate } from "motion/react-mini"
 import { Checkbox as RacCheckbox } from "react-aria-components"
 import { createPortal } from "react-dom"
 
-import { Todo } from "@/lib/todos/types"
+import { Task } from "@/lib/tasks/types"
 import { Spacer } from "@/components/ui/Spacer"
 
 import GrabHandle from "./GrabHandle"
 
 export type ElementData = {
-  todo: Todo
+  task: Task
   index: number
 }
 
-const TodoItem = ({ todo, index }: { todo: Todo; index: number }) => {
+const TaskItem = ({ task, index }: { task: Task; index: number }) => {
   const ref = useRef<HTMLLIElement>(null)
   const [scope, animate] = useAnimate<HTMLDivElement>()
   const [closestEdge, setClosestEdge] = useState<Edge | null>(null)
@@ -39,7 +39,7 @@ const TodoItem = ({ todo, index }: { todo: Todo; index: number }) => {
     if (!ref?.current) return
     const element = ref.current
 
-    const data: ElementData = { todo, index }
+    const data: ElementData = { task, index }
 
     return combine(
       draggable({
@@ -80,8 +80,8 @@ const TodoItem = ({ todo, index }: { todo: Todo; index: number }) => {
         },
         getIsSticky: () => true,
         canDrop: ({ source }) => {
-          const srcTodo = source.data.todo as Todo
-          return srcTodo.id !== todo.id
+          const srcTask = source.data.task as Task
+          return srcTask.id !== task.id
         },
         onDragEnter: ({ source, self }) => {
           // Don't show indicator on the source element
@@ -147,7 +147,7 @@ const TodoItem = ({ todo, index }: { todo: Todo; index: number }) => {
         onDrop: () => setClosestEdge(null),
       })
     )
-  }, [todo, index, scope, animate])
+  }, [task, index, scope, animate])
 
   return (
     <>
@@ -161,20 +161,20 @@ const TodoItem = ({ todo, index }: { todo: Todo; index: number }) => {
           className="flex h-full w-full items-center gap-1.5 rounded-md p-2"
           ref={scope}
         >
-          <Checkbox defaultSelected={todo.completed} />
+          <Checkbox defaultSelected={task.completed} />
           <Spacer className="h-full w-px" />
-          <Content text={todo.text} />
+          <Content text={task.text} />
 
           <Spacer className="h-full flex-1" />
           <div className="[&_pre]:bg-fill-tertiary [&_pre]:text-label-secondary pointer-events-none flex items-center gap-2 text-sm [&_pre]:rounded [&_pre]:px-1">
-            <pre>o({todo.order})</pre>
+            <pre>o({task.order})</pre>
             <pre>i({index})</pre>
           </div>
         </div>
         {closestEdge && <DropIndicator edge={closestEdge} />}
       </li>
       {previewContainer &&
-        createPortal(<DragPreview todo={todo} />, previewContainer)}
+        createPortal(<DragPreview task={task} />, previewContainer)}
     </>
   )
 }
@@ -203,21 +203,21 @@ const Content = ({ text }: { text: string }) => {
     </div>
   )
 }
-function DragPreview({ todo }: { todo: Todo }) {
+function DragPreview({ task }: { task: Task }) {
   return (
     <div
       className="bg-gray-6 border-separator-opaque/40 w-48 truncate rounded-lg border p-2 px-3 shadow-lg"
       style={{
-        textDecoration: todo.completed ? "line-through" : "none",
-        color: todo.completed ? "var(--color-label-tertiary)" : "current",
+        textDecoration: task.completed ? "line-through" : "none",
+        color: task.completed ? "var(--color-label-tertiary)" : "current",
       }}
     >
-      {todo.text}
+      {task.text}
     </div>
   )
 }
 
-export default TodoItem
+export default TaskItem
 
 export function CheckIcon(props: SVGProps<SVGSVGElement>) {
   return (

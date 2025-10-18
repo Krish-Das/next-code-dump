@@ -1,4 +1,4 @@
-const TodoListHeader = () => {
+const TaskListHeader = () => {
   return (
     <div className="pl-1">
       <h1 className="text-4xl leading-loose font-medium">Todos</h1>
@@ -7,4 +7,4 @@ const TodoListHeader = () => {
   )
 }
 
-export default TodoListHeader
+export default TaskListHeader

@@ -10,10 +10,12 @@ export default function useAddTask() {
       const { text } = args
       const existingTasks = localStore.getQuery(api.tasks.get)
       if (existingTasks) {
+        // TODO: calculate new order.
         const newTask: Doc<"tasks"> = {
           _id: uuidv4() as Id<"tasks">,
           _creationTime: Date.now(),
           text,
+          order: performance.now(),
           isCompleted: false,
         }
         localStore.setQuery(api.tasks.get, {}, [...existingTasks, newTask])

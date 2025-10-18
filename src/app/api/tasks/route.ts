@@ -1,10 +1,10 @@
-import { devTodos } from "@/lib/todos/repo.dev"
+import { devTasks } from "@/lib/tasks/repo.dev"
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export async function GET(request: Request) {
-  const todos = await devTodos.list()
+  const tasks = await devTasks.list()
 
-  return new Response(JSON.stringify(todos), {
+  return new Response(JSON.stringify(tasks), {
     status: 200,
     headers: { "Content-Type": "application/json" },
   })
@@ -21,11 +21,11 @@ export async function POST(request: Request) {
     })
   }
 
-  const createNew = devTodos.create
+  const createNew = devTasks.create
 
-  const newTodo = await createNew(text)
+  const newTask = await createNew(text)
 
-  return new Response(JSON.stringify(newTodo), {
+  return new Response(JSON.stringify(newTask), {
     status: 201,
     headers: { "Content-Type": "application/json" },
   })
@@ -49,9 +49,9 @@ export async function PATCH(req: Request) {
       status: 400,
     })
 
-  const updated = await devTodos.reorder(id, { beforeId, afterId })
+  const updated = await devTasks.reorder(id, { beforeId, afterId })
   if (!updated)
-    return new Response(JSON.stringify({ error: "todo not found" }), {
+    return new Response(JSON.stringify({ error: "task not found" }), {
       status: 404,
     })
   return new Response(JSON.stringify(updated), {

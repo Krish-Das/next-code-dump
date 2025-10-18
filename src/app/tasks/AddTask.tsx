@@ -1,14 +1,14 @@
 import { Spacer } from "@/components/ui/Spacer"
 
-import AddTodoButton from "./AddTodoButton"
+import AddTaskButton from "./AddTaskButton"
 
-const AddTodo = () => {
+const AddTask = () => {
   return (
     <div className="flex w-full">
       <Spacer className="h-full w-7" />
-      <AddTodoButton />
+      <AddTaskButton />
     </div>
   )
 }
 
-export default AddTodo
+export default AddTask

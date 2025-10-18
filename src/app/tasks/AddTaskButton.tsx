@@ -3,12 +3,12 @@ import { Button } from "react-aria-components"
 
 import { cn } from "@/lib/utils"
 
-import { useTodo } from "../providers/todo"
+import { useTask } from "../providers/task"
 
-const AddTodoButton = () => {
-  const { create } = useTodo()
+const AddTaskButton = () => {
+  const { create } = useTask()
 
-  const handleCreateTodo = () => {
+  const handleCreateTask = () => {
     create(`task-${Math.floor(performance.now())}`)
   }
 
@@ -18,15 +18,15 @@ const AddTodoButton = () => {
         "text-label-secondary flex h-10 w-full items-center gap-1 px-3 font-light",
         "data-pressed:bg-fill-tertiary data-hovered:bg-fill-quaternary data-pressed:text-label-primary ring-ios-blue rounded-sm outline-none data-focus-visible:ring-2"
       )}
-      onPress={handleCreateTodo}
+      onPress={handleCreateTask}
     >
       <PlusIcon fontSize={20} />
-      <span className="mt-0.5 font-medium">Add todo</span>
+      <span className="mt-0.5 font-medium">Add task</span>
     </Button>
   )
 }
 
-export default AddTodoButton
+export default AddTaskButton
 
 export function PlusIcon(props: SVGProps<SVGSVGElement>) {
   return (

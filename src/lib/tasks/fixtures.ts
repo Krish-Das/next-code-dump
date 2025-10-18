@@ -1,6 +1,6 @@
-import { type Todo } from "./types"
+import { type Task } from "./types"
 
-export const MOCK_TODOS: Todo[] = [
+export const MOCK_TASKS: Task[] = [
   {
     id: "ad00e911-5563-411f-8da4-499765872b77",
     text: "Buy milk",

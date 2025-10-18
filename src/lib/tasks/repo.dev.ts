@@ -1,45 +1,45 @@
 import { v4 as uuid } from "uuid"
 
 import { EPS } from "../constants"
-import { MOCK_TODOS } from "./fixtures"
-import { Todo } from "./types"
+import { MOCK_TASKS } from "./fixtures"
+import { Task } from "./types"
 
-const todos: Todo[] = [...MOCK_TODOS]
+const tasks: Task[] = [...MOCK_TASKS]
 
 function sorted() {
-  return todos.slice().sort((a, b) => a.order - b.order)
+  return tasks.slice().sort((a, b) => a.order - b.order)
 }
 
-export const devTodos = {
-  list: async (): Promise<Todo[]> => sorted(),
+export const devTasks = {
+  list: async (): Promise<Task[]> => sorted(),
 
-  create: async (text: string): Promise<Todo> => {
-    const order = todos.length ? Math.max(...todos.map(x => x.order)) + 1 : 1
-    const t: Todo = {
+  create: async (text: string): Promise<Task> => {
+    const order = tasks.length ? Math.max(...tasks.map(x => x.order)) + 1 : 1
+    const t: Task = {
       id: uuid(),
       text,
       completed: false,
       order,
       createdAt: new Date().toISOString(),
     }
-    todos.push(t)
+    tasks.push(t)
     return t
   },
 
   update: async (
     id: string,
-    patch: Partial<Omit<Todo, "id" | "createdAt">>
-  ): Promise<Todo | null> => {
-    const idx = todos.findIndex(t => t.id === id)
+    patch: Partial<Omit<Task, "id" | "createdAt">>
+  ): Promise<Task | null> => {
+    const idx = tasks.findIndex(t => t.id === id)
     if (idx === -1) return null
-    todos[idx] = { ...todos[idx], ...patch }
-    return todos[idx]
+    tasks[idx] = { ...tasks[idx], ...patch }
+    return tasks[idx]
   },
 
   delete: async (id: string) => {
-    const i = todos.findIndex(t => t.id === id)
+    const i = tasks.findIndex(t => t.id === id)
     if (i === -1) return false
-    todos.splice(i, 1)
+    tasks.splice(i, 1)
     return true
   },
 
@@ -52,7 +52,7 @@ export const devTodos = {
     id: string,
     opts: { beforeId?: string | null; afterId?: string | null }
   ) => {
-    const item = todos.find(t => t.id === id)
+    const item = tasks.find(t => t.id === id)
     if (!item) return null
 
     const list = sorted()
@@ -128,7 +128,7 @@ export const devTodos = {
 }
 
 // helpers
-function isGapTooSmall(list: Todo[]) {
+function isGapTooSmall(list: Task[]) {
   // check if there exists a neighbor whose gap to this pos is < EPS (very small)
   for (let i = 0; i < list.length - 1; i++) {
     if (Math.abs(list[i + 1].order - list[i].order) < EPS) return true
@@ -136,12 +136,12 @@ function isGapTooSmall(list: Todo[]) {
   return false
 }
 
-function compactPositions(list: Todo[]) {
+function compactPositions(list: Task[]) {
   // assign integer orders 1..n in current order and mutate the backed array
   list
     .sort((a, b) => a.order - b.order)
     .forEach((t, i) => {
-      const backed = todos.find(x => x.id === t.id)
+      const backed = tasks.find(x => x.id === t.id)
       if (backed) backed.order = i + 1
     })
 }

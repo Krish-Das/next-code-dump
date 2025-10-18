@@ -20,10 +20,15 @@ const NewTaskForm = () => {
       const { text } = args
       const exisitingTask = localStore.getQuery(api.tasks.get)
       if (!!exisitingTask) {
+        // TODO: calculate new order.
+        // const sorted = exisitingTask.sort((a, b) => b.order - a.order)
+        // const lastTask = sorted[]
+
         const newTask: Doc<"tasks"> = {
           _id: uuidv4() as Id<"tasks">,
           _creationTime: Date.now(),
           text,
+          order: performance.now(),
           isCompleted: false,
         }
         localStore.setQuery(api.tasks.get, {}, [...exisitingTask, newTask])

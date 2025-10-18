@@ -76,6 +76,15 @@ export const remove = mutation({
   },
 })
 
+// TODO: Safen this function by checking if there already exists a task with the
+// given order.
+export const reorder = mutation({
+  args: { taskId: v.id("tasks"), newOrder: v.number() },
+  handler: async (ctx, args) => {
+    await ctx.db.patch(args.taskId, { order: args.newOrder })
+  },
+})
+
 export const normalizeTaskOrder = internalMutation({
   args: {},
   handler: async ctx => {

@@ -2,7 +2,9 @@ import { useEffect, useRef } from "react"
 import { extractClosestEdge } from "@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge"
 import { getReorderDestinationIndex } from "@atlaskit/pragmatic-drag-and-drop-hitbox/util/get-reorder-destination-index"
 import { monitorForElements } from "@atlaskit/pragmatic-drag-and-drop/element/adapter"
+import { api } from "#/convex/_generated/api"
 import { Doc } from "#/convex/_generated/dataModel"
+import { useMutation } from "convex/react"
 
 import { Spacer } from "@/components/ui/Spacer"
 
@@ -12,6 +14,7 @@ import TaskListHeader from "./TaskListHeader"
 
 const TaskList = ({ tasks }: { tasks: Doc<"tasks">[] }) => {
   const ref = useRef<HTMLUListElement>(null)
+  const reorder = useMutation(api.tasks.reorder)
 
   useEffect(() => {
     const element = ref?.current
@@ -59,12 +62,10 @@ const TaskList = ({ tasks }: { tasks: Doc<"tasks">[] }) => {
           newOrder = (beforeOrder + afterOrder) / 2
         }
 
-        // eslint-disable-next-line no-console
-        console.log(newOrder)
-        // updateTask(moveId, { order: NewTaskForm })
+        reorder({ taskId: moveId, newOrder })
       },
     })
-  }, [tasks, ref])
+  }, [tasks, ref, reorder])
 
   if (!tasks.length) return <EmptyState />
 

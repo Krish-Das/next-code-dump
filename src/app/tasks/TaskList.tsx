@@ -14,7 +14,19 @@ import TaskListHeader from "./TaskListHeader"
 
 const TaskList = ({ tasks }: { tasks: Doc<"tasks">[] }) => {
   const ref = useRef<HTMLUListElement>(null)
-  const reorder = useMutation(api.tasks.reorder)
+  const reorder = useMutation(api.tasks.reorder).withOptimisticUpdate(
+    (localStore, args) => {
+      const { taskId, newOrder } = args
+      const existingTasks = localStore.getQuery(api.tasks.get)
+      if (!!existingTasks) {
+        const reorderedTasks = existingTasks
+          .map(t => (t._id === taskId ? { ...t, order: newOrder } : t))
+          .sort((a, b) => a.order - b.order)
+
+        localStore.setQuery(api.tasks.get, {}, reorderedTasks)
+      }
+    }
+  )
 
   useEffect(() => {
     const element = ref?.current

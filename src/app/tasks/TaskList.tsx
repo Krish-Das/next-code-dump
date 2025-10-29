@@ -40,19 +40,19 @@ const TaskList = ({ tasks }: { tasks: Doc<"tasks">[] }) => {
         const { id: targetId } = dropTarget.data as ElementDataType
         if (typeof targetId !== "string") return
 
-        const startIndex = tasks.findIndex(t => t._id === moveId)
-        const indexOfTarget = tasks.findIndex(t => t._id === targetId)
+        const moveIndex = tasks.findIndex(t => t._id === moveId)
+        const targetIndex = tasks.findIndex(t => t._id === targetId)
 
         const closestEdgeOfTarget = extractClosestEdge(dropTarget.data)
         const destIndex = getReorderDestinationIndex({
-          startIndex,
-          indexOfTarget,
+          startIndex: moveIndex,
+          indexOfTarget: targetIndex,
           closestEdgeOfTarget,
           axis: "vertical",
         })
 
         // Early return if reorder didn't happen
-        if (destIndex === startIndex) return tasks
+        if (destIndex === moveIndex) return tasks
 
         // Temp list without moved item (tasks already sorted by order)
         const remainingTasks = tasks.filter(t => t._id !== moveId)

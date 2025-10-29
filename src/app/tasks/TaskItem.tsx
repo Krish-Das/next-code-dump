@@ -1,15 +1,118 @@
-import type { SVGProps } from "react"
+import { useEffect, useRef, useState, type SVGProps } from "react"
+import {
+  attachClosestEdge,
+  extractClosestEdge,
+  type Edge,
+} from "@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge"
+import { combine } from "@atlaskit/pragmatic-drag-and-drop/combine"
+import {
+  draggable,
+  dropTargetForElements,
+  type ElementDropTargetEventBasePayload,
+} from "@atlaskit/pragmatic-drag-and-drop/element/adapter"
+import { pointerOutsideOfPreview } from "@atlaskit/pragmatic-drag-and-drop/element/pointer-outside-of-preview"
+import { setCustomNativeDragPreview } from "@atlaskit/pragmatic-drag-and-drop/element/set-custom-native-drag-preview"
 import type { Doc } from "#/convex/_generated/dataModel"
 import { Checkbox as RacCheckbox } from "react-aria-components"
+import { createPortal } from "react-dom"
 
+import { cn } from "@/lib/utils"
 import { Spacer } from "@/components/ui/Spacer"
 
+import { Line } from "./drop-indicator"
 import GrabHandle from "./GrabHandle"
 
+export type ElementDataType = {
+  id: Doc<"tasks">["_id"]
+  index: number
+}
+
 const TaskItem = ({ task, index }: { task: Doc<"tasks">; index: number }) => {
+  const elementId = task._id
+  const ref = useRef<HTMLLIElement>(null)
+  const [closestEdge, setClosestEdge] = useState<Edge | null>(null)
+  const [isDragging, setDragging] = useState(false)
+  const [previewContainer, setPreviewContainer] = useState<HTMLElement | null>(
+    null
+  )
+
+  useEffect(() => {
+    if (!ref.current) return
+    const element = ref.current
+    const data: ElementDataType = { id: elementId, index }
+
+    function onChange({ self, source }: ElementDropTargetEventBasePayload) {
+      const edge = extractClosestEdge(self.data)
+
+      const sourceIndex = source.data.index
+      if (typeof sourceIndex !== "number") return
+      const isItemBeforeSource = index === sourceIndex - 1
+      const isItemAfterSource = index === sourceIndex + 1
+
+      const isDropIndicatorHidden =
+        (isItemBeforeSource && edge === "bottom") ||
+        (isItemAfterSource && edge === "top")
+
+      if (isDropIndicatorHidden) {
+        setClosestEdge(null)
+      } else {
+        setClosestEdge(edge)
+      }
+    }
+    function removeClosestEdge() {
+      setClosestEdge(null)
+    }
+
+    return combine(
+      draggable({
+        element,
+        getInitialData: () => data,
+        onDragStart: () => setDragging(true),
+        onDrop: () => setDragging(false),
+        onGenerateDragPreview: ({ nativeSetDragImage }) => {
+          setCustomNativeDragPreview({
+            nativeSetDragImage,
+            getOffset: pointerOutsideOfPreview({
+              x: "16px",
+              y: "8px",
+            }),
+            render({ container }) {
+              setPreviewContainer(container)
+            },
+          })
+        },
+      }),
+      dropTargetForElements({
+        element,
+        getIsSticky: () => true,
+        getData({ input }) {
+          return attachClosestEdge(data, {
+            element,
+            input,
+            allowedEdges: ["top", "bottom"],
+          })
+        },
+        canDrop({ source }) {
+          const { id } = source.data as ElementDataType
+          return id !== elementId
+        },
+        onDragEnter: onChange,
+        onDrag: onChange,
+        onDragLeave: removeClosestEdge,
+        onDrop: removeClosestEdge,
+      })
+    )
+  }, [elementId, index])
+
   return (
     <>
-      <li className="text-label-primary/80 relative flex h-10 items-center">
+      <li
+        className={cn(
+          "text-label-primary/80 relative flex h-10 items-center",
+          isDragging && "opacity-45"
+        )}
+        ref={ref}
+      >
         <GrabHandle />
         <div className="flex h-full w-full items-center gap-1.5 rounded-md pl-2">
           <Checkbox defaultSelected={task.isCompleted} />
@@ -22,7 +125,12 @@ const TaskItem = ({ task, index }: { task: Doc<"tasks">; index: number }) => {
             <pre>i({index})</pre>
           </div>
         </div>
+
+        {closestEdge && <Line edge={closestEdge} />}
       </li>
+
+      {previewContainer &&
+        createPortal(<DragPreview task={task} />, previewContainer)}
     </>
   )
 }

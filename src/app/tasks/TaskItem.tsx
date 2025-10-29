@@ -1,5 +1,5 @@
-import { SVGProps } from "react"
-import { Doc } from "#/convex/_generated/dataModel"
+import type { SVGProps } from "react"
+import type { Doc } from "#/convex/_generated/dataModel"
 import { Checkbox as RacCheckbox } from "react-aria-components"
 
 import { Spacer } from "@/components/ui/Spacer"
@@ -8,22 +8,20 @@ import GrabHandle from "./GrabHandle"
 
 const TaskItem = ({ task, index }: { task: Doc<"tasks">; index: number }) => {
   return (
-    <>
-      <li className="text-label-primary/80 relative flex h-10 items-center">
-        <GrabHandle />
-        <div className="flex h-full w-full items-center gap-1.5 rounded-md p-2">
-          <Checkbox defaultSelected={task.isCompleted} />
-          <Spacer className="h-full w-px" />
-          <Content text={task.text} />
+    <li className="text-label-primary/80 relative flex h-10 items-center">
+      <GrabHandle />
+      <div className="flex h-full w-full items-center gap-1.5 rounded-md p-2">
+        <Checkbox defaultSelected={task.isCompleted} />
+        <Spacer className="h-full w-px" />
+        <Content text={task.text} />
 
-          <Spacer className="h-full flex-1" />
-          <div className="[&_pre]:bg-fill-tertiary [&_pre]:text-label-secondary pointer-events-none flex items-center gap-2 text-sm [&_pre]:rounded [&_pre]:px-1">
-            <pre>o({task.order})</pre>
-            <pre>i({index})</pre>
-          </div>
+        <Spacer className="h-full flex-1" />
+        <div className="[&_pre]:bg-fill-tertiary [&_pre]:text-label-secondary pointer-events-none flex items-center gap-2 text-sm [&_pre]:rounded [&_pre]:px-1">
+          <pre>o({task.order})</pre>
+          <pre>i({index})</pre>
         </div>
-      </li>
-    </>
+      </div>
+    </li>
   )
 }
 

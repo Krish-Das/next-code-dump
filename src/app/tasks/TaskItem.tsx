@@ -4,7 +4,6 @@ import { Checkbox as RacCheckbox } from "react-aria-components"
 
 import { Spacer } from "@/components/ui/Spacer"
 
-import { Line } from "./drop-indicator/"
 import GrabHandle from "./GrabHandle"
 
 const TaskItem = ({ task, index }: { task: Doc<"tasks">; index: number }) => {
@@ -23,8 +22,6 @@ const TaskItem = ({ task, index }: { task: Doc<"tasks">; index: number }) => {
             <pre>i({index})</pre>
           </div>
         </div>
-
-        <Line edge="bottom" type="terminal-no-bleed" indent="2px" />
       </li>
     </>
   )

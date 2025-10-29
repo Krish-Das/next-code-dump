@@ -1,167 +1,17 @@
-import { SVGProps, useEffect, useRef, useState } from "react"
-import {
-  attachClosestEdge,
-  extractClosestEdge,
-  type Edge,
-} from "@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge"
-import { DropIndicator } from "@atlaskit/pragmatic-drag-and-drop-react-indicator/box"
-import { combine } from "@atlaskit/pragmatic-drag-and-drop/combine"
-import {
-  draggable,
-  dropTargetForElements,
-} from "@atlaskit/pragmatic-drag-and-drop/element/adapter"
-import { pointerOutsideOfPreview } from "@atlaskit/pragmatic-drag-and-drop/element/pointer-outside-of-preview"
-import { setCustomNativeDragPreview } from "@atlaskit/pragmatic-drag-and-drop/element/set-custom-native-drag-preview"
+import { SVGProps } from "react"
 import { Doc } from "#/convex/_generated/dataModel"
-import { useAnimate } from "motion/react-mini"
 import { Checkbox as RacCheckbox } from "react-aria-components"
-import { createPortal } from "react-dom"
 
-import { Task } from "@/lib/tasks/types"
 import { Spacer } from "@/components/ui/Spacer"
 
 import GrabHandle from "./GrabHandle"
 
-export type ElementData = {
-  task: Doc<"tasks">
-  index: number
-}
-
 const TaskItem = ({ task, index }: { task: Doc<"tasks">; index: number }) => {
-  const ref = useRef<HTMLLIElement>(null)
-  const [scope, animate] = useAnimate<HTMLDivElement>()
-  const [closestEdge, setClosestEdge] = useState<Edge | null>(null)
-  const [isDragging, setDragging] = useState(false)
-  const [previewContainer, setPreviewContainer] = useState<HTMLElement | null>(
-    null
-  )
-
-  useEffect(() => {
-    if (!ref?.current) return
-    const element = ref.current
-
-    const data: ElementData = { task, index }
-
-    return combine(
-      draggable({
-        element,
-        getInitialData: () => data,
-        onGenerateDragPreview: ({ nativeSetDragImage }) => {
-          setCustomNativeDragPreview({
-            nativeSetDragImage,
-            getOffset: pointerOutsideOfPreview({
-              x: "16px",
-              y: "8px",
-            }),
-            render({ container }) {
-              setPreviewContainer(container)
-            },
-          })
-        },
-        onDragStart: () => setDragging(true),
-        onDrop: () => {
-          setDragging(false)
-          animate(
-            scope.current,
-            {
-              backgroundColor: ["var(--fill-secondary)", "var(--fill-opaque)"],
-            },
-            { duration: 0.8, ease: [0.42, 0.0, 0.58, 1.0] }
-          )
-        },
-      }),
-      dropTargetForElements({
-        element,
-        getData: ({ input }) => {
-          return attachClosestEdge(data, {
-            element,
-            input,
-            allowedEdges: ["top", "bottom"],
-          })
-        },
-        getIsSticky: () => true,
-        canDrop: ({ source }) => {
-          const srcTask = source.data.task as Task
-          return srcTask.id !== task._id
-        },
-        onDragEnter: ({ source, self }) => {
-          // Don't show indicator on the source element
-          if (source.element === element) {
-            setClosestEdge(null)
-            return
-          }
-
-          const edge = extractClosestEdge(self.data)
-          const sourceIndex = source.data.index
-
-          if (typeof sourceIndex !== "number") {
-            setClosestEdge(edge)
-            return
-          }
-
-          // Hide indicator at the dragged item's natural position
-          const isItemBeforeSource = index === sourceIndex - 1
-          const isItemAfterSource = index === sourceIndex + 1
-
-          const isDropIndicatorHidden =
-            (isItemBeforeSource && edge === "bottom") ||
-            (isItemAfterSource && edge === "top")
-
-          if (isDropIndicatorHidden) {
-            setClosestEdge(null)
-            return
-          }
-
-          setClosestEdge(edge)
-        },
-        onDrag: ({ source, self }) => {
-          // Don't show indicator on the source element
-          if (source.element === element) {
-            setClosestEdge(null)
-            return
-          }
-
-          const edge = extractClosestEdge(self.data)
-          const sourceIndex = source.data.index
-
-          if (typeof sourceIndex !== "number") {
-            setClosestEdge(edge)
-            return
-          }
-
-          // Hide indicator at the dragged item's natural position
-          const isItemBeforeSource = index === sourceIndex - 1
-          const isItemAfterSource = index === sourceIndex + 1
-
-          const isDropIndicatorHidden =
-            (isItemBeforeSource && edge === "bottom") ||
-            (isItemAfterSource && edge === "top")
-
-          if (isDropIndicatorHidden) {
-            setClosestEdge(null)
-            return
-          }
-
-          setClosestEdge(edge)
-        },
-        onDragLeave: () => setClosestEdge(null),
-        onDrop: () => setClosestEdge(null),
-      })
-    )
-  }, [task, index, scope, animate])
-
   return (
     <>
-      <li
-        style={{ opacity: isDragging ? 0.45 : 1 }}
-        className="text-label-primary/80 relative flex h-10 items-center"
-        ref={ref}
-      >
+      <li className="text-label-primary/80 relative flex h-10 items-center">
         <GrabHandle />
-        <div
-          className="flex h-full w-full items-center gap-1.5 rounded-md p-2"
-          ref={scope}
-        >
+        <div className="flex h-full w-full items-center gap-1.5 rounded-md p-2">
           <Checkbox defaultSelected={task.isCompleted} />
           <Spacer className="h-full w-px" />
           <Content text={task.text} />
@@ -172,10 +22,7 @@ const TaskItem = ({ task, index }: { task: Doc<"tasks">; index: number }) => {
             <pre>i({index})</pre>
           </div>
         </div>
-        {closestEdge && <DropIndicator edge={closestEdge} />}
       </li>
-      {previewContainer &&
-        createPortal(<DragPreview task={task} />, previewContainer)}
     </>
   )
 }

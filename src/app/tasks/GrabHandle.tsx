@@ -1,9 +1,11 @@
-import { SVGProps } from "react"
+import { RefObject, SVGProps } from "react"
 import { Button } from "react-aria-components"
 
-const GrabHandle = () => {
+const GrabHandle = ({ ref }: { ref: RefObject<HTMLButtonElement | null> }) => {
   return (
-    <Button className="data-pressed:bg-fill-secondary data-hovered:bg-fill-tertiary text-label-secondary data-hovered:text-label-secondary data-pressed:text-label-primary inline-grid size-6 place-content-center rounded-sm text-lg outline-none data-focus-visible:ring-2">
+    <Button className="data-pressed:bg-fill-secondary data-hovered:bg-fill-tertiary text-label-secondary data-hovered:text-label-secondary data-pressed:text-label-primary inline-grid size-6 place-content-center rounded-sm text-lg outline-none data-focus-visible:ring-2"
+      ref={ref}
+    >
       <GrabIcon />
     </Button>
   )

@@ -19,6 +19,7 @@ import { createPortal } from "react-dom"
 import { cn } from "@/lib/utils"
 import { Spacer } from "@/components/ui/Spacer"
 
+import DeleteTask from "./DeleteTask"
 import { Line } from "./drop-indicator"
 import GrabHandle from "./GrabHandle"
 
@@ -30,6 +31,7 @@ export type ElementDataType = {
 const TaskItem = ({ task, index }: { task: Doc<"tasks">; index: number }) => {
   const elementId = task._id
   const ref = useRef<HTMLLIElement>(null)
+  const dragHandleRef = useRef<HTMLButtonElement>(null)
   const [closestEdge, setClosestEdge] = useState<Edge | null>(null)
   const [isDragging, setDragging] = useState(false)
   const [previewContainer, setPreviewContainer] = useState<HTMLElement | null>(
@@ -37,11 +39,18 @@ const TaskItem = ({ task, index }: { task: Doc<"tasks">; index: number }) => {
   )
 
   useEffect(() => {
-    if (!ref.current) return
+    if (!ref.current || !dragHandleRef.current) return
     const element = ref.current
+    const dragHandle = dragHandleRef.current
     const data: ElementDataType = { id: elementId, index }
 
     function onChange({ self, source }: ElementDropTargetEventBasePayload) {
+      const isSource = source.element === dragHandle
+      if (isSource) {
+        setClosestEdge(null)
+        return
+      }
+
       const edge = extractClosestEdge(self.data)
 
       const sourceIndex = source.data.index
@@ -65,7 +74,7 @@ const TaskItem = ({ task, index }: { task: Doc<"tasks">; index: number }) => {
 
     return combine(
       draggable({
-        element,
+        element: dragHandle,
         getInitialData: () => data,
         onDragStart: () => setDragging(true),
         onDrop: () => setDragging(false),
@@ -113,16 +122,16 @@ const TaskItem = ({ task, index }: { task: Doc<"tasks">; index: number }) => {
         )}
         ref={ref}
       >
-        <GrabHandle />
+        <GrabHandle ref={dragHandleRef} />
         <div className="flex h-full w-full items-center gap-1.5 rounded-md pl-2">
           <Checkbox defaultSelected={task.isCompleted} />
           <Spacer className="h-full w-px" />
           <Content text={task.text} />
 
           <Spacer className="h-full flex-1" />
-          <div className="[&_pre]:bg-fill-tertiary [&_pre]:text-label-secondary pointer-events-none flex items-center gap-2 text-sm [&_pre]:rounded [&_pre]:px-1">
-            <pre>o({task.order})</pre>
-            <pre>i({index})</pre>
+          <div className="[&_pre]:bg-fill-tertiary [&_pre]:text-label-secondary flex items-center gap-2 text-sm [&_pre]:rounded [&_pre]:px-1">
+            <pre className="pointer-events-none">o({task.order})</pre>
+            <DeleteTask taskId={task._id} />
           </div>
         </div>
 

@@ -146,8 +146,10 @@ const TaskItem = ({ task, index }: { task: Doc<"tasks">; index: number }) => {
           <Content text={task.text} />
 
           <Spacer className="h-full flex-1" />
-          <div className="[&_pre]:bg-fill-tertiary [&_pre]:text-label-secondary flex items-center gap-2 text-sm [&_pre]:rounded [&_pre]:px-1">
-            <pre className="pointer-events-none">o({task.order})</pre>
+          <div className="flex items-center gap-2 text-sm select-none">
+            <pre className="bg-fill-tertiary text-label-secondary pointer-events-none rounded px-1">
+              o({task.order})
+            </pre>
             <DeleteTask taskId={task._id} />
           </div>
         </div>

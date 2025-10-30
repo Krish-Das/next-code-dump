@@ -12,7 +12,9 @@ import {
 } from "@atlaskit/pragmatic-drag-and-drop/element/adapter"
 import { pointerOutsideOfPreview } from "@atlaskit/pragmatic-drag-and-drop/element/pointer-outside-of-preview"
 import { setCustomNativeDragPreview } from "@atlaskit/pragmatic-drag-and-drop/element/set-custom-native-drag-preview"
+import { api } from "#/convex/_generated/api"
 import type { Doc } from "#/convex/_generated/dataModel"
+import { useMutation } from "convex/react"
 import { Checkbox as RacCheckbox } from "react-aria-components"
 import { createPortal } from "react-dom"
 
@@ -29,6 +31,18 @@ export type ElementDataType = {
 }
 
 const TaskItem = ({ task, index }: { task: Doc<"tasks">; index: number }) => {
+  const toggleComplete = useMutation(
+    api.tasks.toggleComplete
+  ).withOptimisticUpdate((localStore, { id }) => {
+    const existing = localStore.getQuery(api.tasks.get)
+    if (!!existing) {
+      const modified = existing.map(t => {
+        if (t._id !== id) return t
+        return { ...t, isCompleted: !t.isCompleted }
+      })
+      localStore.setQuery(api.tasks.get, {}, modified)
+    }
+  })
   const elementId = task._id
   const ref = useRef<HTMLLIElement>(null)
   const dragHandleRef = useRef<HTMLButtonElement>(null)
@@ -124,7 +138,10 @@ const TaskItem = ({ task, index }: { task: Doc<"tasks">; index: number }) => {
       >
         <GrabHandle ref={dragHandleRef} />
         <div className="flex h-full w-full items-center gap-1.5 rounded-md pl-2">
-          <Checkbox defaultSelected={task.isCompleted} />
+          <Checkbox
+            isSelected={task.isCompleted}
+            onChange={() => toggleComplete({ id: elementId })}
+          />
           <Spacer className="h-full w-px" />
           <Content text={task.text} />
 
@@ -144,11 +161,18 @@ const TaskItem = ({ task, index }: { task: Doc<"tasks">; index: number }) => {
   )
 }
 
-const Checkbox = ({ defaultSelected }: { defaultSelected: boolean }) => {
+const Checkbox = ({
+  isSelected,
+  onChange,
+}: {
+  isSelected: boolean
+  onChange?: (isSelected: boolean) => void
+}) => {
   return (
     <RacCheckbox
       className="group/checkbox relative inline-grid place-content-center select-none"
-      defaultSelected={defaultSelected}
+      isSelected={isSelected}
+      onChange={onChange}
     >
       <div className="border-label-tertiary group-data-selected/checkbox:bg-ios-blue group-data-selected/checkbox:border-ios-blue inline-grid size-4 place-content-center rounded border">
         <CheckIcon

@@ -1,4 +1,4 @@
-import { SVGProps } from "react"
+import { SVGProps, useState } from "react"
 import { useForm } from "@tanstack/react-form"
 import { api } from "#/convex/_generated/api"
 import { useMutation } from "convex/react"
@@ -22,16 +22,19 @@ const validateTaskText = (value: string): string | undefined => {
 
 const AddTaskButton = () => {
   const create = useMutation(api.tasks.add)
+  const [open, setOpen] = useState(false)
   const form = useForm({
     defaultValues: { taskText: "" },
     onSubmit: ({ value }) => {
       const { taskText: text } = value
       create({ text })
+      setOpen(false)
+      form.reset()
     },
   })
 
   return (
-    <DialogTrigger>
+    <DialogTrigger isOpen={open} onOpenChange={setOpen}>
       <Button
         className={cn(
           "text-label-secondary flex h-10 w-full items-center gap-1 px-3 font-light",

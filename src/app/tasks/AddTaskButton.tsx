@@ -1,6 +1,7 @@
 import { SVGProps, useState } from "react"
 import { useForm } from "@tanstack/react-form"
 import { api } from "#/convex/_generated/api"
+import { Doc, Id } from "#/convex/_generated/dataModel"
 import { useMutation } from "convex/react"
 import {
   Button,
@@ -13,6 +14,7 @@ import {
   Modal,
   TextField,
 } from "react-aria-components"
+import { v4 as uuidv4 } from "uuid"
 
 import { cn } from "@/lib/utils"
 
@@ -21,8 +23,23 @@ const validateTaskText = (value: string): string | undefined => {
 }
 
 const AddTaskButton = () => {
-  const create = useMutation(api.tasks.add)
-  const [open, setOpen] = useState(false)
+  const create = useMutation(api.tasks.add).withOptimisticUpdate(
+    (localstore, { text }) => {
+      const existing = localstore.getQuery(api.tasks.get)
+      if (!existing) return
+
+      const lastTask = existing[existing.length - 1] as Doc<"tasks"> | undefined
+      const nextOrder = lastTask ? lastTask.order + 1 : 1
+      const newTask: Doc<"tasks"> = {
+        _creationTime: Date.now(),
+        _id: uuidv4() as Id<"tasks">,
+        isCompleted: false,
+        order: nextOrder,
+        text,
+      }
+      localstore.setQuery(api.tasks.get, {}, [...existing, newTask])
+    }
+  )
   const form = useForm({
     defaultValues: { taskText: "" },
     onSubmit: ({ value }) => {
@@ -32,6 +49,7 @@ const AddTaskButton = () => {
       form.reset()
     },
   })
+  const [open, setOpen] = useState(false)
 
   return (
     <DialogTrigger isOpen={open} onOpenChange={setOpen}>

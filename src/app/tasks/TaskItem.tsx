@@ -143,7 +143,7 @@ const TaskItem = ({ task, index }: { task: Doc<"tasks">; index: number }) => {
             onChange={() => toggleComplete({ id: elementId })}
           />
           <Spacer className="h-full w-px" />
-          <Content text={task.text} />
+          <Content task={task} />
 
           <Spacer className="h-full flex-1" />
           <div className="flex items-center gap-2 text-sm select-none">
@@ -187,9 +187,17 @@ const Checkbox = ({
     </RacCheckbox>
   )
 }
-const Content = ({ text }: { text: string }) => {
+const Content = ({ task }: { task: Doc<"tasks"> }) => {
+  const { text, isCompleted } = task
+
   return (
-    <div className="flex h-full flex-1 items-center truncate text-[0.9rem] leading-none font-medium select-none">
+    <div
+      className={cn(
+        "flex h-full flex-1 items-center truncate text-[0.9rem] leading-none font-medium select-none",
+        isCompleted &&
+          "text-label-tertiary decoration-separator-non-opaque line-through"
+      )}
+    >
       <span>{text}</span>
     </div>
   )

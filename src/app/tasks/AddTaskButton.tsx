@@ -38,6 +38,7 @@ const AddTaskButton = () => {
       >
         <Dialog>
           <form
+            onSubmit={handleCreateTask}
             className={cn(
               "relative flex flex-col gap-2 rounded-lg p-3",
               "bg-[#F2F2F7] dark:bg-[#1C1C1E]" // TODO: extract to css variables (background-secondary)
@@ -59,12 +60,14 @@ const AddTaskButton = () => {
             </TextField>
             <Button
               slot="close"
+              type="submit"
               className="bg-fill-primary text-label-secondary h-7 rounded-full px-2 text-sm"
             >
               Add
             </Button>
             <Button
               slot="close"
+              type="button"
               className="text-label-tertiary absolute right-3.5 inline-grid place-content-center text-xs"
             >
               x

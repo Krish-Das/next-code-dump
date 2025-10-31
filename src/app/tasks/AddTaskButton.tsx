@@ -1,8 +1,12 @@
 import { SVGProps } from "react"
+import { useForm } from "@tanstack/react-form"
+import { api } from "#/convex/_generated/api"
+import { useMutation } from "convex/react"
 import {
   Button,
   Dialog,
   DialogTrigger,
+  FieldError,
   Heading,
   Input,
   Label,
@@ -12,10 +16,19 @@ import {
 
 import { cn } from "@/lib/utils"
 
+const validateTaskText = (value: string): string | undefined => {
+  return !value ? "Task cannot be empty" : undefined
+}
+
 const AddTaskButton = () => {
-  const handleCreateTask = () => {
-    // create(`task-${Math.floor(performance.now())}`)
-  }
+  const create = useMutation(api.tasks.add)
+  const form = useForm({
+    defaultValues: { taskText: "" },
+    onSubmit: ({ value }) => {
+      const { taskText: text } = value
+      create({ text })
+    },
+  })
 
   return (
     <DialogTrigger>
@@ -24,7 +37,6 @@ const AddTaskButton = () => {
           "text-label-secondary flex h-10 w-full items-center gap-1 px-3 font-light",
           "data-pressed:bg-fill-tertiary data-hovered:bg-fill-quaternary data-pressed:text-label-primary ring-ios-blue rounded-sm outline-none data-focus-visible:ring-2"
         )}
-        onPress={handleCreateTask}
       >
         <PlusIcon fontSize={20} />
         <span className="mt-0.5 font-medium">Add task</span>
@@ -38,7 +50,11 @@ const AddTaskButton = () => {
       >
         <Dialog>
           <form
-            onSubmit={handleCreateTask}
+            onSubmit={e => {
+              e.preventDefault()
+              e.stopPropagation()
+              form.handleSubmit()
+            }}
             className={cn(
               "relative flex flex-col gap-2 rounded-lg p-3",
               "bg-[#F2F2F7] dark:bg-[#1C1C1E]" // TODO: extract to css variables (background-secondary)
@@ -47,19 +63,41 @@ const AddTaskButton = () => {
             <Heading slot="title" className="text-sm leading-none font-medium">
               Add Task
             </Heading>
-            <TextField autoFocus>
-              <Label className="sr-only">Text</Label>
-              <Input
-                placeholder="buy groceries..."
-                className={cn(
-                  "rounded-lg px-2 py-1.5",
-                  "ring-ios-blue ring-offset-background ring-offset-2 outline-none data-focus-visible:ring-2",
-                  "bg-[#fff] dark:bg-[#1C1C1E]" // TODO: extract to css variables (background-groued-secondary)
-                )}
-              />
-            </TextField>
+
+            {/* ---- Field --- */}
+            <form.Field
+              name="taskText"
+              validators={{
+                onChange: ({ value }) => validateTaskText(value),
+              }}
+            >
+              {field => (
+                <TextField
+                  name={field.name}
+                  value={field.state.value}
+                  onBlur={field.handleBlur}
+                  onChange={v => field.handleChange(v)}
+                  validate={value => validateTaskText(value)}
+                  validationBehavior="aria"
+                  className="flex flex-col"
+                  autoFocus
+                >
+                  <Label className="sr-only">Text</Label>
+                  <Input
+                    placeholder="buy groceries..."
+                    className={cn(
+                      "rounded-lg px-2 py-1.5",
+                      "ring-ios-blue ring-offset-background ring-offset-2 outline-none data-focus-visible:ring-2",
+                      "bg-[#fff] dark:bg-[#1C1C1E]" // TODO: extract to css variables (background-groued-secondary)
+                    )}
+                  />
+                  <FieldError className="text-ios-red mt-1 text-xs" />
+                </TextField>
+              )}
+            </form.Field>
+            {/* ---- Field --- */}
+
             <Button
-              slot="close"
               type="submit"
               className="bg-fill-primary text-label-secondary h-7 rounded-full px-2 text-sm"
             >

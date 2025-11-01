@@ -12,4 +12,4 @@ const generateColorVariants = (
   return variants
 }
 
-export {generateColorVariants}
+export { generateColorVariants }

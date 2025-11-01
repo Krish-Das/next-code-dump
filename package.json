@@ -4,8 +4,8 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
-    "lint": "bunx ultracite check",
-    "format": "bunx ultracite fix",
+    "check": "bunx ultracite check",
+    "fix": "bunx ultracite fix",
     "check-types": "turbo run check-types"
   },
   "devDependencies": {

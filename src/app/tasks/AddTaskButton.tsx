@@ -99,7 +99,7 @@ const AddTaskButton = () => {
                   onBlur={field.handleBlur}
                   onChange={v => field.handleChange(v)}
                   validate={value => validateTaskText(value)}
-                  validationBehavior="aria"
+                  validationBehavior="native"
                   className="flex flex-col"
                   autoFocus
                 >

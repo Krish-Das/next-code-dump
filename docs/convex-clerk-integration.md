@@ -95,7 +95,7 @@ Follow the [convex docs.](https://docs.convex.dev/quickstart/nextjs) to setup co
 
 5. **Update `tsconfig.json` for Path Aliases:**
 
-   ```json
+   ```jsonc
    {
      // ...other configs
      "#/convex/*": ["./convex/*"]

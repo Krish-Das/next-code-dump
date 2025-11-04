@@ -31,8 +31,8 @@
         "typescript": "5.9.2",
       },
     },
-    "apps/web": {
-      "name": "web",
+    "apps/web-app": {
+      "name": "web-app",
       "version": "1.0.0",
       "dependencies": {
         "@repo/ui": "*",
@@ -470,7 +470,7 @@
 
     "update-browserslist-db": ["update-browserslist-db@1.1.4", "", { "dependencies": { "escalade": "^3.2.0", "picocolors": "^1.1.1" }, "peerDependencies": { "browserslist": ">= 4.21.0" }, "bin": { "update-browserslist-db": "cli.js" } }, "sha512-q0SPT4xyU84saUX+tomz1WLkxUbuaJnR1xWt17M7fJtEJigJeWUNGUqrauFXsHnqev9y9JTRGwk13tFBuKby4A=="],
 
-    "web": ["web@workspace:apps/web"],
+    "web-app": ["web-app@workspace:apps/web-app"],
 
     "which": ["which@2.0.2", "", { "dependencies": { "isexe": "^2.0.0" }, "bin": { "node-which": "./bin/node-which" } }, "sha512-BLI3Tl1TW3Pvl70l3yq3Y64i+awpwXqsGBYWkkqMtnbXgrMD+yj7rhW0kuEDxzJaYXGjEW5ogapKNMEKNMjibA=="],
 

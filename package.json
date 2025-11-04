@@ -1,5 +1,5 @@
 {
-  "name": "with-tailwind",
+  "name": "rnx25",
   "private": true,
   "scripts": {
     "build": "turbo run build",

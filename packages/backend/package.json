@@ -2,6 +2,7 @@
   "name": "@repo/backend",
   "version": "0.0.0",
   "license": "MIT",
+  "private": true,
   "scripts": {
     "dev": "convex dev",
     "setup": "convex dev --until-success"

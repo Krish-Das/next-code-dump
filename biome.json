@@ -26,7 +26,8 @@
       "!dist",
       "!build",
       "!packages/ui/src/styles.css",
-      "!**/next-env.d.ts"
+      "!**/next-env.d.ts",
+      "!**/convex/_generated"
     ]
   },
   "formatter": {

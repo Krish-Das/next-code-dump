@@ -2,6 +2,7 @@ import "@repo/ui/styles.css"
 import "./globals.css"
 import type { Metadata } from "next"
 import { Geist } from "next/font/google"
+import { sfproText } from "./fonts"
 import Provider from "./provider"
 
 const geist = Geist({ subsets: ["latin"] })
@@ -18,7 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={geist.className}>
+      <body className={`${geist.className} ${sfproText.variable}`}>
         <Provider>{children}</Provider>
       </body>
     </html>

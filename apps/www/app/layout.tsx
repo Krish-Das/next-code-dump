@@ -1,11 +1,8 @@
 import "@repo/ui/styles.css"
 import "./globals.css"
 import type { Metadata } from "next"
-import { Geist } from "next/font/google"
 import { sfproText } from "./fonts"
 import Provider from "./provider"
-
-const geist = Geist({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: "Create Turborepo",
@@ -19,7 +16,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${geist.className} ${sfproText.variable}`}>
+      <body className={`${sfproText.variable}`}>
         <Provider>{children}</Provider>
       </body>
     </html>

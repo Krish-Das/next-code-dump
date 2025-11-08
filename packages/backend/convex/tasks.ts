@@ -1,4 +1,4 @@
-import { query } from "./_generated/server"
+import { internalQuery, query } from "./_generated/server"
 
 export const get = query({
   handler: async (ctx) => {
@@ -12,4 +12,12 @@ export const get = query({
       .withIndex("by_owner", (q) => q.eq("owner", owner))
       .collect()
   },
+})
+
+/**
+ * --- Internals ---
+ */
+
+export const overrideRootTaskDump = internalQuery({
+  handler: async (ctx) => await ctx.db.query("tasks").collect(),
 })

@@ -7,7 +7,7 @@ export const get = query({
       throw new Error("Not authenticated")
     }
     const { subject: owner } = identity
-    await ctx.db
+    return await ctx.db
       .query("tasks")
       .withIndex("by_owner", (q) => q.eq("owner", owner))
       .collect()

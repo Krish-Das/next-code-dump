@@ -1,29 +1,9 @@
 @import "tailwindcss";
 @import "@repo/tailwind-config";
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
-
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-
+  color: var(--foreground);
+  background: var(--background);
   font-family: var(--font-sfpro-text);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -33,4 +13,22 @@ body {
   --font-sfpro-text:
     var(--font-sfpro-text), system-ui, -apple-system, Segoe UI, Roboto,
     Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+::selection {
+  color: var(--selection-foreground-color);
+  background-color: color-mix(
+    in oklab,
+    var(--selection-background-color) var(--selection-background-opacity),
+    transparent
+  );
+}
+
+::-moz-selection {
+  color: var(--selection-foreground-color);
+  background-color: color-mix(
+    in oklab,
+    var(--selection-background-color) var(--selection-background-opacity),
+    transparent
+  );
 }

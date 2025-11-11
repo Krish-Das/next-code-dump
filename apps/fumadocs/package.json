@@ -13,6 +13,10 @@
   "dependencies": {
     "@repo/ui": "*",
     "@repo/utils": "workspace:*",
+    "@types/mdx": "^2.0.13",
+    "fumadocs-core": "^16.0.10",
+    "fumadocs-mdx": "^13.0.7",
+    "fumadocs-ui": "^16.0.10",
     "next": "^16.0.0",
     "react": "^19.2.0",
     "react-dom": "^19.1.0"

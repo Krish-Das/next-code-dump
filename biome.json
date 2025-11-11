@@ -46,6 +46,9 @@
       "recommended": true,
       "suspicious": {
         "noUnknownAtRules": "off"
+      },
+      "style": {
+        "useBlockStatements": "off"
       }
     },
     "domains": {

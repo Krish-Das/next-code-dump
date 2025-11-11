@@ -1,5 +1,7 @@
 "use client"
 
+import { RootProvider } from "fumadocs-ui/provider/next"
+
 export default function Provider({ children }: { children: React.ReactNode }) {
-  return <>{children}</>
+  return <RootProvider>{children}</RootProvider>
 }

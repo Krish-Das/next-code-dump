@@ -3,6 +3,9 @@
 # Custom
 *.ignore.*
 
+# Fumadocs
+.source
+
 # dependencies
 /node_modules
 /.pnp

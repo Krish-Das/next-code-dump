@@ -1,0 +1,45 @@
+---
+title: Neovim mdx workaround
+description: This approach is just a workaround and may not work sometime. Use this if you don't want to install any plugins.
+---
+
+import { Step, Steps } from "fumadocs-ui/components/steps";
+
+## Steps:
+
+<Steps>
+<Step>
+Add this line at the very begenning of the file:
+
+```md
+<!-- vim: set fileencoding=utf-8 ft=markdown : -->
+```
+
+Then re-attach the buffer with `:e`.
+
+</Step>
+
+<Step>
+
+Remove the added line.
+
+<Callout type="info">Yes, you need remove the line!</Callout>
+
+</Step>
+
+<Step>
+  **Done!**
+
+    Now you can get somewhat syntax-highlighting and formatting in neovim while working with `.mdx` files. Everytime the formatting breaks, just repeat the proccess.
+
+</Step>
+
+</Steps>
+
+<Callout type="warning" title="Note">
+  You need to have the markdown parser and formatter setup and the LSP started
+  for this to work.
+
+    To start the LSP, run `:TSEnable markdown` when the `.mdx` file is still open.
+
+</Callout>

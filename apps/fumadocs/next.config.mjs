@@ -6,6 +6,7 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   reactCompiler: true,
+  allowedDevOrigins: ["192.168.1.*"],
   transpilePackages: ["@repo/utils"],
 }
 

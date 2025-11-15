@@ -19,12 +19,16 @@ export default async function Page(props: PageProps<"/w/[[...slug]]">) {
 
   return (
     <DocsPage full={page.data.full} toc={page.data.toc}>
-      <DocsTitle>{page.data.title}</DocsTitle>
+      {/* TODO: Add a component for this */}
+      <div aria-hidden className="size-16 md:size-22 lg:size-26" />
+
+      <DocsTitle className="-tracking-[0.005em] text-balance font-instrument-serif font-normal text-[3.25rem] leading-[1.1] md:text-[5.5rem]">
+        {page.data.title}
+      </DocsTitle>
       <DocsDescription>{page.data.description}</DocsDescription>
       <DocsBody>
         <MDX
           components={getMDXComponents({
-            // this allows you to link to other pages with relative file paths
             a: createRelativeLink(source, page),
           })}
         />

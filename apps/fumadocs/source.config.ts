@@ -18,4 +18,14 @@ export const docs = defineDocs({
   },
 })
 
-export default defineConfig()
+export default defineConfig({
+  mdxOptions: {
+    rehypeCodeOptions: {
+      themes: {
+        // visit https://shiki.style/themes
+        dark: "catppuccin-mocha",
+        light: "catppuccin-latte",
+      },
+    },
+  },
+})

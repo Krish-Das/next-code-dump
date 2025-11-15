@@ -4,9 +4,31 @@
 @import "fumadocs-ui/css/preset.css";
 @custom-variant dark (&:where(.dark, .dark *));
 
+@theme {
+  --font-jetbrains-mono: var(--font-jetbrains-mono);
+  --font-sfpro-text: var(--font-sfpro-text);
+  --font-instrument-serif: var(--font-instrument-serif);
+}
+
 body {
   color: var(--foreground);
   background: var(--background);
+  font-family: var(--font-sfpro-text);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+code,
+pre,
+pre code {
+  font-family: var(--font-jetbrains-mono);
+  font-feature-settings:
+    "ss01" 1,
+    "ss05" 1,
+    "ss06" 1;
+  -webkit-font-feature-settings:
+    "ss01" 1,
+    "ss05" 1,
+    "ss06" 1;
+  font-variant-ligatures: none;
 }

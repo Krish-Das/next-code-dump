@@ -1,0 +1,35 @@
+---
+title: Twitter
+---
+
+import Rayso from "@/components/rayso";
+
+Hey?
+
+<Rayso>
+
+```typescript title="source.config.ts"
+import {
+  defineConfig,
+  defineDocs,
+  frontmatterSchema,
+  metaSchema,
+} from "fumadocs-mdx/config";
+
+export const docs = defineDocs({
+  dir: "content/writings",
+  docs: {
+    schema: frontmatterSchema,
+    postprocess: {
+      includeProcessedMarkdown: true,
+    },
+  },
+  meta: {
+    schema: metaSchema,
+  },
+});
+
+export default defineConfig();
+```
+
+</Rayso>

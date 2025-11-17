@@ -1,0 +1,32 @@
+---
+title: Enable MDX features in Neovim
+description: Good enough syntax highlight for MDX in Neovim using Treesitter.
+---
+
+## Treesitter syntax highlighting
+
+To setup **good enough** syntax highlighting for MDX we just need to install the [mdx.nvim](https://github.com/davidmh/mdx.nvim) plugin.
+
+```lua tab="lazy.nvim"
+{
+  "davidmh/mdx.nvim",
+  event = "BufEnter *.mdx",
+  config = true,
+  dependencies = { "nvim-treesitter/nvim-treesitter" },
+}
+```
+
+## Formatting with prettier
+
+```lua tab="conform.nvim"
+{
+  "stevearc/conform.nvim",
+  opts = {
+    formatters_by_ft = {
+      ["mdx"] = { "prettierd", "prettier", stop_after_first = true }, -- [!code highlight]
+    },
+  },
+}
+```
+
+This way we don't need to do [the workaround](./mdx-workaround.mdx).

@@ -1,0 +1,38 @@
+---
+title: Fumadocs colorschemes
+---
+
+To change the code colorscheme in Fumadocs, you need to configure the Shiki theme options in your MDX configuration. Here are the steps:
+
+## Configure Shiki Themes in source.config.ts
+
+In your `source.config.ts` file, configure the `rehypeCodeOptions` to specify custom themes:
+
+```typescript title="source.config.ts"
+import { defineConfig } from "fumadocs-mdx/config";
+
+export default defineConfig({
+  mdxOptions: {
+    rehypeCodeOptions: {
+      themes: {
+        light: "github-light",
+        dark: "github-dark",
+      },
+    },
+  },
+});
+```
+
+<Callout type="warning" title="Restart the server">
+  You might need to delete the next-cache and restart your
+  server for it to take effect.
+
+```sh
+rm -rf .next && bun run dev
+```
+
+</Callout>
+
+## Available Shiki Themes
+
+Fumadocs uses Shiki for syntax highlighting, which supports many [built-in themes](https://shiki.style/themes). You can visit [the playground](https://textmate-grammars-themes.netlify.app) to play with the themes.
